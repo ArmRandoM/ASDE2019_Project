@@ -1,9 +1,11 @@
 import React from 'react';
+import SignInUpManager from './SignInUpManager'
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <div>
+      <SignInUpManager />
+    </div >
   );
 }
 
