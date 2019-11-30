@@ -10,7 +10,8 @@ class SignInUpManager extends Component {
             surname: " ",
             email: " ",
             password: " ",
-            signIn: true
+            signIn: true,
+            patient: true
         }
     }
 
@@ -27,10 +28,28 @@ class SignInUpManager extends Component {
         }
     }
 
+    patientSwitch = (event) => {
+        if (event.target.name === 'patient') {
+            this.setState({
+                patient: false
+            });
+        }
+        else {
+            this.setState({
+                patient: true
+            });
+        }
+    }
+
     render() {
         return (
             <div>
-                <SignInUp signIn={this.state.signIn} signSwitch={this.signSwitch} />
+                <SignInUp
+                    signIn={this.state.signIn}
+                    signSwitch={this.signSwitch}
+                    patient={this.state.patient}
+                    typeSwitch={this.patientSwitch}
+                />
             </div>
         );
     }
