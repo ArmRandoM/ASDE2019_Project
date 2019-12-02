@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Menu from './Menu'
+import MenuBar from './MenuBar'
 import Body from './Body'
 
 class HomepageManager extends Component {
@@ -7,7 +7,7 @@ class HomepageManager extends Component {
     render() {
         return (
             <div>
-                <Menu/>
+                <MenuBar/>
                 <Body/>
             </div>
         );

@@ -88,18 +88,15 @@ export default function Album() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      Reports
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the content.
+                      Here you can see and modify all your reports.
                     </Typography>
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
+                      Go
                     </Button>
                   </CardActions>
                 </Card>
@@ -115,4 +112,18 @@ export default function Album() {
       </footer>
     </React.Fragment>
   );
+/*
+  onSelectedSearch = () => {
+    MedicalCenterBaseInstance.post("/search", { search: this.props.selectingSearch }).then((res) => {
+          this.setState({
+              props.results: res.data.results,
+          })
+      }
+      )
+  }
+
+  onSearchChange = (event) => {
+      this.setState({ selectingSearch: event.target.value });
+  }
+*/
 }

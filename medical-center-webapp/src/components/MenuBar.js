@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from '@material-ui/core/ListItem';
@@ -30,6 +32,50 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
+    },
+  },
+  title: {
+    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
 }));
 
 export default function SwipeableTemporaryDrawer() {
@@ -56,12 +102,12 @@ export default function SwipeableTemporaryDrawer() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      
-      <IconButton onClick={toggleDrawer('left', true)}>
-        <ChevronLeftIcon />
-      </IconButton>
-      <Divider />
-      <List>
+      S
+        <IconButton onClick={toggleDrawer('left', true)}>
+            <ChevronLeftIcon />
+        </IconButton>
+        <Divider />
+        <List>
           {['My Reports', 'Messages'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <LocalHospitalIcon /> : <ChatIcon />}</ListItemIcon>
@@ -78,6 +124,7 @@ export default function SwipeableTemporaryDrawer() {
             </ListItem>
           ))}
         </List>
+
     </div>
   );
 
@@ -92,6 +139,19 @@ export default function SwipeableTemporaryDrawer() {
           <Typography variant="h6" color="inherit">
             Menu
           </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer
