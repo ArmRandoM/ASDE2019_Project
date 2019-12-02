@@ -47,6 +47,9 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         marginTop: '25%'
     },
+    error: {
+        color: 'red',
+    },
     avatar: {
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
@@ -78,20 +81,22 @@ function Form(props) {
                             fullWidth
                             id="email"
                             label="Email Address"
-                            name="email"
+                            name="emailSignIn"
                             autoComplete="email"
                             autoFocus
+                            onChange={props.onChange}
                         />
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
+                            name="passwordSignIn"
                             label="Password"
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={props.onChange}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -131,7 +136,6 @@ function Form(props) {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Typography>
-                        {console.log("CIAO" + props.patient)}
                         {props.patient ? <img alt=" " src={PatientIcon} /> : <img alt=" " src={DoctorIcon} />}
                     </Typography>
                     <Typography component="h1" variant="h5">
@@ -142,13 +146,14 @@ function Form(props) {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="fname"
-                                    name="firstName"
+                                    name="name"
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    onChange={props.onChange}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -158,32 +163,43 @@ function Form(props) {
                                     fullWidth
                                     id="lastName"
                                     label="Last Name"
-                                    name="lastName"
+                                    name="surname"
                                     autoComplete="lname"
+                                    onChange={props.onChange}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                {props.nameOrSurnameError ? <p className={classes.error}>The name or the last name is not formed well!</p> : null}
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="email"
+                                    id="emailSignUp"
                                     label="Email Address"
-                                    name="email"
+                                    name="emailSignUp"
                                     autoComplete="email"
+                                    onChange={props.onChange}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                {props.emailErrorSignUp ? <p className={classes.error}>Already exists an account associated with this e-mail!</p> : null}
+                                {props.invalidEmailErrorSignUp ? <p className={classes.error}>The e-mail is not formed well!</p> : null}
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    name="password"
+                                    name="passwordSignUp"
                                     label="Password"
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    onChange={props.onChange}
                                 />
+                                {props.passwordErrorSignUp ? <p className={classes.error}>Wrong choice! The password must contain 8 characters!</p> : null}
                             </Grid>
                             <Button
                                 type="submit"
@@ -191,6 +207,7 @@ function Form(props) {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                onClick={props.submitSignUp}
                             >
                                 Sign Up
                             </Button>
@@ -201,7 +218,7 @@ function Form(props) {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link name="signUp" href="#" variant="body2" onClick={props.signSwitch}>
+                                    <Link name="signIn" href="#" variant="body2" onClick={props.signSwitch}>
                                         {"Already have an account? Sign in"}
                                     </Link>
                                 </Grid>
@@ -229,6 +246,11 @@ export default function SignInSide(props) {
                 signIn={props.signIn}
                 signSwitch={props.signSwitch}
                 typeSwitch={props.typeSwitch}
+                onChange={props.onChange}
+                submitSignUp={props.submitSignUp}
+                nameOrSurnameError={props.nameOrSurnameError}
+                passwordErrorSignUp={props.passwordErrorSignUp}
+                invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
             />
         </Grid >
     );
