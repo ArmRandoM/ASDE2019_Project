@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ASDE2019.unical.it.medicalcenterservice.model.Patient;
-import ASDE2019.unical.it.medicalcenterservice.repositories.patientDAO;
+import ASDE2019.unical.it.medicalcenterservice.repositories.PatientDAO;
 
 @Service
 public class LoginService {
 
 	@Autowired
-	private patientDAO utenteDao;
+	private PatientDAO utenteDao;
 
 	public synchronized boolean saveNewPatient(Patient utente) {
 		try {

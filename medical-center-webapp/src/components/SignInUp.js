@@ -102,6 +102,9 @@ function Form(props) {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
+                        <Grid item xs={12}>
+                            {props.signInError ? <p className={classes.error}>Invalid credentials! e-mail or password uncorrect!</p> : null}
+                        </Grid>
                         <Button
                             type="submit"
                             fullWidth
@@ -185,7 +188,7 @@ function Form(props) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                {props.emailErrorSignUp ? <p className={classes.error}>Already exists an account associated with this e-mail!</p> : null}
+                                {props.signUpError ? <p className={classes.error}>Already exists an account associated with this e-mail!</p> : null}
                                 {props.invalidEmailErrorSignUp ? <p className={classes.error}>The e-mail is not formed well!</p> : null}
                             </Grid>
                             <Grid item xs={12}>
@@ -254,6 +257,8 @@ export default function SignInSide(props) {
                 nameOrSurnameError={props.nameOrSurnameError}
                 passwordErrorSignUp={props.passwordErrorSignUp}
                 invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
+                signInError={props.signInError}
+                signUpError={props.signUpError}
             />
         </Grid >
     );

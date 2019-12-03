@@ -30,13 +30,12 @@ class SignInUpManager extends Component {
 
     signSwitch = () => {
         this.setState({
-            signIn: !this.state.signIn
-        });
-
-        this.setState({
+            signIn: !this.state.signIn,
             passwordErrorSignUp: false,
             invalidEmailErrorSignUp: false,
-            nameOrSurnameError: false
+            nameOrSurnameError: false,
+            signInError: false,
+            signUpError: false
         });
     }
 
@@ -106,6 +105,8 @@ class SignInUpManager extends Component {
                     onChange={this.onChange}
                     submitSignUp={this.submitSignUp}
                     submitSignIn={this.submitSignIn}
+                    signInError={this.state.signInError}
+                    signUpError={this.state.signUpError}
                     nameOrSurnameError={this.state.nameOrSurnameError}
                     invalidEmailErrorSignUp={this.state.invalidEmailErrorSignUp}
                     passwordErrorSignUp={this.state.passwordErrorSignUp}
