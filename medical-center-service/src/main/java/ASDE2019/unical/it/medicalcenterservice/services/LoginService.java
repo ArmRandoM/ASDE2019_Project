@@ -14,22 +14,21 @@ public class LoginService {
 
 	public synchronized boolean saveNewPatient(Patient utente) {
 		try {
-				if (!utenteDao.existsById(utente.getEmail())) {
-					utenteDao.save(utente);
-					return true;
-				}
-				else
-					return false;
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+			if (!utenteDao.existsById(utente.getEmail())) {
+				utenteDao.save(utente);
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		return false;
 	}
 
 	public synchronized boolean login(String email, String password) {
 		try {
-				return utenteDao.existsByEmailAndPassword(email, password);
-			} catch (Exception e) {
+			return utenteDao.existsByEmailAndPassword(email, password);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return false;

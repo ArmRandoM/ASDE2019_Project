@@ -30,7 +30,7 @@ public class MedicalCenterServiceController {
 		}
 		return false;
 	}
-	
+
 	@CrossOrigin
 	@GetMapping("/signIn")
 	public boolean login(@RequestParam String email, @RequestParam String password) {
