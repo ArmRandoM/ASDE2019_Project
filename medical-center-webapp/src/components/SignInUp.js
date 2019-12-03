@@ -28,9 +28,6 @@ function Copyright() {
     );
 }
 
-
-
-
 const useStyles = makeStyles(theme => ({
     root: {
         height: '100vh',
@@ -111,7 +108,7 @@ function Form(props) {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={props.login}
+                            onClick={props.submitSignIn}
                         >
                             Sign In
                         </Button>
@@ -253,7 +250,7 @@ export default function SignInSide(props) {
                 typeSwitch={props.typeSwitch}
                 onChange={props.onChange}
                 submitSignUp={props.submitSignUp}
-                login={props.login}
+                submitSignIn={props.submitSignIn}
                 nameOrSurnameError={props.nameOrSurnameError}
                 passwordErrorSignUp={props.passwordErrorSignUp}
                 invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
