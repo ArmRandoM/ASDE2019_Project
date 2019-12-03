@@ -28,9 +28,6 @@ function Copyright() {
     );
 }
 
-
-
-
 const useStyles = makeStyles(theme => ({
     root: {
         height: '100vh',
@@ -105,13 +102,16 @@ function Form(props) {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
+                        <Grid item xs={12}>
+                            {props.signInError ? <p className={classes.error}>Invalid credentials! e-mail or password uncorrect!</p> : null}
+                        </Grid>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={props.login}
+                            onClick={props.submitSignIn}
                         >
                             Sign In
                         </Button>
@@ -188,7 +188,7 @@ function Form(props) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                {props.emailErrorSignUp ? <p className={classes.error}>Already exists an account associated with this e-mail!</p> : null}
+                                {props.signUpError ? <p className={classes.error}>Already exists an account associated with this e-mail!</p> : null}
                                 {props.invalidEmailErrorSignUp ? <p className={classes.error}>The e-mail is not formed well!</p> : null}
                             </Grid>
                             <Grid item xs={12}>
@@ -253,10 +253,12 @@ export default function SignInSide(props) {
                 typeSwitch={props.typeSwitch}
                 onChange={props.onChange}
                 submitSignUp={props.submitSignUp}
-                login={props.login}
+                submitSignIn={props.submitSignIn}
                 nameOrSurnameError={props.nameOrSurnameError}
                 passwordErrorSignUp={props.passwordErrorSignUp}
                 invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
+                signInError={props.signInError}
+                signUpError={props.signUpError}
             />
         </Grid >
     );

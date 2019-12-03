@@ -12,6 +12,8 @@ class SignInUpManager extends Component {
             passwordSignIn: " ",
             emailSignUp: " ",
             passwordSignUp: " ",
+            signInError: false,
+            signUpError: false,
             nameOrSurnameError: false,
             invalidEmailErrorSignUp: false,
             passwordErrorSignUp: false,
@@ -28,18 +30,17 @@ class SignInUpManager extends Component {
 
     signSwitch = () => {
         this.setState({
-            signIn: !this.state.signIn
-        });
-
-        this.setState({
+            signIn: !this.state.signIn,
             passwordErrorSignUp: false,
             invalidEmailErrorSignUp: false,
-            nameOrSurnameError: false
+            nameOrSurnameError: false,
+            signInError: false,
+            signUpError: false
         });
     }
 
     submitSignUp = (event) => {
-        var nameSurnameReg = /\[A-Za-z]+/;
+        var nameSurnameReg = /[A-Za-z]+/;
         var nameTest = nameSurnameReg.test(this.state.name);
         var surnameTest = nameSurnameReg.test(this.state.surname);
 
@@ -47,32 +48,39 @@ class SignInUpManager extends Component {
         var passwordTest = passwordReg.test(this.state.passwordSignUp);
 
         var emailReg = /.+@.+\..+/;
-        var validEmailTest = emailReg.test(this.state.emailSignUp);
+        var emailTest = emailReg.test(this.state.emailSignUp);
 
         this.setState({
             passwordErrorSignUp: !passwordTest,
-            invalidEmailErrorSignUp: !validEmailTest,
+            invalidEmailErrorSignUp: !emailTest,
             nameOrSurnameError: !(nameTest && surnameTest),
         });
 
-        MedicalCenterBaseIstance.post("/signUp", {name: this.state.name, surname: this.state.surname,
-           email:this.state.emailSignUp, password:this.state.passwordSignUp }).then((res) => {
-            this.setState({
-              //passwordErrorSignUp: res.data
+        if (surnameTest && passwordTest && emailTest && passwordTest) {
+            MedicalCenterBaseIstance.post("/signUp", {
+                name: this.state.name,
+                surname: this.state.surname,
+                email: this.state.emailSignUp,
+                password: this.state.passwordSignUp
+            }).then((res) => {
+                this.setState({
+                    signUpError: !res.data
+                })
             })
-        })
-
-
+        }
 
         event.preventDefault();
     }
 
-    login = (event) => {
-
-
-        MedicalCenterBaseIstance.post("/login", {email: this.state.emailSignIn, password: this.state.passwordSignIn} ).then((res) => {
+    submitSignIn = (event) => {
+        MedicalCenterBaseIstance.get("/signIn", {
+            params: {
+                "email": this.state.emailSignIn,
+                "password": this.state.passwordSignIn
+            }
+        }).then((res) => {
             this.setState({
-              passwordErrorSignUp: res.data
+                signInError: !res.data
             })
         })
 
@@ -80,7 +88,6 @@ class SignInUpManager extends Component {
     }
 
     onChange = (event) => {
-      console.log(event.target.name);
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -96,7 +103,9 @@ class SignInUpManager extends Component {
                     typeSwitch={this.patientSwitch}
                     onChange={this.onChange}
                     submitSignUp={this.submitSignUp}
-                    login={this.login}
+                    submitSignIn={this.submitSignIn}
+                    signInError={this.state.signInError}
+                    signUpError={this.state.signUpError}
                     nameOrSurnameError={this.state.nameOrSurnameError}
                     invalidEmailErrorSignUp={this.state.invalidEmailErrorSignUp}
                     passwordErrorSignUp={this.state.passwordErrorSignUp}
