@@ -25,7 +25,7 @@ public class MedicalCenterServiceController {
 	@PostMapping("/signUp")
 	public boolean signUp(@RequestBody Patient patient) {
 		if(loginService.saveNewPatient(patient)) {
-			emailService.sendEmail(patient.getEmail());
+			emailService.sendEmail(patient.getEmail(), "Iscrizione effettuata", "Gentile "+patient.getName()+" benvenuto sul sito");
 			return true;
 		}
 		return false;

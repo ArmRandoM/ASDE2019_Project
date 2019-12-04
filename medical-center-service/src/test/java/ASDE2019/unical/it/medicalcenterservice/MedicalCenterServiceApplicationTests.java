@@ -15,18 +15,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sun.mail.smtp.SMTPTransport;
 
+import ASDE2019.unical.it.medicalcenterservice.services.EmailService;
+
 @SpringBootTest
 class MedicalCenterServiceApplicationTests {
 
 	/*@Autowired
 	private UtenteDAO repository;*/
 	
+	@Autowired
+	private EmailService emailService;
+	
 	@Test
 	void contextLoads() {
 		
 	}
 	
-	
+	@Test
+	void provaEmail() {
+		emailService.sendEmail("francesco.tumminelli1995@gmail.com", "Iscrizione", "Benvenuto sul sito");
+	}
 
 
 }
