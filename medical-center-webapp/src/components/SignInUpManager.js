@@ -44,7 +44,7 @@ class SignInUpManager extends Component {
         var nameTest = nameSurnameReg.test(this.state.name);
         var surnameTest = nameSurnameReg.test(this.state.surname);
 
-        var passwordReg = /[a-zA-Z0-9-?!@#\$%\^&\* ]{8,}/;
+        var passwordReg = /[a-zA-Z0-9-?!@#$%^&* ]{8,}/;
         var passwordTest = passwordReg.test(this.state.passwordSignUp);
 
         var emailReg = /.+@.+\..+/;
