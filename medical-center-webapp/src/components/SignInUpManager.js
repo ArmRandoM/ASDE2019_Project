@@ -12,12 +12,15 @@ class SignInUpManager extends Component {
             passwordSignIn: " ",
             emailSignUp: " ",
             passwordSignUp: " ",
+            emailForgot: " ",
             signInError: false,
             signUpError: false,
+            forgotError: false,
             nameOrSurnameError: false,
             invalidEmailErrorSignUp: false,
             passwordErrorSignUp: false,
             signIn: true,
+            forgot: false,
             patient: true
         }
     }
@@ -28,14 +31,22 @@ class SignInUpManager extends Component {
         });
     }
 
-    signSwitch = () => {
+    signSwitch = (event) => {
+        if (event.target.name === "forgot")
+            this.setState({
+                forgot: !this.state.forgot,
+                signIn: !this.state.signIn
+            });
+        else
+            this.setState({ signIn: !this.state.signIn });
+
         this.setState({
-            signIn: !this.state.signIn,
             passwordErrorSignUp: false,
             invalidEmailErrorSignUp: false,
             nameOrSurnameError: false,
             signInError: false,
-            signUpError: false
+            signUpError: false,
+            forgotError: false
         });
     }
 
@@ -87,6 +98,10 @@ class SignInUpManager extends Component {
         event.preventDefault();
     }
 
+    submitSendCredentials = (event) => {
+        event.preventDefault();
+    }
+
     onChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -109,6 +124,9 @@ class SignInUpManager extends Component {
                     nameOrSurnameError={this.state.nameOrSurnameError}
                     invalidEmailErrorSignUp={this.state.invalidEmailErrorSignUp}
                     passwordErrorSignUp={this.state.passwordErrorSignUp}
+                    forgot={this.state.forgot}
+                    forgotError={this.state.forgotError}
+                    submitSendCredentials={this.state.submitSendCredentials}
                 />
             </div>
         );

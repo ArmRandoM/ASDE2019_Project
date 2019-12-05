@@ -1,14 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import PrognosisIcon from './../images/prognosisIcon.png';
+import PrognosisIcon from './../images/passwordIcon.png';
 
 export default function SignIn(props) {
 
@@ -17,7 +15,10 @@ export default function SignIn(props) {
             <div className={props.classes.paper}>
                 <img alt="" src={PrognosisIcon} width="8%" />
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Forgot Password?
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                    Don't worry! This happens sometimes.
                 </Typography>
                 <form className={props.classes.form} noValidate>
                     <TextField
@@ -27,29 +28,13 @@ export default function SignIn(props) {
                         fullWidth
                         id="email"
                         label="Email Address"
-                        name="emailSignIn"
+                        name="emailForgot"
                         autoComplete="email"
                         autoFocus
                         onChange={props.onChange}
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="passwordSignIn"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange={props.onChange}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <Grid item xs={12}>
-                        {props.signInError ? <p className={props.classes.error}>Invalid credentials! e-mail or password uncorrect!</p> : null}
+                        {props.forgotError ? <p className={props.classes.error}>Error! There not exists an account associated with this e-mail.</p> : null}
                     </Grid>
                     <Button
                         type="submit"
@@ -59,17 +44,12 @@ export default function SignIn(props) {
                         className={props.classes.submit}
                         onClick={props.submitSignIn}
                     >
-                        Sign In
+                        Submit
                         </Button>
                     <Grid container>
-                        <Grid item xs>
-                            <Link name="forgot" href="#" variant="body2" onClick={props.signSwitch}>
-                                Forgot password?
-                            </Link>
-                        </Grid>
                         <Grid item>
-                            <Link name="signIn" href="#" variant="body2" onClick={props.signSwitch}>
-                                Don't have an account? Sign Up
+                            <Link name="forgot" href="#" variant="body2" onClick={props.signSwitch}>
+                                Remembered it? Sign In.
                             </Link>
                         </Grid>
                     </Grid>

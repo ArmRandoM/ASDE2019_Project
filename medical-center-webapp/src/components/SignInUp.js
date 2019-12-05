@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import ForgotPassword from './ForgotPassword';
 
 function Copyright() {
     return (
@@ -58,7 +59,18 @@ const useStyles = makeStyles(theme => ({
 
 function Form(props) {
     const classes = useStyles();
-    if (props.signIn === true) {
+    if (props.forgot === true) {
+        return (
+            <ForgotPassword
+                signSwitch={props.signSwitch}
+                onChange={props.onChange}
+                forgotError={props.forgotError}
+                copyright={Copyright}
+                classes={props.classes}
+            />
+        );
+    }
+    else if (props.signIn === true) {
         return (
             <SignIn
                 classes={classes}
@@ -112,6 +124,8 @@ export default function SignInUp(props) {
                 signInError={props.signInError}
                 signUpError={props.signUpError}
                 classes={classes}
+                forgot={props.forgot}
+                forgotError={props.forgotError}
             />
         </Grid >
     );
