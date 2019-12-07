@@ -25,7 +25,7 @@ public class MedicalCenterServiceController {
 	@PostMapping("/signUp")
 	public boolean signUp(@RequestBody Patient patient) {
 		if(loginService.saveNewPatient(patient)) {
-			emailService.sendEmail(patient.getEmail(), "Iscrizione effettuata", "Gentile "+patient.getName()+" benvenuto sul sito");
+			emailService.sendEmail(patient.getEmail(), patient.getName(), "Iscrizione effettuata");
 			return true;
 		}
 		return false;
@@ -35,5 +35,14 @@ public class MedicalCenterServiceController {
 	@GetMapping("/signIn")
 	public boolean login(@RequestParam String email, @RequestParam String password) {
 		return loginService.login(email, password);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/forgotPassword")
+	public boolean forgotPassword(@RequestParam String email) {
+		 if(loginService.forgotPassword(email)) {
+			return emailService.sendEmail(email, "", "Recupero password");
+		 }
+		 return false;
 	}
 }
