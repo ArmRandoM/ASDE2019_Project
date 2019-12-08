@@ -33,5 +33,14 @@ public class LoginService {
 		}
 		return false;
 	}
+	
+	public synchronized boolean forgotPassword(String email) {
+		try {
+			return utenteDao.existsByEmail(email);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
 
 }
