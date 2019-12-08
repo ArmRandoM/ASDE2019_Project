@@ -14,12 +14,28 @@ export default class ReportPageManager extends Component {
         
     }
 
+    getReports = (event) =>{
+        
+    }
+
+    addReport = (event) =>{
+        
+    }
+
+    evaluateReport = (event) =>{
+        
+    }
+
+
     render() {
         return (
             <div>
                 <MenuBar
                     logOut={this.state.logOut}/>
-                <BodyReportPage/>
+                <BodyReportPage
+                    getReports={this.state.getReports}
+                    addReport={this.state.addReport}
+                    evaluateReport={this.state.evaluateReport}/>
             </div>
         );
     }

@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import {Button, GridList} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +26,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  text: {
+    alignItems: 'center',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 300,
+  },
 }));
 
 export default function ControlledExpansionPanels(props) {
@@ -32,14 +42,21 @@ export default function ControlledExpansionPanels(props) {
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-  };
+  };  
+  
+  const reports = [
+    {title: 'Report 1', description: '',},
+    {title: 'Report 2', description: '',},
+    {title: 'Report 3', description: '',},
+    {title: 'Report 4', description: '',},
+  ];
 
   return (
     <div className={classes.root}>
     <br/><br/><br/><br/>
     <Grid container >
-      <Grid item md={1}></Grid>
-      <Grid item md={5}>
+      <Grid item xs={1} md={1}></Grid>
+      <Grid item xs={10} md={5}>
         <Typography>
           &nbsp;&nbsp;All your Reports
         </Typography>
@@ -50,15 +67,13 @@ export default function ControlledExpansionPanels(props) {
             aria-controls="panel1bh-content"
             id="panel1bh-header"
             >
-            <Typography className={classes.heading}>General settings</Typography>
-            <Typography className={classes.secondaryHeading}>I am an expansion panel</Typography>
+            <Typography className={classes.heading}>Report 1</Typography>
+            <Typography className={classes.secondaryHeading}>Not evaluated</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
             <Grid container >
                     <Grid item md={7}>
-                        Description <br/>
-                        Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                        maximus est, id dignissim quam.
+                        Bla bla bla
                     </Grid>
                     <Grid item md={3} >
                     </Grid>
@@ -71,30 +86,75 @@ export default function ControlledExpansionPanels(props) {
             aria-controls="panel2bh-content"
             id="panel2bh-header"
             >
-            <Typography className={classes.heading}>Users</Typography>
+            <Typography className={classes.heading}>Report 2</Typography>
             <Typography className={classes.secondaryHeading}>
-                You are currently not an owner
+                Not evaluated
             </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-            <Typography>
-                Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus, varius pulvinar
-                diam eros in elit. Pellentesque convallis laoreet laoreet.
-            </Typography>
+            <Grid container >
+                    <Grid item md={7}>
+                        Bla bla bla
+                    </Grid>
+                    <Grid item md={3} >
+                    </Grid>
+            </Grid>
             </ExpansionPanelDetails>
         </ExpansionPanel>
-        <br/><br/><br/><br/>
+        <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+            <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3bh-content"
+            id="panel3bh-header"
+            >
+            <Typography className={classes.heading}>Report 3</Typography>
+            <Typography className={classes.secondaryHeading}>
+                Good
+            </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+            <Grid container >
+                    <Grid item md={7}>
+                        Bla bla bla
+                    </Grid>
+                    <Grid item md={3} >
+                    </Grid>
+            </Grid>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+            <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4bh-content"
+            id="panel4bh-header"
+            >
+            <Typography className={classes.heading}>Report 4</Typography>
+            <Typography className={classes.secondaryHeading}>
+                Contact a doctor
+            </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+            <Grid container >
+                    <Grid item md={7}>
+                        Bla bla bla
+                    </Grid>
+                    <Grid item md={3} >
+                    </Grid>
+            </Grid>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
       </Grid>
-      <Grid item md={1}></Grid>
-      <Grid item md={3}>
+      <Grid item xs={1} md={1}></Grid>
+      <Grid item xs={1} md={1}></Grid>
+      <Grid item xs={10} md={3}>
       <Typography>
-      &nbsp;&nbsp;Insert new Report
+      &nbsp;&nbsp;Insert new Report with description and image
       </Typography>
       <br/><br/>
       <form>
             <Grid container spacing={2}>
-                <Grid item xs={1} sm={1}></Grid>
-                <Grid item xs={11} sm={11}>
+                <Grid item xs={1} sm={1} md={1}></Grid>
+                <Grid item xs={10} sm={10} md={10}>
                     <TextField
                         autoComplete="fname"
                         name="name"
@@ -108,18 +168,16 @@ export default function ControlledExpansionPanels(props) {
                         autoFocus
                     />
                 </Grid>
-                <Grid item xs={1} sm={1}></Grid>
-                <Grid item xs={11} sm={11}>
+                <Grid item xs={1} sm={1} md={1}></Grid>
+                <Grid item xs={1} sm={1} md={1}></Grid>
+                <Grid item xs={10} sm={10} md={10}>
                     <input
                     type="file"
-                    className="custom-file-input"
                     id="imageUpload"
                     aria-describedby="inputGroupFileAddon01"
                     />
-                    <label className="custom-file-label" htmlFor="inputGroupFile01">
-                    Insert the image
-                    </label>
                 </Grid>
+                <Grid item xs={1} sm={1} md={1}></Grid>
                 <br/><br/><br/>
                 <Button
                   type="submit"
@@ -133,6 +191,42 @@ export default function ControlledExpansionPanels(props) {
         </form>
       </Grid>
     </Grid>
+    <br/><br/><br/><br/>
+    <Grid container >
+      <Grid item xs={1} md={1}></Grid>
+      <Grid item xs={10} md={5}>
+        
+        <Grid item xs={12} md={12}>
+          <Typography variant="h6" className={classes.text}>Use IA to evaluate your reports</Typography>
+        </Grid>
+        <Grid>
+            <Typography variant="h6">
+              <FormControl className={classes.formControl}>
+                &emsp;<Autocomplete
+                  id="combo-box-demo"
+                  options={reports}
+                  getOptionLabel={reports => reports.title}
+                  style={{ width: 250}}
+                  renderInput={params => (
+                    <TextField {...params} label="Choose report" variant="outlined" fullWidth />
+                  )}
+                />
+              </FormControl>    
+            </Typography>
+            &nbsp;&nbsp;<Button
+              type="submit"
+              style={{ width: 250}}
+              variant="contained"
+              color="primary"
+              onClick={props.evaluateReport}
+            >
+              Evaluate with IA
+            </Button>
+        </Grid>
+      </Grid>
+      <Grid item xs={1} md={1}></Grid>
+    </Grid>
+    <br/><br/><br/><br/>
     </div>
   );
 }
