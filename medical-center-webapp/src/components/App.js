@@ -1,17 +1,14 @@
 import React from 'react';
 import SignInUpManager from './SignInUpManager'
-/*
 import HomePageManager from './HomePageManager'
 import ProfilePageManager from './ProfilePageManager'
 import ChatPageManager from './ChatPageManager'
 import ReportPageManager from './ReportPageManager'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-*/
+
 export default function App() {
   return (
     <div>
-      <SignInUpManager/>
-      {/*
       <Router>
         <Switch>
           <Route exact path="/"><SignInUpManager/></Route>
@@ -21,7 +18,6 @@ export default function App() {
           <Route exact path="/profilepg"><ProfilePageManager/></Route>
         </Switch>
       </Router>
-      */}
     </div >
   );
 }

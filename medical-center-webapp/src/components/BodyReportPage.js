@@ -45,10 +45,10 @@ export default function ControlledExpansionPanels(props) {
   };  
   
   const reports = [
-    {title: 'Report 1', description: '',},
-    {title: 'Report 2', description: '',},
-    {title: 'Report 3', description: '',},
-    {title: 'Report 4', description: '',},
+    {title: 'Report 1', valutation: 'Not Evaluated', description: 'Blablabla1',},
+    {title: 'Report 2', valutation: 'Not Evaluated', description: 'Blablabla2',},
+    {title: 'Report 3', valutation: 'Good', description: 'Blablabla3',},
+    {title: 'Report 4', valutation: 'Contact a Doctor', description: 'Blablabla4',},
   ];
 
   return (
@@ -57,98 +57,40 @@ export default function ControlledExpansionPanels(props) {
     <Grid container >
       <Grid item xs={1} md={1}></Grid>
       <Grid item xs={10} md={5}>
-        <Typography>
-          &nbsp;&nbsp;All your Reports
+        <Typography  variant="h6">
+          All your Reports
         </Typography>
         <br/><br/>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-            <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-            >
-            <Typography className={classes.heading}>Report 1</Typography>
-            <Typography className={classes.secondaryHeading}>Not evaluated</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-            <Grid container >
-                    <Grid item md={7}>
-                        Bla bla bla
-                    </Grid>
-                    <Grid item md={3} >
-                    </Grid>
-            </Grid>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-            <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-            >
-            <Typography className={classes.heading}>Report 2</Typography>
-            <Typography className={classes.secondaryHeading}>
-                Not evaluated
-            </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-            <Grid container >
-                    <Grid item md={7}>
-                        Bla bla bla
-                    </Grid>
-                    <Grid item md={3} >
-                    </Grid>
-            </Grid>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-            <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-            >
-            <Typography className={classes.heading}>Report 3</Typography>
-            <Typography className={classes.secondaryHeading}>
-                Good
-            </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-            <Grid container >
-                    <Grid item md={7}>
-                        Bla bla bla
-                    </Grid>
-                    <Grid item md={3} >
-                    </Grid>
-            </Grid>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-            <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-            >
-            <Typography className={classes.heading}>Report 4</Typography>
-            <Typography className={classes.secondaryHeading}>
-                Contact a doctor
-            </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-            <Grid container >
-                    <Grid item md={7}>
-                        Bla bla bla
-                    </Grid>
-                    <Grid item md={3} >
-                    </Grid>
-            </Grid>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+        {
+        reports.map((v)=>
+          <ExpansionPanel expanded={expanded === 'panel'+v.title} onChange={handleChange('panel'+v.title)}>
+              <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panelbh-content"
+              id="panelbh-header"
+              >
+              <Typography className={classes.heading}>{v.title}</Typography>
+              <Typography className={classes.secondaryHeading}>{v.valutation}</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+              <Grid container >
+                      <Grid item md={7}>
+                          {v.description}
+                      </Grid>
+                      <Grid item md={3} >
+                      </Grid>
+              </Grid>
+              </ExpansionPanelDetails>
+          </ExpansionPanel>
+        )
+        }
       </Grid>
       <Grid item xs={1} md={1}></Grid>
       <Grid item xs={1} md={1}></Grid>
       <Grid item xs={10} md={3}>
-      <Typography>
-      &nbsp;&nbsp;Insert new Report with description and image
+      <br/><br/>
+      <Typography variant="h6">
+        Insert new Report with description and image
       </Typography>
       <br/><br/>
       <form>
