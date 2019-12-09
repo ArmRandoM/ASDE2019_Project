@@ -7,6 +7,8 @@ export default class HomePageManager extends Component {
     constructor() {
         super();
         this.state = {
+            name: "Bruce",
+            surname: "Wayne",
         }
     }
 
@@ -19,7 +21,9 @@ export default class HomePageManager extends Component {
             <div>
                 <MenuBar
                  logOut={this.state.logOut}/>
-                <BodyHomePage/>
+                <BodyHomePage
+                    name={this.state.name}
+                    surname={this.state.surname}/>
             </div>
         );
     }

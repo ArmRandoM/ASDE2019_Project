@@ -88,7 +88,7 @@ export default function SwipeableTemporaryDrawer(props) {
         <Divider />
         <List>
           <ListItem>
-            <Button href="/profilepg"><AccountCircleIcon/>My Profile</Button>
+            <Button href="/myprofilepg"><AccountCircleIcon/>My Profile</Button>
           </ListItem>
           <ListItem>
             <Button href="/" onClick={() => props.logOut()}><ExitToAppIcon/>LogOut</Button>
