@@ -11,33 +11,28 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {Button, GridList} from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ChatIcon from '@material-ui/icons/Chat';
-import Select from '@material-ui/core/Select';
 import './../chat.css';
-import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 const useStyles = makeStyles(theme => ({
   root: {
-      height: '100vh',
-  },
-  image: {
       backgroundImage: "url(" + DoctorAI + ")",
-      backgroundRepeat: 'no-repeat',
-      backgroundColor:
-          theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+      minHeight: '100vh',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
   },
   paper: {
-      margin: theme.spacing(8, 4),
+      margin: theme.spacing(10, 2),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      marginTop: '25%'
+      marginTop: '25%',
+      opacity: '1',
   },
   error: {
       color: 'red',
@@ -67,6 +62,13 @@ const useStyles = makeStyles(theme => ({
     minWidth: 120,
     maxWidth: 300,
   },
+  expands: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+  },
+  footer: {
+    padding: theme.spacing(6),
+  },
 }));
 
 export default function Body(props) {
@@ -76,11 +78,13 @@ export default function Body(props) {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };  
+
+  const [value, setValue] = React.useState(0);
   
   const reports = [
     {title: 'Report 1', valutation: 'Not Evaluated', description: 'Blablabla1',},
     {title: 'Report 2', valutation: 'Not Evaluated', description: 'Blablabla2',},
-    {title: 'Report 3', valutation: 'Good', description: 'Blablabla3',},
+    {title: 'Report 3', valutation: 'No Problem', description: 'Blablabla3',},
     {title: 'Report 4', valutation: 'Contact a Doctor', description: 'Blablabla4',},
   ];
   
@@ -111,195 +115,264 @@ export default function Body(props) {
   ];
 
   return (
-    <div>
-      <br/><br/><br/><br/>
-      <Grid container>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={10} md={2}>
-          <Typography variant="h6"></Typography>
-          <Grid item xs={12} sm={8} md={12} component={Paper} elevation={6} square>
-            <div className={classes.paper}>
-                <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={12}>
-                            <br/>
-                            <Avatar className={classes.bigAvatar} ></Avatar>
-                        </Grid>
-                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                        <Grid item xs={12} sm={12}>
-                            <TextField
-                                autoComplete="fname"
-                                name="name"
-                                variant="outlined"
-                                fullWidth
-                                id="firstName"
-                                label={props.name}
-                                autoFocus
-                                onChange={props.onChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="lastName"
-                                label={props.surname}
-                                name="surname"
-                                autoComplete="lname"
-                                onChange={props.onChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="emailSignUp"
-                                label={props.email}
-                                name="emailSignUp"
-                                autoComplete="email"
-                                onChange={props.onChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                fullWidth
-                                name="passwordSignUp"
-                                label={props.password}
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                onChange={props.onChange}
-                            />
-                            {props.passwordErrorSignUp ? <p className={props.classes.error}>Wrong choice! The password must contain 8 characters!</p> : null}
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={props.modifyData}
-                        >
-                            Modify your data
-                        </Button>
+    <div className={classes.root}>
+      <Grid container >
+        <Grid item xs={12} md={1}></Grid>
+        <Grid item xs={12} sm={12} md={4}>
+            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square >
+                <div className={classes.paper}>
+                    <br/>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Avatar className={classes.bigAvatar} ></Avatar>
                     </Grid>
-                </form>
-            </div>
-          </Grid >
-        </Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={10} md={2}>
-            <Typography variant="h6">
-            &nbsp;&nbsp;All your Reports
-            </Typography>
-            <br/><br/>
-            {
-            reports.map((v)=>
-            <ExpansionPanel expanded={expanded === 'panel'+v.title} onChange={handleChange('panel'+v.title)}>
-                <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panelbh-content"
-                id="panelbh-header"
-                >
-                <Typography className={classes.heading}>{v.title}</Typography>
-                <Typography className={classes.secondaryHeading}>{v.valutation}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    {v.description}
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-            )
-            }
-            <br/><br/><br/>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              href="/reportpg"
-            >
-                Handle Reports
-            </Button>
-        </Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={10} md={2}>
-            <Grid item xs={12} md={12}>
-                <br/><br/><br/><br/>
-                <Typography variant="h6">
-                    &nbsp;<ChatIcon/>&nbsp;Chats
-                </Typography>
-                <br/><br/>
-                <div>
-                    <List>
-                    {
-                        chats.map((v)=>
-                        <ExpansionPanel expanded={expanded === 'panel'+v.name} onChange={handleChange('panel'+v.name)}>
+                    <br/>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography variant="h6">
+                            Name: {props.name}<br/>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography variant="h6">
+                            Surname: {props.surname}<br/>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography variant="h6">
+                            E-mail: {props.email}<br/>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography variant="h6">
+                            Status: <br/>
+                        </Typography>
+                    </Grid>
+                    <br/>
+                    <Grid item xs={12} sm={12} md={12}>                            
+                        <ExpansionPanel className={classes.expands} expanded={expanded === 'panelModificationData'} onChange={handleChange('panelModificationData')}>
                             <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panelbh-content"
                             id="panelbh-header"
                             >
-                            <Typography className={classes.heading}>{v.name}</Typography>
+                            <Typography className={classes.heading}>Modify your data</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <Grid item xs={12} md={12}>
-                                    <GridList>
-                                        <ul className="message-list">
-                                            {v.messages.map((message) => {
-                                                return (
-                                                <li className="message">
-                                                    <div>{message.sender}</div>
-                                                    <div>{message.content}</div>
-                                                </li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </GridList>
-                                    <br/>
-                                    <Grid>
-                                        <form
-                                        onSubmit={props.handleSubmit}
-                                        className="send-message-form">
-                                        <input
-                                            onChange={props.handleChange}
-                                            value={props.messageToSend}
-                                            placeholder="Reply"
-                                            type="text" />
-                                        </form>
+                                <form className={classes.form} noValidate>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={12}>
+                                            <TextField
+                                                autoComplete="fname"
+                                                name="name"
+                                                variant="outlined"
+                                                fullWidth
+                                                id="firstName"
+                                                label="Name"
+                                                autoFocus
+                                                onChange={props.onChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                fullWidth
+                                                id="lastName"
+                                                label="Surname"
+                                                name="surname"
+                                                autoComplete="lname"
+                                                onChange={props.onChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                fullWidth
+                                                id="emailSignUp"
+                                                label="E-mail"
+                                                name="emailSignUp"
+                                                autoComplete="email"
+                                                onChange={props.onChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                variant="outlined"
+                                                fullWidth
+                                                name="passwordSignUp"
+                                                label="Password"
+                                                type="password"
+                                                id="password"
+                                                autoComplete="current-password"
+                                                onChange={props.onChange}
+                                            />
+                                            {props.passwordErrorSignUp ? <p className={props.classes.error}>Wrong choice! The password must contain 8 characters!</p> : null}
+                                        </Grid>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                            onClick={props.submitmodificatedData}
+                                        >
+                                            Submit
+                                        </Button>
                                     </Grid>
-                                </Grid>
+                                </form>
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
+                        <br/>
+                    </Grid>
+                </div>
+            </Grid >
+            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                    <br/>
+                    <Typography variant="h6">
+                        Chats
+                    </Typography>
+                    {
+                        chats.map((v)=>
+                            <ExpansionPanel className={classes.expands} expanded={expanded === 'panel'+v.name} onChange={handleChange('panel'+v.name)}>
+                                <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panelbh-content"
+                                id="panelbh-header"
+                                >
+                                <Typography className={classes.heading}>{v.name}</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Grid item xs={12} md={12}>
+                                        <GridList>
+                                            <ul className="message-list">
+                                                {v.messages.map((message) => {
+                                                    return (
+                                                    <li className="message">
+                                                        <div>{message.sender}</div>
+                                                        <div>{message.content}</div>
+                                                    </li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </GridList>
+                                        <br/>
+                                        <Grid>
+                                            <form
+                                            onSubmit={props.handleSubmit}
+                                            className="send-message-form">
+                                            <input
+                                                onChange={props.handleChange}
+                                                value={props.messageToSend}
+                                                placeholder="Reply"
+                                                type="text" />
+                                            </form>
+                                        </Grid>
+                                    </Grid>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         )
                     }
-                    </List>
+                    <br/>
+                    <Typography variant="h6">
+                        <FormControl className={classes.formControl}>
+                            <Autocomplete
+                            id="combo-box-demo"
+                            options={names}
+                            getOptionLabel={names => names.name}
+                            style={{ minWidth: 220 }}
+                            renderInput={params => (
+                                <TextField {...params} label="Name" variant="outlined" fullWidth />
+                            )}
+                            />
+                        </FormControl> 
+                        <Button variant="contained" color="primary" onClick={() => props.addChat(personName)}>Add new chat</Button>   
+                    </Typography>
+                    <br/>
                 </div>
-                <br/><br/>
-                <Typography variant="h6">
-                    <FormControl className={classes.formControl}>
-                        <Autocomplete
+            </Grid>
+        </Grid>
+        <Grid item xs={1} md={1}></Grid>
+        <Grid item xs={12} sm={12} md={5}>
+            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                    <br/>
+                    <Typography variant="h6">
+                        Reports
+                    </Typography>
+                    <br/>
+                    {
+                    reports.map((v)=>
+                    <ExpansionPanel className={classes.expands} expanded={expanded === 'panel'+v.title} onChange={handleChange('panel'+v.title)}>
+                        <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panelbh-content"
+                        id="panelbh-header"
+                        >
+                        <Typography className={classes.heading}>{v.title}</Typography>
+                        <Typography className={classes.secondaryHeading}>{v.valutation}</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            {v.description}
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    )
+                    }
+                    <br/><br/>
+                    <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    href="/reportpg"
+                    >
+                        Handle Reports
+                    </Button>
+                    <br/>
+                </div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} component={Paper} square>
+                <div className={classes.paper}>
+                <FormControl className={classes.formControl}>
+                    <Autocomplete
                         id="combo-box-demo"
                         options={names}
                         getOptionLabel={names => names.name}
                         style={{ width: 220 }}
                         renderInput={params => (
-                            <TextField {...params} label="Name" variant="outlined" fullWidth />
+                            <TextField {...params} label="Search User" variant="outlined" fullWidth />
                         )}
-                        />
-                    </FormControl>    
-                </Typography>
-                <br/>
-                <Typography>
-                    &nbsp;<Button variant="contained" color="primary" onClick={() => props.addChat(personName)}>Add new chat</Button>
-                </Typography>
-                <br/><br/>
+                    />
+                </FormControl>
+                <br/><Button variant="contained" color="primary" onClick={() => props.addChat(personName)}>Watch Profile</Button><br/>
+                </div>
+            </Grid>
+            <br/><br/><br/><br/>
+            <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
+                <BottomNavigation
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  showLabels
+                >
+                    <BottomNavigationAction label="Follow" />
+                    <BottomNavigationAction label="Follower" />
+                    </BottomNavigation>
+                <GridList>
+                    <List>
+                        {
+                        names.map((v) => 
+                            <ListItem>         
+                                {v.name} &emsp;<Button key={v.name}  variant="contained" color="primary" onClick={() => props.unfollow(v.name)}>Unfollow</Button>
+                            </ListItem>
+                        )                    
+                        }
+                    </List>
+                </GridList>
             </Grid>
         </Grid>
-        <Grid item xs={1} md={1}></Grid>
+        <Grid item xs={12} sm={12} md={1}></Grid>
       </Grid>
+      <br/><br/>
     </div>
   );
 }
