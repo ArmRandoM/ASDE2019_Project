@@ -1,24 +1,45 @@
 package ASDE2019.unical.it.medicalcenterservice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 
 @Entity
+@Data
+@EqualsAndHashCode
+@NoArgsConstructor
+@Table(name = "Patient")
 public class Patient {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long Id;
+	
+	@NotNull
 	private String email;
-
+	
+	@NotNull
 	private String name;
-
+	
+	@NotNull
 	private String surname;
 
 	private String password;
-
-	public Patient() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    @JsonManagedReference
+    @JsonIgnore
+    //link between patient and his profile
+    private UserProfile userProfile;
 
 	public Patient(String name, String surname, String password, String email) {
 		super();
@@ -33,35 +54,4 @@ public class Patient {
 		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password + ", email=" + email + "]";
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 }
