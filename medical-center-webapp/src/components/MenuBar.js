@@ -1,13 +1,13 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
+//import {fade} from '@material-ui/core/styles';
+import {Button} from '@material-ui/core';
+//import {TextField} from '@material-ui/core';
 import List from '@material-ui/core/List';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+//import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ChatIcon from '@material-ui/icons/Chat';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -32,43 +33,6 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
-  },
   title: {
     flexGrow: 1,
     display: 'none',
@@ -78,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -102,27 +66,33 @@ export default function SwipeableTemporaryDrawer() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      S
+      
         <IconButton onClick={toggleDrawer('left', true)}>
             <ChevronLeftIcon />
         </IconButton>
+        <List>
+          <ListItem>
+            <Button href="/homepg"><HomeIcon/>HomePage</Button>
+          </ListItem>
+        </List>
+        <Divider />
         <Divider />
         <List>
-          {['My Reports', 'Messages'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <LocalHospitalIcon /> : <ChatIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem>
+            <Button href="/reportpg"><LocalHospitalIcon/>My Report</Button>
+          </ListItem>
+          <ListItem>
+            <Button href="/chatpg"><ChatIcon/>My Messages</Button>
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['My Profile', 'LogOut'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <AccountCircleIcon /> : <ExitToAppIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem>
+            <Button href="/myprofilepg"><AccountCircleIcon/>My Profile</Button>
+          </ListItem>
+          <ListItem>
+            <Button href="/" onClick={() => props.logOut()}><ExitToAppIcon/>LogOut</Button>
+          </ListItem>
         </List>
 
     </div>
@@ -139,19 +109,6 @@ export default function SwipeableTemporaryDrawer() {
           <Typography variant="h6" color="inherit">
             Menu
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer
