@@ -42,7 +42,7 @@ export default function SignIn(props) {
                         variant="contained"
                         color="primary"
                         className={props.classes.submit}
-                        onClick={props.submitSignIn}
+                        onClick={props.submitSendCredentials}
                     >
                         Submit
                         </Button>
