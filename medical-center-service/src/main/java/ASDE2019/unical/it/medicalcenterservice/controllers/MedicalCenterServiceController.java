@@ -1,5 +1,8 @@
 package ASDE2019.unical.it.medicalcenterservice.controllers;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,7 @@ public class MedicalCenterServiceController {
 	@PostMapping("/signUp")
 	public boolean signUp(@RequestBody Patient patient) {
 		if(loginService.saveNewPatient(patient)) {
-			emailService.sendEmail(patient.getEmail(), patient.getName(), "Iscrizione effettuata");
+			emailService.sendEmail(patient.getEmail(), patient.getName(), "Registration");
 			return true;
 		}
 		return false;
@@ -33,16 +36,27 @@ public class MedicalCenterServiceController {
 
 	@CrossOrigin
 	@GetMapping("/signIn")
-	public boolean login(@RequestParam String email, @RequestParam String password) {
-		return loginService.login(email, password);
+	public boolean login(HttpSession session, @RequestParam String email, @RequestParam String password) {
+		
+		if(loginService.login(email, password)) {
+			session.setAttribute("loggedUser", loginService.getUser(email));
+			return true;
+		}
+		return false;
 	}
 	
 	@CrossOrigin
 	@GetMapping("/forgotPassword")
 	public boolean forgotPassword(@RequestParam String email) {
 		 if(loginService.forgotPassword(email)) {
-			return emailService.sendEmail(email, "", "Recupero password");
+			return emailService.sendEmail(email, "", "Retrieve password");
 		 }
 		 return false;
 	}
+	
+	/*@CrossOrigin
+	@GetMapping("/getLoggedUser")
+	public void getLoggedUser(HttpSession session) {
+		 System.out.println(session.getAttribute("loggedUser").toString());
+	}*/
 }
