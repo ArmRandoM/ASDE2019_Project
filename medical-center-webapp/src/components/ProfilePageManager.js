@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MenuBar from './MenuBar';
-import BodyMyProfilePage from './BodyMyProfilePage';
+import BodyProfilePage from './BodyProfilePage';
 
 export default class ProfilePageManager extends Component {
     
@@ -11,8 +11,11 @@ export default class ProfilePageManager extends Component {
             surname: " Wayne ",
             email: " battilemani@batman.bat ",
             password: "batmanèilpiufigo",
+            status: "doctor",
         }
     }
+
+    //status: patient/doctor/_
 
     logOut = (event) =>{
         
@@ -33,11 +36,12 @@ export default class ProfilePageManager extends Component {
             <div>
                 <MenuBar
                     logOut={this.state.logOut}/>
-                <BodyMyProfilePage
+                <BodyProfilePage
                     name={this.state.name}
                     surname={this.state.surname}
                     email={this.state.email}
                     password={this.state.password}
+                    status={this.state.status}
                     modifyData={this.state.modifyData}
                     onChange={this.state.onChange}/>
             </div>

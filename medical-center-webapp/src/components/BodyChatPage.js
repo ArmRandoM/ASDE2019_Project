@@ -17,19 +17,55 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import DoctorAI from '../images/doctorAI.jpg';
 
 const useStyles = makeStyles(theme => ({
-  footer: {
-    padding: theme.spacing(6),
-  },
   gridMessages:{
-    minHeight: 800,
+    minHeight: 350,
     maxHeight: "100%",
+  },
+  root: {
+      backgroundImage: "url(" + DoctorAI + ")",
+      minHeight: '100vh',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+  },
+  paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      opacity: '1',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+  text: {
+    alignItems: 'center',
+  },
+  form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+  },
+  submit: {
+      margin: theme.spacing(3, 0, 2),
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300,
+    maxWidth: 350,
+  },
+  expands: {
+      width: 350,
+      marginTop: theme.spacing(1),
+  },
+  footer: {
+    padding: theme.spacing(6),
   },
 }));
 
@@ -58,8 +94,12 @@ export default function Body(props) {
   const classes = useStyles();
   const theme = useTheme();
   //const chats = props.getChats();
-  const chats = [0,1,2,3];
-  const messages = ["A1","B1","C1","A2","B2","C2","A3","B3","C3","A4","B4","C4","A5","B5","C5","A6","B6","C6"];
+  const chats = [
+    {name: 'robin', messages: [{sender:'Me', content:'Ciao'}, {sender:'robin', content:'Ciao'},{sender:'robin', content:'che vuoi'},{sender:'me', content:'soldi'}] },
+    {name: 'ww', messages: [{sender:'Me', content:'Ciao'}, {sender:'ww', content:'Ciao'},{sender:'ww', content:'che vuoi'}] },
+    {name: 'superman', messages: [{sender:'Me', content:'Ciao'}, {sender:'superman', content:'Ciao'},{sender:'superman', content:'che vuoi'}] },
+    {name: 'alfred', messages: [{sender:'Me', content:'Ciao'}, {sender:'alfred', content:'Ciao'},{sender:'alfred', content:'che vuoi'}] },
+  ];
   const names = [
     {name: 'Oliver Hansen',},
     {name: 'Van Henry',},
@@ -81,69 +121,78 @@ export default function Body(props) {
 
   return (
      
-      <div>
+      <div className={classes.root}>
         <br/><br/><br/><br/>
-        <Grid container spacing={1}>
-            <Grid item xs={12} md={3}>
-            <Typography variant="h6">
-                <FormControl className={classes.formControl}>
-                    <Autocomplete
-                    id="combo-box-demo"
-                    options={names}
-                    getOptionLabel={names => names.name}
-                    style={{ width: 300 }}
-                    renderInput={params => (
-                        <TextField {...params} label="Name" variant="outlined" fullWidth />
-                    )}
-                    />
-                </FormControl>    
-            </Typography>
-            <Typography>
-                &nbsp;<Button variant="contained" color="primary" alignItems="center" onClick={() => props.addChat(personName)}>New Chat</Button>
-            </Typography>
-            <br/><br/>
-            <Typography variant="h6">
-                &nbsp;<ChatIcon/>&nbsp;Chats
-            </Typography>
-            <div>
-                <List>
-                {
-                    chats.map((v) =>
-                        <ListItem>                    
-                        <Button key={chats[v]} onClick={() => props.getMessages(chats[v])}><Avatar><ChatIcon /></Avatar>&nbsp;&nbsp;{chats[v]}</Button>
-                        </ListItem>
-                    )
-                }
-                </List>
-            </div>
-            </Grid>
-            <Grid item xs={12} md={9}>
-                <GridList className={classes.gridMessages}>
-                    <ul className="message-list">
-                        {messages.map((message) => {
-                            return (
-                            <li  key={message} className="message">
-                                <div>sender</div>
-                                <div>{message}</div>
-                            </li>
-                            )
-                        })}
-                    </ul>
-                </GridList>
-                <br/>
-                <Grid>
-                    <form
-                    onSubmit={props.handleSubmit}
-                    className="send-message-form">
-                    <input
-                        onChange={props.handleChange}
-                        value={props.messageToSend}
-                        placeholder="Reply"
-                        type="text" />
-                    </form>
-                </Grid>
+        <Grid container style={{ minHeight: '85vh'}}>
+            <Grid item xs={2} sm={2} md={2}></Grid>
+            <Grid container xs={8} sm={8} md={8} component={Paper} elevation={6} square>
+              <Grid item xs={12} sm={12} md={12}>
+                <br/><br/>
+                <Typography variant="h6">
+                    <FormControl className={classes.formControl}>
+                        <Autocomplete
+                        id="combo-box-demo"
+                        options={names}
+                        getOptionLabel={names => names.name}
+                        style={{ width: 280 }}
+                        renderInput={params => (
+                            <TextField {...params} label="Name" variant="outlined" fullWidth />
+                        )}
+                        />
+                    </FormControl>    
+                    &nbsp;<Button variant="contained" color="primary" alignItems="center" onClick={() => props.addChat(personName)}>New Chat</Button>
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={3}>
+                <br/><br/>
+                <Typography variant="h6">
+                    &nbsp;<ChatIcon/>&nbsp;Chats
+                </Typography>
+                <div>
+                    <List>
+                    {
+                        chats.map((v) => {
+                          return (
+                            <ListItem>                    
+                            <Button key={v.name} onClick={() => props.getMessages(v.name)}><Avatar><ChatIcon /></Avatar>&nbsp;&nbsp;{v.name}</Button>
+                            </ListItem>
+                          )
+                        })
+                    }
+                    </List>
+                </div>
+              </Grid>
+              <Grid item xs={1} sm={1} md={1}></Grid>
+              <Grid item xs={10} sm={10} md={6}>
+                  <br/><br/>
+                  <GridList className={classes.gridMessages}>
+                      <ul className="message-list">
+                          {chats[1].messages.map((message) => {
+                              return (
+                              <li  key={message.sender} className="message">
+                                  <div>{message.sender}</div>
+                                  <div>{message.content}</div>
+                              </li>
+                              )
+                          })}
+                      </ul>
+                  </GridList>
+                  <Grid>
+                      <form
+                        onSubmit={props.handleSubmit}
+                        className="send-message-form">
+                      <input
+                          onChange={props.handleChange}
+                          value={props.messageToSend}
+                          placeholder="Reply"
+                          type="text" />
+                      </form>
+                      <br/><br/>
+                  </Grid>
+              </Grid>
             </Grid>
         </Grid>
+        <br/><br/>
       </div>
   );
 }
