@@ -67,6 +67,7 @@ function Form(props) {
                 forgotError={props.forgotError}
                 copyright={Copyright}
                 classes={props.classes}
+                submitSendCredentials={props.submitSendCredentials}
             />
         );
     }
@@ -126,6 +127,7 @@ export default function SignInUp(props) {
                 classes={classes}
                 forgot={props.forgot}
                 forgotError={props.forgotError}
+                submitSendCredentials={props.submitSendCredentials}
             />
         </Grid >
     );

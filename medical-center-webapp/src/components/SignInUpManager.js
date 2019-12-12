@@ -99,6 +99,15 @@ class SignInUpManager extends Component {
     }
 
     submitSendCredentials = (event) => {
+        MedicalCenterBaseIstance.get("/forgotPassword", {
+            params: {
+                "email": this.state.emailForgot,
+            }
+        }).then((res) => {
+            this.setState({
+                forgotError: !res.data
+            })
+        })
         event.preventDefault();
     }
 
@@ -126,7 +135,7 @@ class SignInUpManager extends Component {
                     passwordErrorSignUp={this.state.passwordErrorSignUp}
                     forgot={this.state.forgot}
                     forgotError={this.state.forgotError}
-                    submitSendCredentials={this.state.submitSendCredentials}
+                    submitSendCredentials={this.submitSendCredentials}
                 />
             </div>
         );

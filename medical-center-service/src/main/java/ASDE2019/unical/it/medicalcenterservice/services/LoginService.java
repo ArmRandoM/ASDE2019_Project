@@ -42,5 +42,14 @@ public class LoginService {
 		}
 		return false;
 	}
-
+	
+	
+	public synchronized Patient getUser(String email) {
+		try {
+			return utenteDao.findById(email).get();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
+
