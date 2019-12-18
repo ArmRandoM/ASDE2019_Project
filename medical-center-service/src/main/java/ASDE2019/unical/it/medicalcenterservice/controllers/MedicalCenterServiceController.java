@@ -1,5 +1,10 @@
 package ASDE2019.unical.it.medicalcenterservice.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ASDE2019.unical.it.medicalcenterservice.model.Patient;
+import ASDE2019.unical.it.medicalcenterservice.model.Post;
+import ASDE2019.unical.it.medicalcenterservice.repositories.PostRepo;
 import ASDE2019.unical.it.medicalcenterservice.services.EmailService;
 import ASDE2019.unical.it.medicalcenterservice.services.LoginService;
+import ASDE2019.unical.it.medicalcenterservice.repositories.PostDTO;
 
 @RestController
 public class MedicalCenterServiceController {
@@ -20,6 +28,9 @@ public class MedicalCenterServiceController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private PostRepo postRepo;
 	
 	@CrossOrigin
 	@PostMapping("/signUp")
@@ -44,5 +55,12 @@ public class MedicalCenterServiceController {
 			return emailService.sendEmail(email, "", "Recupero password");
 		 }
 		 return false;
+	}
+	
+	@GetMapping("/user/getall")
+    public List<PostDTO> getAllPosts(@Valid @RequestParam("userProfId") Long userProfId){
+        List<Post> posts= new ArrayList<>();
+
+        return postRepo.findByUserProfileId(userProfId);
 	}
 }
