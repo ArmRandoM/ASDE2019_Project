@@ -15,13 +15,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.sun.mail.smtp.SMTPTransport;
 
+import ASDE2019.unical.it.medicalcenterservice.model.Patient;
+import ASDE2019.unical.it.medicalcenterservice.repositories.PatientDAO;
 import ASDE2019.unical.it.medicalcenterservice.services.EmailService;
 
 @SpringBootTest
 class MedicalCenterServiceApplicationTests {
 
-	/*@Autowired
-	private UtenteDAO repository;*/
+	@Autowired
+	private PatientDAO repository;
 	
 	@Autowired
 	private EmailService emailService;
@@ -33,7 +35,14 @@ class MedicalCenterServiceApplicationTests {
 	
 	@Test
 	void provaEmail() {
-		emailService.sendEmail("francesco.tumminelli1995@gmail.com", "Iscrizione", "Benvenuto sul sito");
+		//emailService.sendEmail("armnd.6793@gmail.com", "Armando", "Iscrizione", "Benvenuto sul sito");
+	}
+	
+	@Test
+	void provaFindPassword() {
+		Patient u = new Patient("Fra", "Tum", "Prova12345", "francesco.tumminelli1995@gmail.com");
+		repository.save(u);
+		System.out.println(repository.findById("francesco.tumminelli1995@gmail.com").get().getPassword());
 	}
 
 

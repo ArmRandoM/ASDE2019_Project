@@ -2,11 +2,13 @@ package ASDE2019.unical.it.medicalcenterservice.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Patient {
 
 	@Id
+	@Size(max = 1000)
 	private String email;
 
 	private String name;
