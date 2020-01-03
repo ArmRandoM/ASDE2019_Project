@@ -50,7 +50,7 @@ export default function Body(props) {
   const classes = useStyles();
   const cards = [
     {title:'Reports', description:'Here you can see and modify all your medical reports.', route:'/reportpg'},
-    {title:'My Profile', description:'Here you can see and modify your personal information.', route:'/myprofilepg'},
+    {title:'My Profile', description:'Here you can see and modify your personal information.', route:'/profilepg'},
   ]
 
   return (

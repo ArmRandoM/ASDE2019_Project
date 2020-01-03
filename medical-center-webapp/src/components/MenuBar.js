@@ -1,10 +1,7 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-//import {fade} from '@material-ui/core/styles';
-import {Button} from '@material-ui/core';
-//import {TextField} from '@material-ui/core';
+import {fade,makeStyles} from '@material-ui/core/styles';
+import {Button, Grid} from '@material-ui/core';
 import List from '@material-ui/core/List';
-//import SearchIcon from '@material-ui/icons/Search';
 import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,11 +11,12 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import HomeIcon from '@material-ui/icons/Home';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -38,6 +36,43 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+    },
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
     },
   },
 }));
@@ -82,13 +117,13 @@ export default function SwipeableTemporaryDrawer(props) {
             <Button href="/reportpg"><LocalHospitalIcon/>My Report</Button>
           </ListItem>
           <ListItem>
-            <Button href="/chatpg"><ChatIcon/>My Messages</Button>
+            <Button href="/chatpg"><ChatIcon/>Chats</Button>
           </ListItem>
         </List>
         <Divider />
         <List>
           <ListItem>
-            <Button href="/myprofilepg"><AccountCircleIcon/>My Profile</Button>
+            <Button href="/profilepg"><AccountCircleIcon/>My Profile</Button>
           </ListItem>
           <ListItem>
             <Button href="/" onClick={() => props.logOut()}><ExitToAppIcon/>LogOut</Button>
@@ -103,12 +138,29 @@ export default function SwipeableTemporaryDrawer(props) {
 
       <AppBar position="fixed">
         <Toolbar variant="dense">
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Menu
-          </Typography>
+          <Grid container>
+            <Grid item xs={4} sm={4} md={2}>
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
+                <MenuIcon /> Menu
+              </IconButton>
+            </Grid>
+            <Grid item xs={2} sm={2} md={8}></Grid>
+            <Grid item xs={6} sm={6} md={2}>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </div>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer
