@@ -1,5 +1,6 @@
 package ASDE2019.unical.it.medicalcenterservice;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.sun.mail.smtp.SMTPTransport;
 
 import ASDE2019.unical.it.medicalcenterservice.services.EmailService;
+import ASDE2019.unical.it.medicalcenterservice.services.NeuralNetworkService;
 
 @SpringBootTest
 class MedicalCenterServiceApplicationTests {
@@ -25,6 +27,9 @@ class MedicalCenterServiceApplicationTests {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private NeuralNetworkService neuralService;
 	
 	@Test
 	void contextLoads() {
@@ -36,5 +41,9 @@ class MedicalCenterServiceApplicationTests {
 		emailService.sendEmail("francesco.tumminelli1995@gmail.com", "Iscrizione", "Benvenuto sul sito");
 	}
 
-
+	@Test
+	void neuralNetworkTest()
+	{
+		neuralService.loadNeuralNetwork();
+	}
 }
