@@ -45,7 +45,7 @@ class MedicalCenterServiceApplicationTests {
 
 	@Test
 	void provaFindPassword() {
-		Patient u = new Patient("Fra", "Tum", "Prova12345", "francesco.tumminelli1995@gmail.com");
+		Patient u = new Patient("Fra", "Tum", "Prova12345", "francesco.tumminelli1995@gmail.com", true);
 		repository.save(u);
 		System.out.println(repository.findById("francesco.tumminelli1995@gmail.com").get().getPassword());
 	}

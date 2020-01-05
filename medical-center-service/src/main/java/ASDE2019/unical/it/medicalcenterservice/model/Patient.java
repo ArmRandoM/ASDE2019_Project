@@ -16,23 +16,26 @@ public class Patient {
 	private String surname;
 
 	private String password;
+	
+	private boolean doctor;
 
 	public Patient() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Patient(String name, String surname, String password, String email) {
+	public Patient(String name, String surname, String password, String email, boolean doctor) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
 		this.email = email;
+		this.doctor = doctor;
 	}
 
 	@Override
 	public String toString() {
-		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password + ", email=" + email + "]";
+		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password + ", email=" + email + ", doctor=" + doctor +"]";
 	}
 
 	public String getName() {
@@ -65,5 +68,13 @@ public class Patient {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(boolean doctor) {
+		this.doctor = doctor;
 	}
 }
