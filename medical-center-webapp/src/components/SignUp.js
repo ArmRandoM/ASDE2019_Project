@@ -96,7 +96,7 @@ export default function SignUp(props) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link name="signIn" href="#" variant="body2" onClick={props.signSwitch}>
+                                <Link href="/" variant="body2">
                                     {"Already have an account? Sign in"}
                                 </Link>
                             </Grid>

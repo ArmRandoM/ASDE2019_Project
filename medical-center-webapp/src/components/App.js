@@ -12,12 +12,14 @@ export default function App() {
     <div>
       <Router>
         <Switch>
-          <Route exact path="/"><SignInUpManager/></Route>
-          <Route exact path="/homepg"><HomePageManager/></Route>
-          <Route exact path="/reportpg"><ReportPageManager/></Route>
-          <Route exact path="/chatpg"><ChatPageManager/></Route>
-          <Route exact path="/profilepg"><ProfilePageManager/></Route>
-          <Route exact path="/searchpg"><SearchPageManager/></Route>
+          <Route exact path="/"><SignInUpManager /></Route>
+          <Route exact path="/forgotPassword"><SignInUpManager /></Route>
+          <Route exact path="/signUp"><SignInUpManager /></Route>
+          <Route exact path="/homepg"><HomePageManager /></Route>
+          <Route exact path="/reportpg"><ReportPageManager /></Route>
+          <Route exact path="/chatpg"><ChatPageManager /></Route>
+          <Route exact path="/profilepg"><ProfilePageManager /></Route>
+          <Route exact path="/searchpg"><SearchPageManager /></Route>
         </Switch>
       </Router>
     </div >

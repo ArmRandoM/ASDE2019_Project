@@ -63,12 +63,12 @@ export default function SignIn(props) {
                         </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link name="forgot" href="#" variant="body2" onClick={props.signSwitch}>
+                            <Link name="forgot" href="/forgotPassword" variant=" body2">
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link name="signIn" href="#" variant="body2" onClick={props.signSwitch}>
+                            <Link name="signIn" href="/signUp" variant="body2">
                                 Don't have an account? Sign Up
                             </Link>
                         </Grid>
@@ -80,6 +80,6 @@ export default function SignIn(props) {
                     </Box>
                 </form>
             </div>
-        </Grid>
+        </Grid >
     );
 }

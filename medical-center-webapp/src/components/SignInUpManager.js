@@ -19,8 +19,6 @@ class SignInUpManager extends Component {
             nameOrSurnameError: false,
             invalidEmailErrorSignUp: false,
             passwordErrorSignUp: false,
-            signIn: true,
-            forgot: false,
             patient: true
         }
     }
@@ -28,25 +26,6 @@ class SignInUpManager extends Component {
     patientSwitch = () => {
         this.setState({
             patient: !this.state.patient
-        });
-    }
-
-    signSwitch = (event) => {
-        if (event.target.name === "forgot")
-            this.setState({
-                forgot: !this.state.forgot,
-                signIn: !this.state.signIn
-            });
-        else
-            this.setState({ signIn: !this.state.signIn });
-
-        this.setState({
-            passwordErrorSignUp: false,
-            invalidEmailErrorSignUp: false,
-            nameOrSurnameError: false,
-            signInError: false,
-            signUpError: false,
-            forgotError: false
         });
     }
 
@@ -58,8 +37,10 @@ class SignInUpManager extends Component {
         var passwordReg = /[a-zA-Z0-9-?!@#$%^&* ]{8,}/;
         var passwordTest = passwordReg.test(this.state.passwordSignUp);
 
-        var emailReg = /.+@.+\..+/;
+        var emailReg = /^\w+[\w !#$%&'*+-\/=?^_`{|}~.]+@{1}[\w+ .]+\w+$/;
         var emailTest = emailReg.test(this.state.emailSignUp);
+
+        console.log("emailTest " + emailTest);
 
         this.setState({
             passwordErrorSignUp: !passwordTest,
@@ -71,8 +52,9 @@ class SignInUpManager extends Component {
             MedicalCenterBaseIstance.post("/signUp", {
                 name: this.state.name,
                 surname: this.state.surname,
+                password: this.state.passwordSignUp,
                 email: this.state.emailSignUp,
-                password: this.state.passwordSignUp
+                doctor: !this.state.patient
             }).then((res) => {
                 this.setState({
                     signUpError: !res.data

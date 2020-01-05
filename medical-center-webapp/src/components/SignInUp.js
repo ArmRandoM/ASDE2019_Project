@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function Copyright() {
     return (
@@ -57,53 +58,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Form(props) {
-    const classes = useStyles();
-    if (props.forgot === true) {
-        return (
-            <ForgotPassword
-                signSwitch={props.signSwitch}
-                onChange={props.onChange}
-                forgotError={props.forgotError}
-                copyright={Copyright}
-                classes={props.classes}
-                submitSendCredentials={props.submitSendCredentials}
-            />
-        );
-    }
-    else if (props.signIn === true) {
-        return (
-            <SignIn
-                classes={classes}
-                copyright={Copyright}
-                onChange={props.onChange}
-                submitSignIn={props.submitSignIn}
-                signSwitch={props.signSwitch}
-                signInError={props.signInError}
-                signUpError={props.signUpError}
-            />
-        );
-    }
-    else {
-        return (
-            <SignUp
-                classes={classes}
-                copyright={Copyright}
-                onChange={props.onChange}
-                typeSwitch={props.typeSwitch}
-                submitSignUp={props.submitSignUp}
-                signSwitch={props.signSwitch}
-                patient={props.patient}
-                nameOrSurnameError={props.nameOrSurnameError}
-                passwordErrorSignUp={props.passwordErrorSignUp}
-                invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
-                signUpError={props.signUpError}
-            />
-        );
-    }
-}
-
-
 export default function SignInUp(props) {
     const classes = useStyles();
 
@@ -111,24 +65,45 @@ export default function SignInUp(props) {
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Form
-                patient={props.patient}
-                signIn={props.signIn}
-                signSwitch={props.signSwitch}
-                typeSwitch={props.typeSwitch}
-                onChange={props.onChange}
-                submitSignUp={props.submitSignUp}
-                submitSignIn={props.submitSignIn}
-                nameOrSurnameError={props.nameOrSurnameError}
-                passwordErrorSignUp={props.passwordErrorSignUp}
-                invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
-                signInError={props.signInError}
-                signUpError={props.signUpError}
-                classes={classes}
-                forgot={props.forgot}
-                forgotError={props.forgotError}
-                submitSendCredentials={props.submitSendCredentials}
-            />
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <SignIn
+                            classes={classes}
+                            copyright={Copyright}
+                            onChange={props.onChange}
+                            submitSignIn={props.submitSignIn}
+                            signInError={props.signInError}
+                            signUpError={props.signUpError}
+                        />
+                    </Route>
+                    <Route exact path="/signUp">
+                        <SignUp
+                            classes={classes}
+                            copyright={Copyright}
+                            onChange={props.onChange}
+                            typeSwitch={props.typeSwitch}
+                            submitSignUp={props.submitSignUp}
+                            patient={props.patient}
+                            nameOrSurnameError={props.nameOrSurnameError}
+                            passwordErrorSignUp={props.passwordErrorSignUp}
+                            invalidEmailErrorSignUp={props.invalidEmailErrorSignUp}
+                            signUpError={props.signUpError}
+                        />
+                    </Route>
+                    <Route exact path="/forgotPassword">
+                        <ForgotPassword
+                            onChange={props.onChange}
+                            forgotError={props.forgotError}
+                            copyright={Copyright}
+                            classes={classes}
+                            submitSendCredentials={props.submitSendCredentials}
+                        />
+                    </Route>
+                </Switch>
+            </Router>
+
+
         </Grid >
     );
 }
