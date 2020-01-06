@@ -8,12 +8,19 @@ export default class SearchPageManager extends Component {
     constructor() {
         super();
         this.state = {
-            searchResult:[],
+            searchResult:[
+                {name: 'Oliver Hansen', image: ''},
+                {name: 'Van Henry', image: ''},
+                {name: 'April Tucker', image: ''},
+                {name: 'Ralph Hubbard', image: ''},
+                {name: 'Omar Alexander', image: ''},
+                {name: 'Carlos Abbott', image: ''},
+            ],
         }
     }
 
-    goToProfile = (event) =>{
-        
+    goToProfile = (name) =>{
+        console.log(name);
     }    
     
     render() {
