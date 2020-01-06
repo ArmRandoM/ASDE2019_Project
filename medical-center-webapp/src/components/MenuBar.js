@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
 
   return (
@@ -90,7 +90,15 @@ export default function PrimarySearchAppBar() {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ 'aria-label': 'search' }}
+              name="search"
+              id="search"
+              onChange={props.onSearchChange}
+              onKeyDown  = {(e) => {
+                  if (e.key === 'Enter') {
+                    props.makeSearch()
+                  }
+                }
+              }
             />
           </div>
           <div className={classes.grow} />

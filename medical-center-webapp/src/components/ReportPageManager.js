@@ -14,10 +14,6 @@ export default class ReportPageManager extends Component {
         this.onDrop = this.onDrop.bind(this);
     }
 
-    logOut = (event) =>{
-        
-    }
-
     addReport = (event) =>{
         console.log(this.state.reportName);
         console.log(this.state.reportDescription);
@@ -46,8 +42,6 @@ export default class ReportPageManager extends Component {
     render() {
         return (
             <div>
-                <MenuBar
-                    logOut={this.logOut}/>
                 <BodyReportPage
                     addReport={this.addReport}
                     reportName={this.state.reportName}

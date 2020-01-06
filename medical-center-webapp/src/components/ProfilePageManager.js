@@ -14,12 +14,7 @@ export default class ProfilePageManager extends Component {
             status: "doctor",
         }
     }
-
     //status: patient/doctor/_
-
-    logOut = (event) =>{
-        
-    }
 
     modifyData = (event) =>{
         
@@ -34,8 +29,6 @@ export default class ProfilePageManager extends Component {
     render() {
         return (
             <div>
-                <MenuBar
-                    logOut={this.logOut}/>
                 <BodyProfilePage
                     name={this.state.name}
                     surname={this.state.surname}
