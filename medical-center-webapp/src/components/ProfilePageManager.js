@@ -35,15 +35,15 @@ export default class ProfilePageManager extends Component {
         return (
             <div>
                 <MenuBar
-                    logOut={this.state.logOut}/>
+                    logOut={this.logOut}/>
                 <BodyProfilePage
                     name={this.state.name}
                     surname={this.state.surname}
                     email={this.state.email}
                     password={this.state.password}
                     status={this.state.status}
-                    modifyData={this.state.modifyData}
-                    onChange={this.state.onChange}/>
+                    modifyData={this.modifyData}
+                    onChange={this.onChange}/>
             </div>
         );
     }

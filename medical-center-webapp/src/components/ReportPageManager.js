@@ -7,23 +7,39 @@ export default class ReportPageManager extends Component {
     constructor() {
         super();
         this.state = {
+            reportName:"",
+            reportDescription:"",
+            images:[],
         }
+        this.onDrop = this.onDrop.bind(this);
     }
 
     logOut = (event) =>{
         
     }
 
-    getReports = (event) =>{
-        
-    }
-
     addReport = (event) =>{
-        
+        console.log(this.state.reportName);
+        console.log(this.state.reportDescription);
+        console.log(this.state.images);
     }
 
-    evaluateReport = (event) =>{
-        
+    onDrop(picture) {
+        this.setState({
+            images: this.state.images.concat(picture),
+        });
+    }
+
+    onChangeName = (event) => {
+        this.setState({
+            reportName: event.target.value,
+        });
+    }
+    
+    onChangeDescription = (event) => {
+        this.setState({
+            reportDescription: event.target.value,
+        });
     }
 
 
@@ -31,11 +47,15 @@ export default class ReportPageManager extends Component {
         return (
             <div>
                 <MenuBar
-                    logOut={this.state.logOut}/>
+                    logOut={this.logOut}/>
                 <BodyReportPage
-                    getReports={this.state.getReports}
-                    addReport={this.state.addReport}
-                    evaluateReport={this.state.evaluateReport}/>
+                    addReport={this.addReport}
+                    reportName={this.state.reportName}
+                    reportDescription={this.state.reportDescription}
+                    images={this.state.images}
+                    onDrop={this.onDrop}
+                    onChangeName={this.onChangeName}
+                    onChangeDescription={this.onChangeDescription}/>
             </div>
         );
     }

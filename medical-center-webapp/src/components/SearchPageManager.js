@@ -7,6 +7,7 @@ export default class SearchPageManager extends Component {
     constructor() {
         super();
         this.state = {
+            searchResult:[],
         }
     }
 
@@ -22,11 +23,37 @@ export default class SearchPageManager extends Component {
         return (
             <div>
                 <MenuBar
-                    logOut={this.state.logOut}/>
+                    logOut={this.logOut}/>
                 <BodySearchPage
-                    goToProfile={this.state.goToProfile}/>
+                    goToProfile={this.goToProfile}
+                    searchResult={this.state.searchResult}/>
             </div>
         );
     }
 
 }
+
+/*
+    constructor() {
+        super();
+        this.state = {
+            userToSearch: "",
+            selectedUserToSearch: "",
+            searchList: [],
+        }
+    }
+
+    onUserToSearchSelected = () => {
+        this.state.userToSearch = this.state.selectedUserToSearch;
+        MedicalCenterBaseIstance.post("/searchForUser", {city: this.state.selectedUserToSearch}).then((res) => {
+            this.setState({
+                searchList : res.data.searchResult
+            })
+        })
+    }
+      
+    onUserToSearchChange = (event) => {
+        this.setState({selectedUserToSearch: event.target.value});
+    }
+
+*/

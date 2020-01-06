@@ -1,22 +1,10 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {Button, GridList} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Avatar from '@material-ui/core/Avatar';
-import FolderIcon from '@material-ui/icons/Folder';
 import Paper from '@material-ui/core/Paper';
-import ChatIcon from '@material-ui/icons/Chat';
-import Select from '@material-ui/core/Select';
-import './../chat.css';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import DoctorAI from '../images/doctorAI.jpg';
 
 const useStyles = makeStyles(theme => ({
@@ -69,26 +57,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-function getStyles(name, personName, theme) {
-    return {
-      fontWeight:
-        personName.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-}
-
 export default function Body(props) {
 
   const classes = useStyles();
@@ -119,8 +87,7 @@ export default function Body(props) {
                         {
                             names.map((v) => 
                                 <Typography>
-                                    {v.name} &emsp;
-                                    <Button variant="contained" color="primary" key={v.name} onClick={() => props.goToProfile(v.name)}>WatchProfile</Button>
+                                    <Button variant="contained" color="primary" key={v.name} onClick={() => props.goToProfile(v.name)}> {v.name} </Button>
                                     <br/><br/><br/>
                                 </Typography>
                             )
