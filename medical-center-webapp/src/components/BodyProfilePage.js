@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import FollowersDialog from './FollowersDialog.js'
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -57,8 +58,22 @@ const useStyles = makeStyles(theme => ({
 export default function ComplexGrid() {
     const classes = useStyles();
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <div className={classes.root}>
+            <FollowersDialog
+                handleClose={handleClose}
+                open={open}
+                classes={classes} />
             <Paper className={classes.paper} elevation={0}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
@@ -82,10 +97,10 @@ export default function ComplexGrid() {
                         </Grid>
                         <Grid container className={classes.foll}>
                             <Grid item xs={6} className={classes.follist}>
-                                <Button href="#text-buttons"><b>nr.</b> followers</Button>
+                                <Button onClick={handleClickOpen} href="#text-buttons"><b>nr.</b> followers</Button>
                             </Grid>
                             <Grid item xs={6} className={classes.follist}>
-                                <Button href="#text-buttons"><b>nr.</b> follows</Button>
+                                <Button onClick={handleClickOpen} href="#text-buttons"><b>nr.</b> follows</Button>
                             </Grid>
                         </Grid>
                         <Grid container className={classes.profileName}>
@@ -111,7 +126,6 @@ export default function ComplexGrid() {
                 </Grid>
                 <Divider variant="middle" className={classes.divider} />
             </Paper >
-
         </div >
     );
 }
