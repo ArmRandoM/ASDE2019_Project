@@ -21,22 +21,6 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
   },
-  form: {
-      width: '100%',
-      marginTop: theme.spacing(1),
-  },
-  submit: {
-      margin: theme.spacing(3, 0, 2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 350,
-  },
-  expands: {
-      width: 350,
-      marginTop: theme.spacing(1),
-  },
   footer: {
     padding: theme.spacing(6),
   },
@@ -68,7 +52,7 @@ export default function Body(props) {
                 <div className={classes.paper}>
                     <List className={classes.gridMessages}>
                         {
-                          props.searchResult.map((v) => 
+                          props.users.map((v) => 
                             <Grid container className={classes.paper}>
                               <Card style={{width:500}}>
                                 <Grid container spacing={3}>

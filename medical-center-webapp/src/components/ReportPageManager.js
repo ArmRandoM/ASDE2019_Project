@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import MenuBar from './MenuBar';
 import BodyReportPage from './BodyReportPage';
+import Upload from 'material-ui-upload/Upload';
+//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
 
 export default class ReportPageManager extends Component {
     
@@ -9,9 +10,9 @@ export default class ReportPageManager extends Component {
         this.state = {
             reportName:"",
             reportDescription:"",
+            imageSelectedUrl: '',
             images:[],
         }
-        this.onDrop = this.onDrop.bind(this);
     }
 
     addReport = (event) =>{
@@ -20,11 +21,6 @@ export default class ReportPageManager extends Component {
         console.log(this.state.images);
     }
 
-    onDrop(picture) {
-        this.setState({
-            images: this.state.images.concat(picture),
-        });
-    }
 
     onChangeName = (event) => {
         this.setState({
@@ -38,6 +34,28 @@ export default class ReportPageManager extends Component {
         });
     }
 
+    uploadImage = (event) => {
+        const files = Array.from(event.target.files)
+        this.setState({
+            images: this.state.images.concat(files),
+        });
+    }
+
+    removeImage = (pos) => {
+        console.log(pos)
+        this.state.images.splice(pos,1);
+        this.setState({
+            images: this.state.images,
+        });
+    }
+
+    halfOpacity = (event) => {
+        event.target.style.opacity = '0.5';
+    }
+
+    normalOpacity = (event) => {
+        event.target.style.opacity = '1';
+    }
 
     render() {
         return (
@@ -47,8 +65,12 @@ export default class ReportPageManager extends Component {
                     reportName={this.state.reportName}
                     reportDescription={this.state.reportDescription}
                     images={this.state.images}
-                    onDrop={this.onDrop}
+                    pictures={this.state.pictures}
+                    uploadImage={this.uploadImage}
                     onChangeName={this.onChangeName}
+                    removeImage={this.removeImage}
+                    normalOpacity={this.normalOpacity}
+                    halfOpacity={this.halfOpacity}
                     onChangeDescription={this.onChangeDescription}/>
             </div>
         );

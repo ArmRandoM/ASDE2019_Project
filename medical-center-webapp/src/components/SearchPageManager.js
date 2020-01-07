@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import MenuBar from './MenuBar';
 import BodySearchPage from './BodySearchPage';
-import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
+//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
 
 export default class SearchPageManager extends Component {
     
     constructor() {
         super();
         this.state = {
-            searchResult:[
+            users:[
                 {name: 'Oliver Hansen', image: ''},
                 {name: 'Van Henry', image: ''},
                 {name: 'April Tucker', image: ''},
@@ -22,13 +21,17 @@ export default class SearchPageManager extends Component {
     goToProfile = (name) =>{
         console.log(name);
     }    
+
+    setSearchResult = (users) =>{
+        this.state.users = users;
+    }
     
     render() {
         return (
             <div>
                 <BodySearchPage
                     goToProfile={this.goToProfile}
-                    searchResult={this.state.searchResult}/>
+                    users={this.state.users}/>
             </div>
         );
     }

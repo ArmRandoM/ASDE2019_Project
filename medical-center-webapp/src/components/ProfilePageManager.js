@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MenuBar from './MenuBar';
 import BodyProfilePage from './BodyProfilePage';
+//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
 
 export default class ProfilePageManager extends Component {
     

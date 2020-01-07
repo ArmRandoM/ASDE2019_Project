@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import MenuBar from './MenuBar';
 import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
+import { Redirect } from 'react-router';
+import PropTypes from "prop-types";
+import SearchPageManager from './SearchPageManager';
 
 export default class MenuBarManager extends Component {
     
@@ -22,12 +25,14 @@ export default class MenuBarManager extends Component {
     
     makeSearch  = () => {
         console.log(this.state.search);
-        MedicalCenterBaseIstance.post("/searchForUser", {city: this.state.search}).then((res) => {
+        /*
+        MedicalCenterBaseIstance.post("/searchForUser", {search: this.state.search}).then((res) => {
             this.setState({
                 searchResult : res.data
             })
         })
-        /* go to search page manager with search result */
+        */
+        window.location.assign("/searchpg");
     }
       
     onSearchChange = (event) => {

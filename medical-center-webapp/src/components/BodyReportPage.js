@@ -5,9 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DoctorAI from '../images/doctorAI.jpg';
+import Card from '@material-ui/core/Card';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import ImageUploader from 'react-images-upload';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,43 +21,24 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      opacity: '1',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  text: {
-    alignItems: 'center',
-  },
-  form: {
-      width: '100%',
-      marginTop: theme.spacing(1),
-  },
-  submit: {
-      margin: theme.spacing(3, 0, 2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 350,
-  },
-  expands: {
-      width: 350,
-      marginTop: theme.spacing(1),
-  },
-  footer: {
-    padding: theme.spacing(6),
   },
   gridList: {
     alignItems: 'center',
     width: 500,
-    height: 300,
+    height: 400,
+  },
+  profileImage: {
+      marginLeft: '2px',
+      boxShadow: "0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
+      borderRadius: "50% !important",
+      maxWidth: "100%",
+      height: "auto",
+  },
+  img: {
+      margin: 'auto',
+      display: 'block',
+      maxWidth: '100%',
+      maxHeight: '100%',
   },
 }));
 
@@ -67,70 +49,62 @@ export default function ControlledExpansionPanels(props) {
     <div>
       <br/><br/><br/>
       <Grid container >
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={10} md={4}>
-        <div className={classes.paper}>
-          <Typography variant="h4">Insert New Report</Typography>
-          <br/>
-          <TextField
-            autoComplete="fname"
-            name="reportName"
-            variant="outlined"
-            required
-            style={{ width: 350}}
-            id="reportName"
-            label="Name"
-            autoFocus
-            onChange={props.onChangeName}
-          />
-          <br/>
-          <TextField
-            autoComplete="fname"
-            name="reportDescription"
-            variant="outlined"
-            required
-            style={{ width: 350}}
-            multiline
-            rows="4"
-            id="reportDescription"
-            label="Description"
-            autoFocus
-            onChange={props.onChangeDescription}
-          />
-          <br/>
-          <ImageUploader style={{ width: 350}}
-                withIcon={true}
-                buttonText='Choose images'
-                onChange={props.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
+        <Grid item xs={1} sm={1} md={1}></Grid>
+        <Grid item xs={10} sm={10} md={10}>
+          <div className={classes.paper}>
+            <Typography variant="h4">Insert New Report</Typography>
+            <br/>
+            <TextField
+              autoComplete="fname"
+              name="reportName"
+              variant="outlined"
+              required
+              style={{ width: 350}}
+              id="reportName"
+              label="Name"
+              autoFocus
+              onChange={props.onChangeName}
             />
-          <br/>
-          <br/>
-        </div>
-        </Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={1} md={1}></Grid>
-        <Grid item xs={10} md={4}>
             <br/>
+            <TextField
+              autoComplete="fname"
+              name="reportDescription"
+              variant="outlined"
+              required
+              style={{ width: 350}}
+              multiline
+              rows="4"
+              id="reportDescription"
+              label="Description"
+              autoFocus
+              onChange={props.onChangeDescription}
+            />
             <br/>
+            <input
+              type="file"
+              name="file"
+              placeholder="Upload an image"
+              id="multi"
+              onChange={props.uploadImage}
+              multiple
+            />
+          </div>
+          <br/><br/>
           <div className={classes.paper}>
-            <Grid container>
-                <GridList className={classes.gridList}>
-                  {props.images.map(v => (
-                    <GridListTile>
-                      <img src={v} alt=""/>
-                    </GridListTile>
-                  ))}
-                </GridList>
-            </Grid>
-          </div>  
-        </Grid>
-        <Grid item xs={1} md={1}></Grid>
-        
-        <Grid item xs={12} md={12}>
+            <GridList className={classes.gridList}>
+              {props.images.map((image,i) => (
+                  <Card style={{width:230}} key={i} onMouseEnter={props.halfOpacity} onMouseLeave={props.normalOpacity}>
+                    <ButtonBase onClick={() => props.removeImage(i)}>
+                      <Grid container spacing={3}>
+                          <img className={classes.profileImage} alt="image" src="http://www.aldogiovanniegiacomo.it/wp-content/uploads/2016/02/medici.png"/>
+                      </Grid>
+                    </ButtonBase>
+                  </Card>
+              ))}
+            </GridList>
+          </div> 
+          <br/><br/>
           <div className={classes.paper}>
-            <br/>
             <Button
               style={{ width: 170}}
               variant="contained"
