@@ -96,7 +96,7 @@ export default function ControlledExpansionPanels(props) {
                   <Card style={{width:230}} key={i} onMouseEnter={props.halfOpacity} onMouseLeave={props.normalOpacity}>
                     <ButtonBase onClick={() => props.removeImage(i)}>
                       <Grid container spacing={3}>
-                          <img className={classes.profileImage} alt="image" src="http://www.aldogiovanniegiacomo.it/wp-content/uploads/2016/02/medici.png"/>
+                          <img className={classes.profileImage} alt="image" src={image}/>
                       </Grid>
                     </ButtonBase>
                   </Card>
