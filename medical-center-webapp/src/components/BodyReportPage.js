@@ -8,7 +8,7 @@ import DoctorAI from '../images/doctorAI.jpg';
 import Card from '@material-ui/core/Card';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +52,7 @@ export default function ControlledExpansionPanels(props) {
         <Grid item xs={1} sm={1} md={1}></Grid>
         <Grid item xs={10} sm={10} md={10}>
           <div className={classes.paper}>
-            <Typography variant="h4">Insert New Report</Typography>
+            <Typography variant="h4"><PostAddIcon fontSize="large" />New Report</Typography>
             <br/>
             <TextField
               autoComplete="fname"

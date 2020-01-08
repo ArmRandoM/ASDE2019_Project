@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BodyReportPage from './BodyReportPage';
 import Upload from 'material-ui-upload/Upload';
-//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
+//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js';
 
 export default class ReportPageManager extends Component {
     
