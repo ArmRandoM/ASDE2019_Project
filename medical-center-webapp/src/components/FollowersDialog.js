@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('sm')]: {
             maxHeight: '90%'
         },
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '90%'
+        },
     },
     button: {
         marginTop: '10px',
@@ -42,8 +45,12 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "3% !important",
         boxShadow: theme.shadows[5],
         [theme.breakpoints.up('sm')]: {
-            width: '25%',
+            width: '30%',
             height: '50%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+            height: '90%'
         },
         padding: theme.spacing(2, 4, 3),
     },
@@ -307,6 +314,69 @@ export default function TransitionsModal(props) {
                                     xs={5}
                                     className={classes.name}>
                                     Giovanni Storti
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.button}
+                                >
+                                    <Button variant="small" component="span">
+                                        Unfollow
+                                </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid
+                                    item xs={2}
+                                    className={classes.avatar}
+                                >
+                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.name}>
+                                    Giacomo Poretti
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.button}
+                                >
+                                    <Button variant="small" component="span">
+                                        Unfollow
+                                </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid
+                                    item xs={2}
+                                    className={classes.avatar}
+                                >
+                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.name}>
+                                    Giacomo Poretti
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.button}
+                                >
+                                    <Button variant="small" component="span">
+                                        Unfollow
+                                </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid container>
+                                <Grid
+                                    item xs={2}
+                                    className={classes.avatar}
+                                >
+                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
+                                </Grid>
+                                <Grid
+                                    xs={5}
+                                    className={classes.name}>
+                                    Giacomo Poretti
                                 </Grid>
                                 <Grid
                                     xs={5}
