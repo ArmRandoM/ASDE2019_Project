@@ -11,30 +11,6 @@ import java.util.regex.Pattern;
 @Service
 public class NeuralNetworkService {
 	
-//	public String loadNeuralNetwork() throws IOException
-//	{
-////		String modelPath = new ClassPathResource(
-////                "C:\\Users\\Alessandro\\ASDE2019_Project\\medical-center-service\\src\\neural_network\\model.h5").getFile().getPath();
-////		String modelPath = new ClassPathResource(
-////				"src/neural_network/model.h5").getFile().getPath();
-//		try {
-//			ComputationGraph model = KerasModelImport.importKerasModelAndWeights("C:\\\\Users\\\\Alessandro\\\\ASDE2019_Project\\\\medical-center-service\\\\src\\\\neural_network\\\\Model_1.h5");
-//			
-////			ImageLoader n = new ImageLoader(224, 224);
-////			n.asImageMatrix(new File("src/img/neoB.jpg"));
-////
-////			
-////			INDArray[] out = model.output(n.asRowVector(new File("src/img/neoB.jpg")));
-////			System.out.println("PREDICTION: "+ out);
-//			
-//		} catch (InvalidKerasConfigurationException | UnsupportedKerasConfigurationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("INVALID KERAS CONFIG!");
-//		}
-//		
-//		return "";
-//	}
 	public String loadNeuralNetwork()
 	{
 		String s = null;
