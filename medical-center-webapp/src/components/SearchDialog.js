@@ -9,8 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import Avatar from '@material-ui/core/Avatar';
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('sm')]: {
             maxHeight: '90%'
         },
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '90%'
+        },
     },
     button: {
         marginTop: '10px',
@@ -44,8 +47,12 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "3% !important",
         boxShadow: theme.shadows[5],
         [theme.breakpoints.up('sm')]: {
-            width: '25%',
+            width: '30%',
             height: '50%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '80%',
+            height: '90%'
         },
         padding: theme.spacing(2, 4, 3),
     },
@@ -56,32 +63,10 @@ const useStyles = makeStyles(theme => ({
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
         width: 'auto',
-      },
-    },
-    searchIcon: {
-      width: theme.spacing(7),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 7),
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: 200,
       },
     },
 }));
@@ -108,24 +93,17 @@ export default function TransitionsModal(props) {
                         <Grid container>
                             <Grid item xs={11} className={classes.title}>
                                 <div className={classes.search}>
-                                    <div className={classes.searchIcon}>
-                                    <SearchIcon />
-                                    </div>
                                     <InputBase
-                                    placeholder="Search…"
-                                    classes={{
-                                        root: classes.inputRoot,
-                                        input: classes.inputInput,
-                                    }}
-                                    name="search"
-                                    id="search"
-                                    onChange={props.onSearchChange}
-                                    onKeyDown  = {(e) => {
-                                        if (e.key === 'Enter') {
-                                            props.makeSearch()
+                                        placeholder="Search…"
+                                        name="search"
+                                        id="search"
+                                        onChange={props.onSearchChange}
+                                        onKeyDown  = {(e) => {
+                                            if (e.key === 'Enter') {
+                                                props.makeSearch()
+                                            }
+                                            }
                                         }
-                                        }
-                                    }
                                     />
                                 </div>  
                             </Grid>
@@ -141,20 +119,19 @@ export default function TransitionsModal(props) {
                         <div className={classes.users}>
                             {
                                 props.searchResult.map((user) =>
-                                    <Grid container>
-                                        <Grid item xs={2} className={classes.avatar}>
-                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                    <ButtonBase onClick={() => props.goToProfile(user.name)} style={{width:'100%'}}>
+                                        <Grid container>
+                                            <Grid item xs={2} className={classes.avatar}>
+                                                <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                            </Grid>
+                                            <Grid xs={4} className={classes.name}>
+                                                {user.status}
+                                            </Grid>
+                                            <Grid xs={6} className={classes.name}>
+                                                {user.name}
+                                            </Grid>
                                         </Grid>
-                                        <Grid xs={3} className={classes.name}>
-                                            {user.status}
-                                        </Grid>
-                                        <Grid xs={4} className={classes.name}>
-                                            {user.name}
-                                        </Grid>
-                                        <Grid xs={3} className={classes.button}>
-                                            <Button variant="small" component="span" onClick={() => props.goToProfile(user.name)}>Info</Button>
-                                        </Grid>
-                                    </Grid>
+                                    </ButtonBase>
                                 )
                             }
                         </div>

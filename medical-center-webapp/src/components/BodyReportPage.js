@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import DoctorAI from '../images/doctorAI.jpg';
 import Card from '@material-ui/core/Card';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import GridList from '@material-ui/core/GridList';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const useStyles = makeStyles(theme => ({
@@ -28,11 +27,8 @@ const useStyles = makeStyles(theme => ({
     height: 400,
   },
   profileImage: {
-      marginLeft: '2px',
-      boxShadow: "0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
-      borderRadius: "50% !important",
-      maxWidth: "100%",
-      height: "auto",
+      maxWidth: 300,
+      maxHeight: 300,
   },
   img: {
       margin: 'auto',
@@ -84,24 +80,20 @@ export default function ControlledExpansionPanels(props) {
               type="file"
               name="file"
               placeholder="Upload an image"
-              id="multi"
               onChange={props.uploadImage}
-              multiple
             />
           </div>
-          <br/><br/>
+          <br/>
           <div className={classes.paper}>
-            <GridList className={classes.gridList}>
-              {props.images.map((image,i) => (
-                  <Card style={{width:230}} key={i} onMouseEnter={props.halfOpacity} onMouseLeave={props.normalOpacity}>
-                    <ButtonBase onClick={() => props.removeImage(i)}>
-                      <Grid container spacing={3}>
-                          <img className={classes.profileImage} alt="image" src={image}/>
-                      </Grid>
-                    </ButtonBase>
-                  </Card>
-              ))}
-            </GridList>
+            <Typography variant="h6">Image preview</Typography>
+            {
+              props.image ? 
+              <ButtonBase onClick={() => props.removeImage()}>
+                <img className={classes.profileImage} alt="" src={props.imagePreviewUrl}/>
+              </ButtonBase>
+              : null
+            }
+            
           </div> 
           <br/><br/>
           <div className={classes.paper}>

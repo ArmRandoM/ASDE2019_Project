@@ -10,15 +10,15 @@ export default class ReportPageManager extends Component {
         this.state = {
             reportName:"",
             reportDescription:"",
-            imageSelectedUrl: '',
-            images:[],
+            imagePreviewUrl:'',
+            image:'',
         }
     }
 
     addReport = (event) =>{
         console.log(this.state.reportName);
         console.log(this.state.reportDescription);
-        console.log(this.state.images);
+        console.log(this.state.image);
     }
 
 
@@ -35,17 +35,22 @@ export default class ReportPageManager extends Component {
     }
 
     uploadImage = (event) => {
-        const files = Array.from(event.target.files)
-        this.setState({
-            images: this.state.images.concat(files),
-        });
+        let reader = new FileReader();
+        let file = event.target.files[0];
+    
+        reader.onloadend = () => {
+          this.setState({
+            image: file,
+            imagePreviewUrl: reader.result
+          });
+        }
+    
+        reader.readAsDataURL(file)
     }
 
-    removeImage = (pos) => {
-        console.log(pos)
-        this.state.images.splice(pos,1);
+    removeImage = () => {
         this.setState({
-            images: this.state.images,
+            image: '',
         });
     }
 
@@ -64,7 +69,8 @@ export default class ReportPageManager extends Component {
                     addReport={this.addReport}
                     reportName={this.state.reportName}
                     reportDescription={this.state.reportDescription}
-                    images={this.state.images}
+                    image={this.state.image}
+                    imagePreviewUrl={this.state.imagePreviewUrl}
                     pictures={this.state.pictures}
                     uploadImage={this.uploadImage}
                     onChangeName={this.onChangeName}
