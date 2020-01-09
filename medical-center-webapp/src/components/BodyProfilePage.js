@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Link from '@material-ui/core/Link';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import FollowersDialog from './FollowersDialog.js'
@@ -90,7 +91,7 @@ export default function ComplexGrid() {
                             <Grid item xs={5}>
                                 <label size="small" htmlFor="outlined-button-file">
                                     <Button size="small" variant="outlined" component="span">
-                                        Edit profile
+                                        <Link underline="none" href="editProfile">Edit profile</Link>
                                     </Button>
                                 </label>
                             </Grid>
