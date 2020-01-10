@@ -6,7 +6,6 @@ import Fade from '@material-ui/core/Fade';
 import { Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
@@ -107,7 +106,7 @@ export default function TransitionsModal(props) {
                                     />
                                 </div>  
                             </Grid>
-                            <Grid xs={1}>
+                            <Grid item xs={1}>
                                 <IconButton
                                     title="Close"
                                     onClick={props.handleClose}>
@@ -118,16 +117,16 @@ export default function TransitionsModal(props) {
                         <Divider variant="middle" className={classes.divider} />
                         <div className={classes.users}>
                             {
-                                props.searchResult.map((user) =>
-                                    <ButtonBase onClick={() => props.goToProfile(user.name)} style={{width:'100%'}}>
+                                props.searchResult.map((user,i) =>
+                                    <ButtonBase key={i} onClick={() => props.goToProfile(user.name)} style={{width:'100%'}}>
                                         <Grid container>
                                             <Grid item xs={2} className={classes.avatar}>
                                                 <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
                                             </Grid>
-                                            <Grid xs={4} className={classes.name}>
+                                            <Grid item xs={4} className={classes.name}>
                                                 {user.status}
                                             </Grid>
-                                            <Grid xs={6} className={classes.name}>
+                                            <Grid item xs={6} className={classes.name}>
                                                 {user.name}
                                             </Grid>
                                         </Grid>

@@ -7,7 +7,14 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import FollowersDialog from './FollowersDialog.js'
+import FollowersDialog from './FollowersDialog.js';
+import Avatar from '@material-ui/core/Avatar';
+import InputBase from '@material-ui/core/InputBase';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -54,9 +61,38 @@ const useStyles = makeStyles(theme => ({
         maxWidth: '100%',
         maxHeight: '100%',
     },
+    users: {
+        overflow: 'auto',
+        overflowX: 'hidden',
+        scrollMarginRight: 0,
+        [theme.breakpoints.up('sm')]: {
+            maxHeight: '50%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '90%'
+        },
+    },
+    reports: {
+        overflow: 'auto',
+        overflowX: 'hidden',
+        scrollMarginRight: 0,
+        [theme.breakpoints.up('sm')]: {
+            maxHeight: '70%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '90%'
+        },
+    },
+    card: {
+      width:'100%',
+    },
+    media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+    },
 }));
 
-export default function ComplexGrid() {
+export default function ComplexGrid(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -115,11 +151,11 @@ export default function ComplexGrid() {
                             <Grid item xs={1} />
                             <Grid item xs={11} className={classes.profileDescription}>
                                 <Typography variant="body2" gutterBottom>
-                                    Surgeon👨‍⚕️
+                                    Surgeon<span role="img" aria-label="doc">👨‍⚕️</span>
                                     <br />
-                                    Cardiologist🩺
+                                    Cardiologist<span role="img" aria-label="med">🩺</span>
                                     <br />
-                                    Dermatologist🩹🚑
+                                    Dermatologist<span role="img" aria-label="med">🩹🚑</span>
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -127,6 +163,94 @@ export default function ComplexGrid() {
                 </Grid>
                 <Divider variant="middle" className={classes.divider} />
             </Paper >
+            <Grid container spacing={2}>
+                <Grid item xs={1} sm={1} md={1}></Grid>
+                <Grid item xs={10} sm={10} md={2}>
+                    {
+                        props.isDoctor ? 
+                        <Typography variant="h6" className={classes.paper}>Patients</Typography>
+                        : null
+                    }
+                    <div className={classes.users}>
+                        {
+                            props.isDoctor ? 
+                            props.patients.map((v,i) =>
+                                <ButtonBase key={i} onClick={() => props.selectPatient(v)} style={{width:'100%'}}>
+                                    <Grid container>
+                                        <Grid item xs={3} className={classes.avatar}>
+                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                        </Grid>
+                                        <Grid item xs={9}>
+                                            {v.name}
+                                        </Grid>
+                                    </Grid>
+                                    <br/><br/><br/><br/>
+                                </ButtonBase> 
+                            )
+                            : null
+                        }
+                    </div>
+                </Grid>
+                <Grid item xs={1} sm={1} md={1}></Grid>
+                <Grid item xs={12} sm={12} md={4}>
+                    <div>
+                        {
+                            props.reports.map((v,i)=>
+                                <div key={i}>
+                                    <Card className={classes.card}>
+                                        <CardHeader title={v.name}/>
+                                        <CardMedia
+                                            className={classes.media} alt="" title="image"
+                                            image="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420"
+                                        />
+                                        <CardContent>
+                                            <Grid>
+                                                <Grid item xs={12} sm={12} md={12}>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        {v.description}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={5}>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        {v.iaValutation}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={5}>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        {v.docValutation}
+                                                    </Typography>
+                                                </Grid>                                                
+                                            </Grid>
+                                        </CardContent>
+                                        <CardActions disableSpacing>
+                                        {
+                                                props.isDoctor ? 
+                                                <InputBase
+                                                    placeholder="Insert Valutation..."
+                                                    name="valutation"
+                                                    id="valutation"
+                                                    onChange={props.onValutationChange}
+                                                    onKeyDown  = {(e) => {
+                                                        if (e.key === 'Enter') {
+                                                            props.insertValutation(v)
+                                                        }
+                                                        }
+                                                    }
+                                                />
+                                                : null
+                                            } 
+                                        </CardActions>
+                                    </Card>
+                                    <br/><br/><br/><br/><br/>
+                                </div>
+                            )
+                        }
+                    </div>
+                </Grid>
+            </Grid>
         </div >
     );
 }
+
+
+

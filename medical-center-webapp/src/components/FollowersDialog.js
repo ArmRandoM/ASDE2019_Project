@@ -58,7 +58,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function TransitionsModal(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
 
     return (
         <div>
@@ -83,7 +82,7 @@ export default function TransitionsModal(props) {
                             >
                                 Followers/Follows
                                 </Grid>
-                            <Grid xs={1}>
+                            <Grid item xs={1}>
                                 <IconButton
                                     title="Close"
                                     onClick={props.handleClose}>
@@ -101,12 +100,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Aldo Baglio
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -122,12 +121,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giovanni Storti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -143,12 +142,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -164,12 +163,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Aldo Baglio
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -185,12 +184,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giovanni Storti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -206,12 +205,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -227,12 +226,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Aldo Baglio
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -248,12 +247,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giovanni Storti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -269,12 +268,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -290,12 +289,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Aldo Baglio
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -311,12 +310,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giovanni Storti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -332,12 +331,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -353,12 +352,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -374,12 +373,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
@@ -395,12 +394,12 @@ export default function TransitionsModal(props) {
                                     <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.name}>
                                     Giacomo Poretti
                                 </Grid>
                                 <Grid
-                                    xs={5}
+                                    item xs={5}
                                     className={classes.button}
                                 >
                                     <Button variant="small" component="span">
