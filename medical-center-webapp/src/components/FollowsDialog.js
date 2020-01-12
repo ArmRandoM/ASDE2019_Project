@@ -1,15 +1,14 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import Avatar from '@material-ui/core/Avatar';
-import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -55,19 +54,6 @@ const useStyles = makeStyles(theme => ({
         },
         padding: theme.spacing(2, 4, 3),
     },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-      },
-    },
 }));
 
 export default function TransitionsModal(props) {
@@ -90,21 +76,11 @@ export default function TransitionsModal(props) {
                 <Fade in={props.open}>
                     <div className={classes.paper}>
                         <Grid container>
-                            <Grid item xs={11} className={classes.title}>
-                                <div className={classes.search}>
-                                    <InputBase
-                                        placeholder="Search…"
-                                        name="search"
-                                        id="search"
-                                        onChange={props.onSearchChange}
-                                        onKeyDown  = {(e) => {
-                                            if (e.key === 'Enter') {
-                                                props.makeSearch()
-                                            }
-                                            }
-                                        }
-                                    />
-                                </div>  
+                            <Grid
+                                item xs={11}
+                                className={classes.title}
+                            >
+                                Follows
                             </Grid>
                             <Grid item xs={1}>
                                 <IconButton
@@ -117,7 +93,7 @@ export default function TransitionsModal(props) {
                         <Divider variant="middle" className={classes.divider} />
                         <div className={classes.users}>
                             {
-                                props.searchResult.map((user,i) =>
+                                props.follows.map((user,i) =>
                                     <Grid key={i} container>
                                         <Grid item xs={2} className={classes.avatar}>
                                             <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
@@ -129,7 +105,7 @@ export default function TransitionsModal(props) {
                                             {user.name}
                                         </Grid>
                                         <Grid item xs={3} className={classes.name}>
-                                            <Button onClick={() => props.followOperation(user,i)} style={{width:'100%'}}>
+                                            <Button onClick={() => props.followOperationOnFollows(user,i)} style={{width:'100%'}}>
                                                 {
                                                     user.followed ? <span>Unfollow</span> : <span>Follow</span>
                                                 }
@@ -145,4 +121,3 @@ export default function TransitionsModal(props) {
         </div>
     );
 }
-

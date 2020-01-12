@@ -11,13 +11,25 @@ export default class ReportPageManager extends Component {
             reportDescription:"",
             imagePreviewUrl:'',
             image:'',
+            added:false,
         }
     }
 
     addReport = (event) =>{
-        console.log(this.state.reportName);
-        console.log(this.state.reportDescription);
-        console.log(this.state.image);
+        /*
+        var report = {
+            reportName: this.state.reportName,
+            reportDescription: this.state.reportDescription,
+            image: this.state.image,
+            iaValutation: "",
+            docValutation: "",
+        }
+        MedicalCenterBaseIstance.post("/addReport", {report: this.state.report}).then((res) => {
+            this.setState({
+                added : res.data
+            })
+        })
+        */
     }
 
 
@@ -76,6 +88,7 @@ export default class ReportPageManager extends Component {
                     removeImage={this.removeImage}
                     normalOpacity={this.normalOpacity}
                     halfOpacity={this.halfOpacity}
+                    added={this.state.added}
                     onChangeDescription={this.onChangeDescription}/>
             </div>
         );

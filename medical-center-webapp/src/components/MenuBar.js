@@ -56,7 +56,7 @@ export default function PrimarySearchAppBar(props) {
         classes={classes}
         search={props.search}
         onSearchChange={props.onSearchChange}
-        goToProfile={props.goToProfile}
+        followOperation={props.followOperation}
         makeSearch={props.makeSearch}
         searchResult={props.searchResult} 
       />

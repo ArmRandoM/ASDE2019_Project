@@ -105,6 +105,14 @@ export default function ControlledExpansionPanels(props) {
               Submit
             </Button>
           </div>
+          <br/><br/>
+          <div className={classes.paper}>
+            {
+              props.added ? 
+              <Typography variant="h6">Report added successfully</Typography>
+              : null
+            }
+          </div>
         </Grid>
       </Grid>
       <br/>

@@ -65,348 +65,55 @@ export default function TransitionsModal(props) {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
-                open={props.open}
-                onClose={props.handleClose}
+                open={props.open2}
+                onClose={props.handleClose2}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
                 }}
             >
-                <Fade in={props.open}>
+                <Fade in={props.open2}>
                     <div className={classes.paper}>
                         <Grid container>
                             <Grid
                                 item xs={11}
                                 className={classes.title}
                             >
-                                Followers/Follows
-                                </Grid>
+                                Followers
+                            </Grid>
                             <Grid item xs={1}>
                                 <IconButton
                                     title="Close"
-                                    onClick={props.handleClose}>
+                                    onClick={props.handleClose2}>
                                     <CloseIcon fontSize="small" />
                                 </IconButton>
                             </Grid>
                         </Grid>
                         <Divider variant="middle" className={classes.divider} />
                         <div className={classes.users}>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Aldo Baglio
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Follow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giovanni Storti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Aldo Baglio
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Follow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giovanni Storti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Aldo Baglio
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Follow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giovanni Storti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Aldo Baglio
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Follow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYemKZt0Dcd99e-Tc3ojETV0rGuP8npCX5Tl_rl6KRfZxSVg33" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giovanni Storti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid
-                                    item xs={2}
-                                    className={classes.avatar}
-                                >
-                                    <Avatar alt="Remy Sharp" src="https://www.varesenews.it/photogallery_new/images/2017/07/avarie-623582.610x431.jpg" />
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.name}>
-                                    Giacomo Poretti
-                                </Grid>
-                                <Grid
-                                    item xs={5}
-                                    className={classes.button}
-                                >
-                                    <Button variant="small" component="span">
-                                        Unfollow
-                                </Button>
-                                </Grid>
-                            </Grid>
+                            {
+                                props.followers.map((user,i) =>
+                                    <Grid key={i} container>
+                                        <Grid item xs={2} className={classes.avatar}>
+                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                        </Grid>
+                                        <Grid item xs={3} className={classes.name}>
+                                            {user.status}
+                                        </Grid>
+                                        <Grid item xs={4} className={classes.name}>
+                                            {user.name}
+                                        </Grid>
+                                        <Grid item xs={3} className={classes.name}>
+                                            <Button onClick={() => props.followOperationOnFollowers(user,i)} style={{width:'100%'}}>
+                                                {
+                                                    user.followed ? <span>Unfollow</span> : <span>Follow</span>
+                                                }
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                )
+                            }
                         </div>
                     </div>
                 </Fade>

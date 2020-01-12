@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import FollowsDialog from './FollowsDialog.js';
 import FollowersDialog from './FollowersDialog.js';
 import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
@@ -104,13 +105,34 @@ export default function ComplexGrid(props) {
     const handleClose = () => {
         setOpen(false);
     };
+    
+    const [open2, setOpen2] = React.useState(false);
+
+    const handleClickOpen2 = () => {
+        setOpen2(true);
+    };
+
+    const handleClose2 = () => {
+        setOpen2(false);
+    };
+
 
     return (
         <div className={classes.root}>
-            <FollowersDialog
+            <FollowsDialog
                 handleClose={handleClose}
                 open={open}
-                classes={classes} />
+                classes={classes} 
+                follows={props.follows}
+                followOperationOnFollows={props.followOperationOnFollows}
+            />
+            <FollowersDialog
+                handleClose2={handleClose2}
+                open2={open2}
+                classes={classes}
+                followers={props.followers}
+                followOperationOnFollowers={props.followOperationOnFollowers}
+            />
             <Paper className={classes.paper} elevation={0}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
@@ -127,17 +149,17 @@ export default function ComplexGrid(props) {
                             <Grid item xs={5}>
                                 <label size="small" htmlFor="outlined-button-file">
                                     <Button size="small" variant="outlined" component="span">
-                                        <Link underline="none" href="editProfile">Edit profile</Link>
+                                        <Link underline="none" href="editProfile">Edit</Link>
                                     </Button>
                                 </label>
                             </Grid>
                         </Grid>
                         <Grid container className={classes.foll}>
-                            <Grid item xs={6} className={classes.follist}>
-                                <Button onClick={handleClickOpen} href="#text-buttons"><b>nr.</b> followers</Button>
+                            <Grid item xs={12} sm={6} md={6} className={classes.follist}>
+                                <Button onClick={handleClickOpen} href="#text-buttons"><b>{props.follows.length}</b> follows</Button>
                             </Grid>
-                            <Grid item xs={6} className={classes.follist}>
-                                <Button onClick={handleClickOpen} href="#text-buttons"><b>nr.</b> follows</Button>
+                            <Grid item xs={12} sm={6} md={6}  className={classes.follist}>
+                                <Button onClick={handleClickOpen2} href="#text-buttons"><b>{props.followers.length}</b> followers</Button>
                             </Grid>
                         </Grid>
                         <Grid container className={classes.profileName}>
@@ -232,7 +254,7 @@ export default function ComplexGrid(props) {
                                                     onChange={props.onValutationChange}
                                                     onKeyDown  = {(e) => {
                                                         if (e.key === 'Enter') {
-                                                            props.insertValutation(v)
+                                                            props.insertValutation(i)
                                                         }
                                                         }
                                                     }

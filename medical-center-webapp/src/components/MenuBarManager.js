@@ -9,35 +9,56 @@ export default class MenuBarManager extends Component {
         this.state = {
             search: "",
             searchResult:[
-                { status: "Doctor", name: "Darlena Lecroy",},
-                { status: "Doctor", name: "Rozella Alford",},
-                { status: "Patient", name: "Lianne Stanhope",},
-                { status: "Doctor", name: "Reda Amador",},
-                { status: "Patient", name: "Catherina Maillet",},
-                { status: "Patient", name:  "Elfreda Schuette",},
-                { status: "Patient", name: "Malvina Gunnerson",},
-                { status: "Patient", name: "Logan Hake",},
-                { status: "Doctor", name: "Song Lovely",},
-                { status: "Doctor", name: "Chi Trammell",},
-                { status: "Doctor", name: "Laurel Hille",},
-                { status: "Patient", name: "Erasmo Masser",},
-                { status: "Patient", name: "Aretha Drapeau",},
-                { status: "Doctor", name: "Shawnna Huntzinger",},
-                { status: "Patient", name: "Barabara Rech",},
-                { status: "Doctor", name: "Lynda Tuller",},
-                { status: "Patient", name: "Nickolas Loew",},
-                { status: "Doctor", name: "Rosario Wallington",},                
+                { status: "Doctor", name: "Darlena Lecroy", followed: true},
+                { status: "Doctor", name: "Rozella Alford", followed: false},
+                { status: "Patient", name: "Lianne Stanhope", followed: false},
+                { status: "Doctor", name: "Reda Amador", followed: true},
+                { status: "Patient", name: "Catherina Maillet", followed: false},
+                { status: "Patient", name:  "Elfreda Schuette", followed: false},
+                { status: "Patient", name: "Malvina Gunnerson", followed: false},
+                { status: "Patient", name: "Logan Hake", followed: true},
+                { status: "Doctor", name: "Song Lovely", followed: true},
+                { status: "Doctor", name: "Chi Trammell", followed: false},
+                { status: "Doctor", name: "Laurel Hille", followed: false},
             ],
+            logOut: false,
+            followOperationComplete: true,
         }
     }
     
     logOut = (event) =>{
-        
+        /*
+        MedicalCenterBaseIstance.post("/logOut").then((res) => {
+            this.setState({
+                logOut : res.data
+            })
+        })
+        */   
     }
 
-    goToProfile = (event) =>{
-        
-    }    
+    followOperation = (user,i) =>{
+        /*
+        MedicalCenterBaseIstance.post("/followOperation", {user: user}).then((res) => {
+            this.setState({
+                followOperationComplete : res.data
+            })
+        })
+        */
+       if(this.state.followOperationComplete){
+            var usersArray = Array.from(this.state.searchResult);
+            for (var j in usersArray) {
+                if (j == i) {
+                    usersArray[i].followed = !usersArray[i].followed;
+                break;
+                }
+            }
+            this.setState({
+                searchResult: usersArray
+            });
+       }
+
+    } 
+           
     
     makeSearch  = () => {
         console.log(this.state.search);
@@ -60,12 +81,18 @@ export default class MenuBarManager extends Component {
 
 
     render() {
+        if(this.state.logOut){
+            window.location.href = "/signUp";
+        }
+        else{
+
+        }
         return (
             <div>
                 <MenuBar
                     logOut={this.logOut}
                     search={this.state.search}
-                    goToProfile={this.goToProfile}
+                    followOperation={this.followOperation}
                     onSearchChange={this.onSearchChange}
                     makeSearch={this.makeSearch}
                     searchResult={this.state.searchResult}
