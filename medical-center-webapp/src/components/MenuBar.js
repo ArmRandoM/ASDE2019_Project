@@ -47,7 +47,6 @@ export default function PrimarySearchAppBar(props) {
       setOpen(false);
   };
 
-
   return (
     <div className={classes.grow}>
       <SearchDialog
