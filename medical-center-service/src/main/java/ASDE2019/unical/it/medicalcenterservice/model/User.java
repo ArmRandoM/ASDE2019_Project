@@ -1,36 +1,69 @@
 package ASDE2019.unical.it.medicalcenterservice.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Patient {
+public class User {
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
 
 	@Id
-	@Size(max = 1000)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idUser;
+	
 	private String email;
 
 	private String name;
 
 	private String surname;
 
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
 	private String password;
 	
 	private boolean doctor;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private List<Report> reports;
 
-	public Patient() {
+	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Patient(String name, String surname, String password, String email, boolean doctor) {
+
+
+	public User(String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
 		super();
+		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
-		this.email = email;
 		this.doctor = doctor;
+		this.reports = reports;
 	}
 
 	@Override

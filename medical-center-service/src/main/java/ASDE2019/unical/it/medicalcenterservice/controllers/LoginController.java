@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ASDE2019.unical.it.medicalcenterservice.model.Patient;
+import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.services.EmailService;
 import ASDE2019.unical.it.medicalcenterservice.services.LoginService;
 
 @RestController
-public class MedicalCenterServiceController {
+public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
@@ -26,7 +26,7 @@ public class MedicalCenterServiceController {
 	
 	@CrossOrigin
 	@PostMapping("/signUp")
-	public boolean signUp(@RequestBody Patient patient) {
+	public boolean signUp(@RequestBody User patient) {
 		if(loginService.saveNewPatient(patient)) {
 			emailService.sendEmail(patient.getEmail(), patient.getName(), "Registration");
 			return true;

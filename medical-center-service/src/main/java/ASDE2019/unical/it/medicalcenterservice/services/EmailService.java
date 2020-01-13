@@ -25,13 +25,13 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ASDE2019.unical.it.medicalcenterservice.repositories.PatientDAO;
+import ASDE2019.unical.it.medicalcenterservice.repositories.UserDAO;
 
 @Service
 public class EmailService {
 
 	@Autowired
-	private PatientDAO utenteDao;
+	private UserDAO utenteDao;
 	
 	private static String host = "smtp.gmail.com";
 	
@@ -72,7 +72,7 @@ public class EmailService {
 	         if(subject.equals("Recupero password")) 
 	         {
 	        	try {
-	        		htmlText = "Your passowrd is: "+utenteDao.findById(to).get().getPassword(); 
+	        		//htmlText = "Your passowrd is: "+utenteDao.findById(to).get().getPassword(); 
 				} catch (Exception e) {
 					return false;
 				}

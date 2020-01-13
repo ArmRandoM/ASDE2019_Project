@@ -3,18 +3,19 @@ package ASDE2019.unical.it.medicalcenterservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ASDE2019.unical.it.medicalcenterservice.model.Patient;
-import ASDE2019.unical.it.medicalcenterservice.repositories.PatientDAO;
+import ASDE2019.unical.it.medicalcenterservice.model.User;
+import ASDE2019.unical.it.medicalcenterservice.model.User;
+import ASDE2019.unical.it.medicalcenterservice.repositories.UserDAO;
 
 @Service
 public class LoginService {
 
 	@Autowired
-	private PatientDAO utenteDao;
+	private UserDAO utenteDao;
 
-	public synchronized boolean saveNewPatient(Patient utente) {
+	public synchronized boolean saveNewPatient(User utente) {
 		try {
-			if (!utenteDao.existsById(utente.getEmail())) {
+			if (!utenteDao.existsById(utente.getIdUser())) {
 				utenteDao.save(utente);
 				return true;
 			} else
@@ -44,9 +45,9 @@ public class LoginService {
 	}
 	
 	
-	public synchronized Patient getUser(String email) {
+	public synchronized User getUser(String email) {
 		try {
-			return utenteDao.findById(email).get();
+			return utenteDao.findByEmail(email);
 		} catch (Exception e) {
 			return null;
 		}
