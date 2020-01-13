@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import BodyProfilePage from './BodyProfilePage';
-//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
+import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js'
 
 export default class ProfilePageManager extends Component {
-    
+
     constructor() {
         super();
         this.state = {
@@ -12,7 +12,7 @@ export default class ProfilePageManager extends Component {
             email: " battilemani@batman.bat ",
             password: "batmanèilpiufigo",
             status: "doctor",
-            isDoctor: true,
+            isDoctor: false,
             valutationToInsert: "",
             follows:[
                 { status: "Doctor", name: "Darlena Lecroy", followed: true},
@@ -36,7 +36,7 @@ export default class ProfilePageManager extends Component {
             followsOperationComplete: true,
             followersOperationComplete: true,
             patients:[
-                { name: "Catherina Maillet", 
+                { name: "Catherina Maillet",
                   image:'',
                   reports: [{name: "1.1 name", description: "1.1 description", image:'', iaValutation:"1.1 iaValutation", docValutation:" 1.1 docValutation"},
                             {name: "1.2 name", description: "1.2 description", image:'', iaValutation:"1.2 iaValutation", docValutation:" 1.2 docValutation"},
@@ -66,14 +66,11 @@ export default class ProfilePageManager extends Component {
                             {name: "4.2 name", description: "4.2 description", image:'', iaValutation:"4.2 iaValutation", docValutation:"4.2 docValutation"},
                             {name: "4.3 name", description: "4.3 description", image:'', iaValutation:"4.3 iaValutation", docValutation:"4.3 docValutation"},
                             {name: "4.4 name", description: "4.4 description", image:'', iaValutation:"4.4 iaValutation", docValutation:"4.4 docValutation"}
-                           ] 
+                           ]
                 },
             ],
             reports: [
-                {name: "1 name", description: "1 description", image:'', iaValutation:"1 iaValutation", docValutation:"1 docValutation"},
-                {name: "2 name", description: "2 description", image:'', iaValutation:"2 iaValutation", docValutation:"2 docValutation"},
-                {name: "3 name", description: "3 description", image:'', iaValutation:"3 iaValutation", docValutation:"3 docValutation"},
-                {name: "4 name", description: "4 description", image:'', iaValutation:"4 iaValutation", docValutation:"4 docValutation"}
+                {reportName: "", reportDescription: "", image:'', iaValutation:"", docValutation:""}
             ]
         }
     }
@@ -99,7 +96,7 @@ export default class ProfilePageManager extends Component {
             });
        }
 
-    } 
+    }
 
     followOperationOnFollowers = (user,i) =>{
         /*
@@ -122,7 +119,7 @@ export default class ProfilePageManager extends Component {
             });
        }
 
-    } 
+    }
     onChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -153,9 +150,27 @@ export default class ProfilePageManager extends Component {
         this.setState({
             reports: patient.reports
         });
-    }  
+    }
+
+
+        getReports() {
+          console.log("SONO DENTRO getReports")
+          MedicalCenterBaseIstance.get("/getReportsFromUser", {
+              params: {
+                  "email": this.state.email,
+              }
+          }).then((res) => {
+
+              this.setState({
+                  reports: res.data
+              })
+          })
+
+          console.log(this.state.reports);
+        }
 
     render() {
+      this.getReports();
         return (
             <div>
                 <BodyProfilePage

@@ -105,7 +105,7 @@ export default function ComplexGrid(props) {
     const handleClose = () => {
         setOpen(false);
     };
-    
+
     const [open2, setOpen2] = React.useState(false);
 
     const handleClickOpen2 = () => {
@@ -122,7 +122,7 @@ export default function ComplexGrid(props) {
             <FollowsDialog
                 handleClose={handleClose}
                 open={open}
-                classes={classes} 
+                classes={classes}
                 follows={props.follows}
                 followOperationOnFollows={props.followOperationOnFollows}
             />
@@ -189,25 +189,25 @@ export default function ComplexGrid(props) {
                 <Grid item xs={1} sm={1} md={1}></Grid>
                 <Grid item xs={10} sm={10} md={2}>
                     {
-                        props.isDoctor ? 
+                        props.isDoctor ?
                         <Typography variant="h6" className={classes.paper}>Patients</Typography>
                         : null
                     }
                     <div className={classes.users}>
                         {
-                            props.isDoctor ? 
+                            props.isDoctor ?
                             props.patients.map((v,i) =>
                                 <ButtonBase key={i} onClick={() => props.selectPatient(v)} style={{width:'100%'}}>
                                     <Grid container>
                                         <Grid item xs={3} className={classes.avatar}>
-                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                            <Avatar alt="Remy Sharp" src={v.image} />
                                         </Grid>
                                         <Grid item xs={9}>
                                             {v.name}
                                         </Grid>
                                     </Grid>
                                     <br/><br/><br/><br/>
-                                </ButtonBase> 
+                                </ButtonBase>
                             )
                             : null
                         }
@@ -223,7 +223,7 @@ export default function ComplexGrid(props) {
                                         <CardHeader title={v.name}/>
                                         <CardMedia
                                             className={classes.media} alt="" title="image"
-                                            image="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420"
+                                            image={v.image}
                                         />
                                         <CardContent>
                                             <Grid>
@@ -241,12 +241,12 @@ export default function ComplexGrid(props) {
                                                     <Typography variant="body2" color="textSecondary" component="p">
                                                         {v.docValutation}
                                                     </Typography>
-                                                </Grid>                                                
+                                                </Grid>
                                             </Grid>
                                         </CardContent>
                                         <CardActions disableSpacing>
                                         {
-                                                props.isDoctor ? 
+                                                props.isDoctor ?
                                                 <InputBase
                                                     placeholder="Insert Valutation..."
                                                     name="valutation"
@@ -260,7 +260,7 @@ export default function ComplexGrid(props) {
                                                     }
                                                 />
                                                 : null
-                                            } 
+                                            }
                                         </CardActions>
                                     </Card>
                                     <br/><br/><br/><br/><br/>
@@ -273,6 +273,3 @@ export default function ComplexGrid(props) {
         </div >
     );
 }
-
-
-

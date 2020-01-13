@@ -1,14 +1,17 @@
 package ASDE2019.unical.it.medicalcenterservice.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ASDE2019.unical.it.medicalcenterservice.dto.ReportDTO;
 import ASDE2019.unical.it.medicalcenterservice.model.Report;
 import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.services.LoginService;
@@ -44,12 +47,18 @@ public class ReportController {
 	
 	
 	@CrossOrigin
-	@PostMapping("/getReportsFromUser")
-	public List<Report> getReportFromUser(@RequestParam String email) {
+	@GetMapping("/getReportsFromUser")
+	public List<ReportDTO> getReportsFromUser(@RequestParam String email) {
 		//TODO bisogna dare al report l'utente che lo ha creato (cioè quella della sessione)
 		try {
 			User u = loginService.getUser("francesco.tumminelli95@gmail.com");
-			return u.getReports();
+			List<ReportDTO> reportsBean = new ArrayList<ReportDTO>();
+			for (Report report : u.getReports()) {
+				ReportDTO reportDTO = new ReportDTO();
+				reportDTO.convertReportEntityToBean(report);
+				reportsBean.add(reportDTO);
+			}
+			return reportsBean;
 		} catch (Exception e) {
 			return null;
 		}

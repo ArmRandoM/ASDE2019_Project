@@ -72,7 +72,9 @@ export default class ReportPageManager extends Component {
         event.target.style.opacity = '1';
     }
 
+
     render() {
+
         return (
             <div>
                 <BodyReportPage
