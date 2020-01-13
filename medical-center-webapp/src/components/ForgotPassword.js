@@ -48,7 +48,7 @@ export default function SignIn(props) {
                         </Button>
                     <Grid container>
                         <Grid item>
-                            <Link name="forgot" href="#" variant="body2" onClick={props.signSwitch}>
+                            <Link name="forgot" href="/" variant="body2">
                                 Remembered it? Sign In.
                             </Link>
                         </Grid>

@@ -11,7 +11,7 @@ from keras import backend as K
 import sys, getopt
 
 imageName = sys.argv[1]
-
+print("Predicting the image: ",imageName)
 # NOTA: TENSORFLOW==1.15.0
 dropout = .5
 
