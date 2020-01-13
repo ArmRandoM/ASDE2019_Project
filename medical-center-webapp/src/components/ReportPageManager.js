@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import BodyReportPage from './BodyReportPage';
-//import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js';
+import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js';
 
 export default class ReportPageManager extends Component {
-    
+
     constructor() {
         super();
         this.state = {
@@ -16,20 +16,19 @@ export default class ReportPageManager extends Component {
     }
 
     addReport = (event) =>{
-        /*
-        var report = {
-            reportName: this.state.reportName,
-            reportDescription: this.state.reportDescription,
-            image: this.state.image,
-            iaValutation: "",
-            docValutation: "",
-        }
-        MedicalCenterBaseIstance.post("/addReport", {report: this.state.report}).then((res) => {
+        console.log(this.state.imagePreviewUrl);
+        MedicalCenterBaseIstance.post("/saveReport", {
+          reportName: this.state.reportName,
+          reportDescription: this.state.reportDescription,
+          image: this.state.imagePreviewUrl,
+          iaValutation: "",
+          docValutation: ""
+        }).then((res) => {
             this.setState({
                 added : res.data
             })
         })
-        */
+
     }
 
 
@@ -38,7 +37,7 @@ export default class ReportPageManager extends Component {
             reportName: event.target.value,
         });
     }
-    
+
     onChangeDescription = (event) => {
         this.setState({
             reportDescription: event.target.value,
@@ -48,14 +47,14 @@ export default class ReportPageManager extends Component {
     uploadImage = (event) => {
         let reader = new FileReader();
         let file = event.target.files[0];
-    
+
         reader.onloadend = () => {
           this.setState({
             image: file,
             imagePreviewUrl: reader.result
           });
         }
-    
+
         reader.readAsDataURL(file)
     }
 

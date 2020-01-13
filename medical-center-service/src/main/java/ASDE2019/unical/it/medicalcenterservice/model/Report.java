@@ -1,6 +1,8 @@
 package ASDE2019.unical.it.medicalcenterservice.model;
 
 
+import java.awt.Image;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,21 +21,24 @@ public class Report {
 	private int idReport;
 	
 	@Column(length=100000)
-	private byte[] img;
-
-	@ManyToOne
-	private User user;
+	private String image;
+	
+	private String reportName;
+	
+	private String reportDescription;
+	
+	private String iaValutation;
+	
+	private String docValutation;
 
 	public Report() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Report(byte[] img, User user) {
-		super();
-		this.img = img;
-		this.user = user;
-	}
+
+	@ManyToOne
+	private User user;
 
 	public int getIdReport() {
 		return idReport;
@@ -43,12 +48,57 @@ public class Report {
 		this.idReport = idReport;
 	}
 
-	public byte[] getImg() {
-		return img;
+
+	public String getReportName() {
+		return reportName;
 	}
 
-	public void setImg(byte[] img) {
-		this.img = img;
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
+	}
+
+	public String getReportDescription() {
+		return reportDescription;
+	}
+
+
+	public Report(String image, String reportName, String reportDescription, String iaValutation, String docValutation,
+			User user) {
+		super();
+		this.image = image;
+		this.reportName = reportName;
+		this.reportDescription = reportDescription;
+		this.iaValutation = iaValutation;
+		this.docValutation = docValutation;
+		this.user = user;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setReportDescription(String reportDescription) {
+		this.reportDescription = reportDescription;
+	}
+
+	public String getIaValutation() {
+		return iaValutation;
+	}
+
+	public void setIaValutation(String iaValutation) {
+		this.iaValutation = iaValutation;
+	}
+
+	public String getDocValutation() {
+		return docValutation;
+	}
+
+	public void setDocValutation(String docValutation) {
+		this.docValutation = docValutation;
 	}
 
 	public User getUser() {
@@ -58,5 +108,8 @@ public class Report {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+
+
+
 }
