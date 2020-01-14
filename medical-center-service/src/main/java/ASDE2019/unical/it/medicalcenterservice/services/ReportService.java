@@ -15,7 +15,7 @@ public class ReportService {
 	
 	public synchronized void saveNewReport(Report report) {
 		try {
-				reportDAO.save(report);
+			reportDAO.save(report);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

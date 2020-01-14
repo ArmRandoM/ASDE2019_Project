@@ -25,8 +25,6 @@ export default class ProfilePageManager extends Component {
                 { status: "Patient", name: "Logan Hake", followed: true},
                 { status: "Doctor", name: "Darlena Lecroy", followed: true},
             ],
-            followsOperationComplete: true,
-            followersOperationComplete: true,
             patients:[
                 { name: "Catherina Maillet",
                   image:'',
@@ -58,49 +56,42 @@ export default class ProfilePageManager extends Component {
     }
 
     followOperationOnFollows = (user,i) =>{
-        /*
-        MedicalCenterBaseIstance.post("/followOperation", {user: user}).then((res) => {
-            this.setState({
-                followsOperationComplete : res.data
-            })
-        })
-        */
-       if(this.state.followsOperationComplete){
-            var followsArray = Array.from(this.state.follows);
-            for (var j in followsArray) {
-                if (j == i) {
-                    followsArray[i].followed = !followsArray[i].followed;
-                break;
+        MedicalCenterBaseIstance.post("/followOperation", {user: user})
+            .then((res) => {
+                if(res.data){
+                    var followsArray = Array.from(this.state.follows);
+                    for (var j in followsArray) {
+                        if (j == i) {
+                            followsArray[i].followed = !followsArray[i].followed;
+                        break;
+                        }
+                    }
+                    this.setState({
+                        follows: followsArray
+                    });
+                
                 }
             }
-            this.setState({
-                follows: followsArray
-            });
-       }
-
+        )
     }
 
     followOperationOnFollowers = (user,i) =>{
-        /*
-        MedicalCenterBaseIstance.post("/followOperation", {user: user}).then((res) => {
-            this.setState({
-                followersOperationComplete : res.data
-            })
-        })
-        */
-       if(this.state.followersOperationComplete){
-            var followersArray = Array.from(this.state.followers);
-            for (var j in followersArray) {
-                if (j == i) {
-                    followersArray[i].followed = !followersArray[i].followed;
-                break;
+        MedicalCenterBaseIstance.post("/followOperation", {user: user})
+            .then((res) => {
+                if(res.data){
+                    var followersArray = Array.from(this.state.followers);
+                    for (var j in followersArray) {
+                        if (j == i) {
+                            followersArray[i].followed = !followersArray[i].followed;
+                        break;
+                        }
+                    }
+                    this.setState({
+                        followers: followersArray
+                    });
                 }
             }
-            this.setState({
-                followers: followersArray
-            });
-       }
-
+        )
     }
 
     onChange = (event) => {
@@ -110,22 +101,22 @@ export default class ProfilePageManager extends Component {
     }
 
     insertValutation = (i) =>{
-        var reportsArray = Array.from(this.state.reports);
-        for (var j in reportsArray) {
-            if (j == i) {
-               reportsArray[i].docValutation = this.state.valutationToInsert;
-               break;
-            }
-        }
-        this.setState({
-            reports: reportsArray
-        });
-        
         var report=this.state.reports[i];
         MedicalCenterBaseIstance.post("/updateReport", {report: report})
-          .then((res) => {
-              
-          }
+            .then((res) => {
+                if(res.data){
+                    var reportsArray = Array.from(this.state.reports);
+                    for (var j in reportsArray) {
+                        if (j == i) {
+                        reportsArray[i].docValutation = this.state.valutationToInsert;
+                        break;
+                        }
+                    }
+                    this.setState({
+                        reports: reportsArray
+                    });  
+                }
+            }
         )
 
     }
@@ -134,9 +125,20 @@ export default class ProfilePageManager extends Component {
         var report=this.state.reports[i];
         console.log(report);
         MedicalCenterBaseIstance.post("/deleteReport", {report: report})
-          .then((res) => {
-              
-          }
+            .then((res) => {   
+                if(res.data){               
+                    var reportsArray = [];
+                    for (var j in this.state.reports) {
+                        if (j != i) {
+                        reportsArray.push(this.state.reports[j]);
+                        }
+                    }
+                    console.log(reportsArray);
+                    this.setState({
+                        reports: reportsArray
+                    });
+                }      
+            }
         )
     }
 
