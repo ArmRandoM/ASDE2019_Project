@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import Link from '@material-ui/core/Link';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import FollowsDialog from './FollowsDialog.js';
@@ -16,6 +15,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import EditProfileManager from './EditProfileManager.js';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -93,6 +93,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
 export default function ComplexGrid(props) {
     const classes = useStyles();
 
@@ -116,160 +117,150 @@ export default function ComplexGrid(props) {
         setOpen2(false);
     };
 
-
-    return (
-        <div className={classes.root}>
-            <FollowsDialog
-                handleClose={handleClose}
-                open={open}
-                classes={classes}
-                follows={props.follows}
-                followOperationOnFollows={props.followOperationOnFollows}
+    if(props.edit){
+        return(
+            <EditProfileManager
+                myProps={props}
             />
-            <FollowersDialog
-                handleClose2={handleClose2}
-                open2={open2}
-                classes={classes}
-                followers={props.followers}
-                followOperationOnFollowers={props.followOperationOnFollowers}
-            />
-            <Paper className={classes.paper} elevation={0}>
+        )
+    }
+    else{
+        return (
+            <div className={classes.root}>
+                <FollowsDialog
+                    handleClose={handleClose}
+                    open={open}
+                    classes={classes}
+                    follows={props.follows}
+                    followOperationOnFollows={props.followOperationOnFollows}
+                />
+                <FollowersDialog
+                    handleClose2={handleClose2}
+                    open2={open2}
+                    classes={classes}
+                    followers={props.followers}
+                    followOperationOnFollowers={props.followOperationOnFollowers}
+                />
+                <Paper className={classes.paper} elevation={0}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={4}>
+                            <img className={classes.profileImage} alt="" src={props.loggedUser.image} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Grid className={classes.paper}>
+                                <Button size="small" variant="outlined" component="span" onClick={props.setEdit}>
+                                        Edit
+                                </Button>
+                            </Grid>
+                            <Grid container className={classes.foll}>
+                                <Grid item xs={12} sm={6} md={6} className={classes.follist}>
+                                    <Button onClick={handleClickOpen} href="#text-buttons"><b>{props.follows.length}</b> follows</Button>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={6}  className={classes.follist}>
+                                    <Button onClick={handleClickOpen2} href="#text-buttons"><b>{props.followers.length}</b> followers</Button>
+                                </Grid>
+                            </Grid>
+                            <Grid container className={classes.profileName}>
+                                <Grid item xs={11} className={classes.profileName}>
+                                    <Typography variant="h6" gutterBottom>
+                                        {
+                                            props.loggedUser.doctor
+                                            ? <span>Dr.</span> :null
+                                        } 
+                                        {props.loggedUser.name} {props.loggedUser.surname}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Divider variant="middle" className={classes.divider} />
+                </Paper >
                 <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <ButtonBase className={classes.profileImage}>
-                            <img className={classes.profileImage} alt="complex" src="http://www.aldogiovanniegiacomo.it/wp-content/uploads/2016/02/medici.png" />
-                        </ButtonBase>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Grid container>
-                            <Grid item xs={1} />
-                            <Grid item xs={6} className={classes.profileName}>
-                                Dr. Piciarnalli
-                            </Grid>
-                            <Grid item xs={5}>
-                                <label size="small" htmlFor="outlined-button-file">
-                                    <Button size="small" variant="outlined" component="span">
-                                        <Link underline="none" href="editProfile">Edit</Link>
-                                    </Button>
-                                </label>
-                            </Grid>
-                        </Grid>
-                        <Grid container className={classes.foll}>
-                            <Grid item xs={12} sm={6} md={6} className={classes.follist}>
-                                <Button onClick={handleClickOpen} href="#text-buttons"><b>{props.follows.length}</b> follows</Button>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={6}  className={classes.follist}>
-                                <Button onClick={handleClickOpen2} href="#text-buttons"><b>{props.followers.length}</b> followers</Button>
-                            </Grid>
-                        </Grid>
-                        <Grid container className={classes.profileName}>
-                            <Grid item xs={11} className={classes.profileName}>
-                                <Typography variant="h6" gutterBottom>
-                                    Dr. Ernesto Piciarnalli
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item xs={1} />
-                            <Grid item xs={11} className={classes.profileDescription}>
-                                <Typography variant="body2" gutterBottom>
-                                    Surgeon<span role="img" aria-label="doc">👨‍⚕️</span>
-                                    <br />
-                                    Cardiologist<span role="img" aria-label="med">🩺</span>
-                                    <br />
-                                    Dermatologist<span role="img" aria-label="med">🩹🚑</span>
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Divider variant="middle" className={classes.divider} />
-            </Paper >
-            <Grid container spacing={2}>
-                <Grid item xs={1} sm={1} md={1}></Grid>
-                <Grid item xs={10} sm={10} md={2}>
-                    {
-                        props.isDoctor ?
-                        <Typography variant="h6" className={classes.paper}>Patients</Typography>
-                        : null
-                    }
-                    <div className={classes.users}>
+                    <Grid item xs={1} sm={1} md={1}></Grid>
+                    <Grid item xs={10} sm={10} md={2}>
                         {
                             props.isDoctor ?
-                            props.patients.map((v,i) =>
-                                <ButtonBase key={i} onClick={() => props.selectPatient(v)} style={{width:'100%'}}>
-                                    <Grid container>
-                                        <Grid item xs={3} className={classes.avatar}>
-                                            <Avatar alt="Remy Sharp" src={v.image} />
-                                        </Grid>
-                                        <Grid item xs={9}>
-                                            {v.name}
-                                        </Grid>
-                                    </Grid>
-                                    <br/><br/><br/><br/>
-                                </ButtonBase>
-                            )
+                            <Typography variant="h6" className={classes.paper}>Patients</Typography>
                             : null
                         }
-                    </div>
-                </Grid>
-                <Grid item xs={1} sm={1} md={1}></Grid>
-                <Grid item xs={12} sm={12} md={4}>
-                    <div>
-                        {
-                            props.reports.map((v,i)=>
-                                <div key={i}>
-                                    <Card className={classes.card}>
-                                        <CardHeader title={v.name}/>
-                                        <CardMedia
-                                            className={classes.media} alt="" title="image"
-                                            image={v.image}
-                                        />
-                                        <CardContent>
-                                            <Grid>
-                                                <Grid item xs={12} sm={12} md={12}>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
-                                                        {v.description}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={12} sm={12} md={5}>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
-                                                        {v.iaValutation}
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={12} sm={12} md={5}>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
-                                                        {v.docValutation}
-                                                    </Typography>
-                                                </Grid>
+                        <div className={classes.users}>
+                            {
+                                props.isDoctor ?
+                                props.patients.map((v,i) =>
+                                    <ButtonBase key={i} onClick={() => props.selectPatient(v)} style={{width:'100%'}}>
+                                        <Grid container>
+                                            <Grid item xs={3} className={classes.avatar}>
+                                                <Avatar alt="Remy Sharp" src={v.image} />
                                             </Grid>
-                                        </CardContent>
-                                        <CardActions disableSpacing>
-                                        {
-                                                props.isDoctor ?
-                                                <InputBase
-                                                    placeholder="Insert Valutation..."
-                                                    name="valutation"
-                                                    id="valutation"
-                                                    onChange={props.onValutationChange}
-                                                    onKeyDown  = {(e) => {
-                                                        if (e.key === 'Enter') {
-                                                            props.insertValutation(i)
+                                            <Grid item xs={9}>
+                                                {v.name}
+                                            </Grid>
+                                        </Grid>
+                                        <br/><br/><br/><br/>
+                                    </ButtonBase>
+                                )
+                                : null
+                            }
+                        </div>
+                    </Grid>
+                    <Grid item xs={1} sm={1} md={1}></Grid>
+                    <Grid item xs={12} sm={12} md={4}>
+                        <div>
+                            {
+                                props.reports.map((v,i)=>
+                                    <div key={i}>
+                                        <Card className={classes.card}>
+                                            <CardHeader title={v.reportName}/>
+                                            <CardMedia
+                                                className={classes.media} alt="" title="image"
+                                                image={v.image}
+                                            />
+                                            <CardContent>
+                                                <Grid>
+                                                    <Grid item xs={12} sm={12} md={12}>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            {v.reportDescription}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={12} md={5}>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            {v.iaValutation}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={12} md={5}>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            {v.docValutation}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </CardContent>
+                                            <CardActions disableSpacing>
+                                            {
+                                                    props.isDoctor ?
+                                                    <InputBase
+                                                        placeholder="Insert Valutation..."
+                                                        name="valutation"
+                                                        id="valutation"
+                                                        onChange={props.onValutationChange}
+                                                        onKeyDown  = {(e) => {
+                                                            if (e.key === 'Enter') {
+                                                                props.insertValutation(i)
+                                                            }
+                                                            }
                                                         }
-                                                        }
-                                                    }
-                                                />
-                                                : null
-                                            }
-                                        </CardActions>
-                                    </Card>
-                                    <br/><br/><br/><br/><br/>
-                                </div>
-                            )
-                        }
-                    </div>
+                                                    />
+                                                    : null
+                                                }
+                                            </CardActions>
+                                        </Card>
+                                        <br/><br/><br/><br/><br/>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div >
-    );
+            </div >
+        );
+    }
 }

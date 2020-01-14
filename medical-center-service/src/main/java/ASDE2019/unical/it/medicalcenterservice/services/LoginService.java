@@ -52,5 +52,36 @@ public class LoginService {
 			return null;
 		}
 	}
+	
+	public synchronized boolean editData(int idUser, String name, String surname, String email, String image) {
+		System.out.println(idUser + " " + name + " " + surname + " " + email + " " + image);
+		try {
+			User user = utenteDao.findById(idUser);
+			user.setName(name);
+			user.setSurname(surname);
+			user.setEmail(email);
+			user.setImage(image);
+			utenteDao.save(user);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
+
+	public synchronized boolean editPassword(int idUser, String oldPassword, String newPassword) {
+		try {
+			User user = utenteDao.findById(idUser);
+			if (user.getPassword().equalsIgnoreCase(oldPassword)) {
+				user.setPassword(newPassword);
+				utenteDao.save(user);
+				return true;
+			} else
+				return false;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
 }
 

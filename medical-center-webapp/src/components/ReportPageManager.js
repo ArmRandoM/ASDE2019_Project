@@ -15,8 +15,7 @@ export default class ReportPageManager extends Component {
         }
     }
 
-    addReport = (event) =>{
-        console.log(this.state.imagePreviewUrl);
+    addReport = () =>{
         MedicalCenterBaseIstance.post("/saveReport", {
           reportName: this.state.reportName,
           reportDescription: this.state.reportDescription,
@@ -28,9 +27,7 @@ export default class ReportPageManager extends Component {
                 added : res.data
             })
         })
-
     }
-
 
     onChangeName = (event) => {
         this.setState({

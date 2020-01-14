@@ -15,7 +15,9 @@ public interface UserDAO extends CrudRepository<User, Integer> {
 	boolean existsByEmail(String email);
 	
 	String findPasswordByEmail(String email);
-	
+
 	User findByEmail(String email);
+	
+	User findById(int idUser);
 	
 }

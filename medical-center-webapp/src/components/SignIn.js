@@ -58,17 +58,18 @@ export default function SignIn(props) {
                         color="primary"
                         className={props.classes.submit}
                         onClick={props.submitSignIn}
+                        href="profilepg"
                     >
                         Sign In
                         </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link name="forgot" href="/forgotPassword" variant=" body2">
+                            <Link name="forgot" href="/forgotPassword" >
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link name="signIn" href="/signUp" variant="body2">
+                            <Link name="signIn" href="/signUp" >
                                 Don't have an account? Sign Up
                             </Link>
                         </Grid>

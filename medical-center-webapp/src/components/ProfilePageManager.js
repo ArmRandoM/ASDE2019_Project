@@ -7,16 +7,12 @@ export default class ProfilePageManager extends Component {
     constructor() {
         super();
         this.state = {
-            name: " Bruce ",
-            surname: " Wayne ",
-            email: " battilemani@batman.bat ",
-            password: "batmanèilpiufigo",
-            status: "doctor",
-            isDoctor: false,
+            loggedUser: { idUser: 1, name: " Bruce ", surname: " Wayne ", email: " battilemani@batman.bat ",
+                          password: "batmanèilpiufigo", image:'', doctor: false,
+            },
             valutationToInsert: "",
             follows:[
                 { status: "Doctor", name: "Darlena Lecroy", followed: true},
-                { status: "Doctor", name: "Reda Amador", followed: true},
                 { status: "Patient", name: "Logan Hake", followed: true},
                 { status: "Doctor", name: "Song Lovely", followed: true},
             ],
@@ -26,10 +22,6 @@ export default class ProfilePageManager extends Component {
                 { status: "Doctor", name: "Rozella Alford", followed: false},
                 { status: "Patient", name: "Lianne Stanhope", followed: false},
                 { status: "Doctor", name: "Song Lovely", followed: true},
-                { status: "Doctor", name: "Chi Trammell", followed: false},
-                { status: "Doctor", name: "Laurel Hille", followed: false},
-                { status: "Doctor", name: "Reda Amador", followed: true},
-                { status: "Patient", name: "Catherina Maillet", followed: false},
                 { status: "Patient", name: "Logan Hake", followed: true},
                 { status: "Doctor", name: "Darlena Lecroy", followed: true},
             ],
@@ -52,26 +44,16 @@ export default class ProfilePageManager extends Component {
                             {name: "2.4 name", description: "2.4 description", image:'', iaValutation:"2.4 iaValutation", docValutation:"2.4 docValutation"}
                            ]
                 },
-                { name: "Malvina Gunnerson",
-                  image:'',
-                  reports: [{name: "3.1 name", description: "3.1 description", image:'', iaValutation:"3.1 iaValutation", docValutation:"3.1 docValutation"},
-                            {name: "3.2 name", description: "3.2 description", image:'', iaValutation:"3.2 iaValutation", docValutation:"3.2 docValutation"},
-                            {name: "3.3 name", description: "3.3 description", image:'', iaValutation:"3.3 iaValutation", docValutation:"3.3 docValutation"},
-                            {name: "3.4 name", description: "3.4 description", image:'', iaValutation:"3.4 iaValutation", docValutation:"3.4 docValutation"}
-                           ]
-                },
-                { name: "Logan Hake",
-                  image:'',
-                  reports: [{name: "4.1 name", description: "4.1 description", image:'', iaValutation:"4.1 iaValutation", docValutation:"4.1 docValutation"},
-                            {name: "4.2 name", description: "4.2 description", image:'', iaValutation:"4.2 iaValutation", docValutation:"4.2 docValutation"},
-                            {name: "4.3 name", description: "4.3 description", image:'', iaValutation:"4.3 iaValutation", docValutation:"4.3 docValutation"},
-                            {name: "4.4 name", description: "4.4 description", image:'', iaValutation:"4.4 iaValutation", docValutation:"4.4 docValutation"}
-                           ]
-                },
             ],
-            reports: [
-                {reportName: "", reportDescription: "", image:'', iaValutation:"", docValutation:""}
-            ]
+            reports: [],
+            edit: false,
+            nameToEdit:"",
+            surnameToEdit:"",
+            emailToEdit:"",
+            oldPassword:"",
+            newPassword:"",
+            imageToEdit:'',
+
         }
     }
 
@@ -120,6 +102,7 @@ export default class ProfilePageManager extends Component {
        }
 
     }
+
     onChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -152,34 +135,90 @@ export default class ProfilePageManager extends Component {
         });
     }
 
+    setEdit = () =>{
+        this.setState({
+            edit: !this.state.edit
+        });
+    }
+    
+    editData = () =>{
+        MedicalCenterBaseIstance.post("/editData", {
+          idUser: this.state.loggedUser.idUser,
+          name: this.state.nameToEdit,
+          surname: this.state.surnameToEdit,
+          email: this.state.emailToEdit,
+          image: this.state.imageToEdit,
+        }).then((res) => {
+            this.setState({
+                edit : false
+            })
+        })
+    }
 
-        getReports() {
-          console.log("SONO DENTRO getReports")
-          MedicalCenterBaseIstance.get("/getReportsFromUser", {
-              params: {
-                  "email": this.state.email,
-              }
-          }).then((res) => {
+    editPassword = () =>{
+        MedicalCenterBaseIstance.post("/editPassword", {
+          idUser: this.state.loggedUser.idUser,
+          oldPassword: this.state.oldPassword,
+          newPassword: this.state.newPassword,
+        }).then((res) => {
+            this.setState({
+                edit : false
+            })
+        })
+    }
 
-              this.setState({
-                  reports: res.data
-              })
-          })
+    uploadImage = (event) => {
+        let reader = new FileReader();
+        let file = event.target.files[0];
 
-          console.log(this.state.reports);
+        reader.onloadend = () => {
+          this.setState({
+            imageToEdit: reader.result
+          });
         }
 
+        reader.readAsDataURL(file)
+    }
+
+
+    componentDidMount(){
+        this.getLoggedUser();
+        this.getReports();
+    }
+
+    getLoggedUser() {
+        MedicalCenterBaseIstance.get("/getLoggedUser").then((res) => {
+            console.log(res.data)
+            this.setState({
+                loggedUser: res.data
+            })
+        })
+        console.log(this.state.loggedUser)
+    }
+
+    getReports() {
+        MedicalCenterBaseIstance.get("/getReportsFromUser", {
+            params: {
+                "email": this.state.loggedUser.email,
+            }
+        }).then((res) => {
+            this.setState({
+                reports: res.data
+            })
+        })
+    }
+
     render() {
-      this.getReports();
         return (
             <div>
                 <BodyProfilePage
-                    name={this.state.name}
-                    surname={this.state.surname}
-                    email={this.state.email}
-                    password={this.state.password}
-                    status={this.state.status}
-                    isDoctor={this.state.isDoctor}
+                    loggedUser={this.state.loggedUser}
+                    uploadImage={this.uploadImage}
+                    imageToEdit={this.state.imageToEdit}
+                    editPassword={this.editPassword}
+                    setEdit={this.setEdit}
+                    editData={this.editData}
+                    edit={this.state.edit}
                     patients={this.state.patients}
                     reports={this.state.reports}
                     selectPatient={this.selectPatient}

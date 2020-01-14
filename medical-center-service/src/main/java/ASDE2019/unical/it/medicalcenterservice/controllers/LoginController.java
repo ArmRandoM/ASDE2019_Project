@@ -54,6 +54,27 @@ public class LoginController {
 		 return false;
 	}
 	
+	@CrossOrigin
+	@PostMapping("/editData")
+	public boolean editData(@RequestParam int idUser, @RequestParam String name, @RequestParam String surname,
+			@RequestParam String email, @RequestParam String image) {
+		System.out.println(idUser + " " + name + " " + surname + " " + email + " " + image);
+		if (loginService.editData(idUser, name, surname, email, image)) {
+			return true;
+		}
+		return false;
+	}
+
+	@CrossOrigin
+	@PostMapping("/editPassword")
+	public boolean editPassword(@RequestParam int idUser, @RequestParam String oldPassword,
+			@RequestParam String newPassword) {
+		if (loginService.editPassword(idUser, oldPassword, newPassword)) {
+			return true;
+		}
+		return false;
+	}
+	  
 	/*@CrossOrigin
 	@GetMapping("/getLoggedUser")
 	public void getLoggedUser(HttpSession session) {

@@ -86,9 +86,10 @@ export default function SignUp(props) {
                             color="primary"
                             className={props.classes.submit}
                             onClick={props.submitSignUp}
+                            href=""
                         >
                             Sign Up
-                            </Button>
+                        </Button>
                         <Grid container>
                             <Grid item xs>
                                 <Link name={props.patient ? "patient" : "doctor"} onClick={props.typeSwitch} href="#" variant="body2">

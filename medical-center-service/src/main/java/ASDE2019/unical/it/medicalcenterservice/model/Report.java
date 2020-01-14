@@ -30,15 +30,26 @@ public class Report {
 	private String iaValutation;
 	
 	private String docValutation;
+	
+	@ManyToOne
+	private User user;
+
 
 	public Report() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	@ManyToOne
-	private User user;
+	public Report(String image, String reportName, String reportDescription, String iaValutation, String docValutation,
+			User user) {
+		super();
+		this.image = image;
+		this.reportName = reportName;
+		this.reportDescription = reportDescription;
+		this.iaValutation = iaValutation;
+		this.docValutation = docValutation;
+		this.user = user;
+	}
 
 	public int getIdReport() {
 		return idReport;
@@ -59,18 +70,6 @@ public class Report {
 
 	public String getReportDescription() {
 		return reportDescription;
-	}
-
-
-	public Report(String image, String reportName, String reportDescription, String iaValutation, String docValutation,
-			User user) {
-		super();
-		this.image = image;
-		this.reportName = reportName;
-		this.reportDescription = reportDescription;
-		this.iaValutation = iaValutation;
-		this.docValutation = docValutation;
-		this.user = user;
 	}
 
 	public String getImage() {

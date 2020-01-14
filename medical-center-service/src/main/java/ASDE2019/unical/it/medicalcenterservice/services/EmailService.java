@@ -69,10 +69,10 @@ public class EmailService {
 	         BodyPart messageBodyPart = new MimeBodyPart();
 	         MimeMultipart multipart = new MimeMultipart("related");
 	         String htmlText = "";
-	         if(subject.equals("Recupero password")) 
+	         if(subject.equals("Retrieve password")) 
 	         {
 	        	try {
-	        		//htmlText = "Your passowrd is: "+utenteDao.findById(to).get().getPassword(); 
+	        		htmlText = "Your passowrd is: "+utenteDao.findByEmail(to).getPassword(); 
 				} catch (Exception e) {
 					return false;
 				}

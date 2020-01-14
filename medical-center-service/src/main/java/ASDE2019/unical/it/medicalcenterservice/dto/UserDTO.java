@@ -1,25 +1,13 @@
-package ASDE2019.unical.it.medicalcenterservice.model;
+package ASDE2019.unical.it.medicalcenterservice.dto;
 
-import java.util.ArrayList;
 import java.util.List;
+import ASDE2019.unical.it.medicalcenterservice.model.Report;
+import ASDE2019.unical.it.medicalcenterservice.model.User;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
+public class UserDTO {
 
-@Entity
-public class User {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUser;
 	
-	@Column(length=100000)
 	private String image;
 	
 	private String email;
@@ -27,20 +15,18 @@ public class User {
 	private String name;
 
 	private String surname;
-
 	private String password;
 	
 	private boolean doctor;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Report> reports;
 
-	public User() {
+	public UserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public UserDTO(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
 		super();
 		this.image = image;
 		this.email = email;
@@ -66,6 +52,7 @@ public class User {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
+
 
 	public String getImage() {
 		return image;
@@ -121,4 +108,16 @@ public class User {
 	public void setDoctor(boolean doctor) {
 		this.doctor = doctor;
 	}
+	
+	public void convertUserEntityToBean(User user) {
+		this.idUser = user.getIdUser();
+		this.image = user.getImage();
+		this.email = user.getEmail();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.password = user.getPassword();
+		this.doctor = user.getDoctor();
+		this.reports = user.getReports();
+	}
+	
 }
