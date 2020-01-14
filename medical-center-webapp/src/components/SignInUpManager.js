@@ -59,10 +59,10 @@ class SignInUpManager extends Component {
                 this.setState({
                     signUpError: !res.data
                 })
+                if(!this.state.signUpError){   
+                    window.location.href = "/";
+                }
             })
-        }
-        if(!this.state.signUpError){   
-            window.location.href = "/";
         }
         event.preventDefault();
     }
@@ -77,10 +77,10 @@ class SignInUpManager extends Component {
             this.setState({
                 signInError: !res.data
             })
+            if(!this.state.signInError){   
+                window.location.href = "/profilepg";
+            }
         })
-        if(!this.state.signInError){   
-            window.location.href = "/profilepg";
-        }
         event.preventDefault();
     }
 
@@ -93,6 +93,9 @@ class SignInUpManager extends Component {
             this.setState({
                 forgotError: !res.data
             })
+            if(!this.state.forgotError){   
+                window.location.href = "/";
+            }
         })
         event.preventDefault();
     }
