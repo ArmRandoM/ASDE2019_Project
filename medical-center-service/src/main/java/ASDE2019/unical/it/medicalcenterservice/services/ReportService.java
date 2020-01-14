@@ -20,5 +20,23 @@ public class ReportService {
 			System.out.println(e.getMessage());
 		}
 	}
+
+
+	public void deleteReport(Report report) {
+		try {
+			reportDAO.deleteById(report.getIdReport());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void updateReport(Report report) {
+		try {
+			reportDAO.deleteById(report.getIdReport());
+			reportDAO.save(report);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	
 }

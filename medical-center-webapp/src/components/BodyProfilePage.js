@@ -235,7 +235,7 @@ export default function ComplexGrid(props) {
                                                 </Grid>
                                             </CardContent>
                                             <CardActions disableSpacing>
-                                            {
+                                                {
                                                     props.isDoctor ?
                                                     <InputBase
                                                         placeholder="Insert Valutation..."
@@ -249,7 +249,7 @@ export default function ComplexGrid(props) {
                                                             }
                                                         }
                                                     />
-                                                    : null
+                                                    : <Button className={classes.paper} onClick={() => props.deleteReport(i)}>Delete</Button>
                                                 }
                                             </CardActions>
                                         </Card>

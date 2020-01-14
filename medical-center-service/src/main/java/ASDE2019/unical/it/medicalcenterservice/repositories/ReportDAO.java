@@ -8,5 +8,9 @@ import ASDE2019.unical.it.medicalcenterservice.model.Report;
 
 @Repository
 public interface ReportDAO extends CrudRepository<Report, Integer> {
-
+	
+	boolean existsById(int idReport);
+	
+	Report findById(int idReport);
+	
 }

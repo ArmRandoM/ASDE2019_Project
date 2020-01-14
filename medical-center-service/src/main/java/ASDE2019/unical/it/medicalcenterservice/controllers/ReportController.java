@@ -64,5 +64,31 @@ public class ReportController {
 		}
 		
 	}
+
+	@CrossOrigin
+	@PostMapping("/deleteReport")
+	public boolean deleteReport(@RequestBody Report report) {
+		try {
+			System.out.println(report.getIdReport());
+			reportService.deleteReport(report);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	@CrossOrigin
+	@PostMapping("/updateReport")
+	public boolean updateReport(@RequestBody Report report) {
+		try {
+			System.out.println(report.getIdReport());
+			reportService.updateReport(report);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
 	
 }

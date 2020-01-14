@@ -120,8 +120,26 @@ export default class ProfilePageManager extends Component {
         this.setState({
             reports: reportsArray
         });
+        
+        var report=this.state.reports[i];
+        MedicalCenterBaseIstance.post("/updateReport", {report: report})
+          .then((res) => {
+              
+          }
+        )
 
     }
+
+    deleteReport = (i) =>{
+        var report=this.state.reports[i];
+        console.log(report);
+        MedicalCenterBaseIstance.post("/deleteReport", {report: report})
+          .then((res) => {
+              
+          }
+        )
+    }
+
 
     onValutationChange = (event) => {
         this.setState({
@@ -218,6 +236,7 @@ export default class ProfilePageManager extends Component {
                     editPassword={this.editPassword}
                     setEdit={this.setEdit}
                     editData={this.editData}
+                    deleteReport={this.deleteReport}
                     edit={this.state.edit}
                     patients={this.state.patients}
                     reports={this.state.reports}
