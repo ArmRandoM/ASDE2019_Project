@@ -58,7 +58,6 @@ export default function SignIn(props) {
                         color="primary"
                         className={props.classes.submit}
                         onClick={props.submitSignIn}
-                        href="profilepg"
                     >
                         Sign In
                         </Button>

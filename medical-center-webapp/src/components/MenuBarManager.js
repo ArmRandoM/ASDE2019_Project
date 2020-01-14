@@ -82,7 +82,7 @@ export default class MenuBarManager extends Component {
 
     render() {
         if(this.state.logOut){
-            window.location.href = "/signUp";
+            window.location.href = "/";
         }
         else{
 

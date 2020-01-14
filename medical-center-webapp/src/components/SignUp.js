@@ -86,7 +86,6 @@ export default function SignUp(props) {
                             color="primary"
                             className={props.classes.submit}
                             onClick={props.submitSignUp}
-                            href=""
                         >
                             Sign Up
                         </Button>

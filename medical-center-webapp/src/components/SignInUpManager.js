@@ -61,7 +61,9 @@ class SignInUpManager extends Component {
                 })
             })
         }
-
+        if(!this.state.signUpError){   
+            window.location.href = "/";
+        }
         event.preventDefault();
     }
 
@@ -76,7 +78,9 @@ class SignInUpManager extends Component {
                 signInError: !res.data
             })
         })
-
+        if(!this.state.signInError){   
+            window.location.href = "/profilepg";
+        }
         event.preventDefault();
     }
 
