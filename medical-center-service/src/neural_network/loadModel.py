@@ -60,7 +60,9 @@ def binaryAccuracy(y_true, y_pred):
     return binary_accuracy(y_true, K.sigmoid(y_pred))
 
 model = load_model('src/neural_network/model.h5', custom_objects={'VariableDropout': VariableDropout, 'binaryCrossentropy': binaryCrossentropy, 'binaryAccuracy': binaryAccuracy})
+#model = load_model('model.h5', custom_objects={'VariableDropout': VariableDropout, 'binaryCrossentropy': binaryCrossentropy, 'binaryAccuracy': binaryAccuracy})
 
+#img = image.load_img(imageName, target_size=(224, 224))
 img = image.load_img("src/neural_network/"+imageName, target_size=(224, 224))
 img_tensor = image.img_to_array(img)
 img_tensor /= 127.5-1
