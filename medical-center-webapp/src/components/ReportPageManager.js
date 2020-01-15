@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BodyReportPage from './BodyReportPage';
 import MedicalCenterBaseIstance from '../medical-center-service/MedicalCenterBaseInstance.js';
+import FormData from 'form-data'
 
 export default class ReportPageManager extends Component {
 
@@ -16,13 +17,16 @@ export default class ReportPageManager extends Component {
     }
 
     addReport = () =>{
-        MedicalCenterBaseIstance.post("/saveReport", {
-          reportName: this.state.reportName,
-          reportDescription: this.state.reportDescription,
-          image: this.state.imagePreviewUrl,
-          iaValutation: "",
-          docValutation: ""
-        }).then((res) => {
+        const config = {
+            headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
+        };
+        let data = new FormData();
+        data.append("reportName", this.state.reportName);
+        data.append("reportDescription", this.state.reportDescription);
+        data.append("image", this.state.image);
+        data.append("iaValutation", "");
+        data.append("docValutation", "");
+        MedicalCenterBaseIstance.post("/saveReport", data, config).then((res) => {
             this.setState({
                 added : res.data
             })
@@ -50,6 +54,7 @@ export default class ReportPageManager extends Component {
             image: file,
             imagePreviewUrl: reader.result
           });
+          console.log(this.state.image)
         }
 
         reader.readAsDataURL(file)
