@@ -1,11 +1,17 @@
 package ASDE2019.unical.it.medicalcenterservice.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import ASDE2019.unical.it.medicalcenterservice.dto.ReportDTO;
+import ASDE2019.unical.it.medicalcenterservice.forms.saveReportForm;
 import ASDE2019.unical.it.medicalcenterservice.model.Report;
 import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.services.LoginService;
+import ASDE2019.unical.it.medicalcenterservice.services.NeuralNetworkService;
 import ASDE2019.unical.it.medicalcenterservice.services.ReportService;
 
 @RestController
@@ -30,6 +38,8 @@ public class ReportController {
 	@Autowired
 	private LoginService loginService;
 
+	@Autowired
+	private NeuralNetworkService neuralService;
 
 
 	@CrossOrigin
@@ -51,7 +61,7 @@ public class ReportController {
 	public List<ReportDTO> getReportsFromUser(@RequestParam String email) {
 		//TODO bisogna dare al report l'utente che lo ha creato (cioè quella della sessione)
 		try {
-			final User u = loginService.getUser("francesco.tumminelli95@gmail.com");
+			final User u = loginService.getUser("test@test.it");
 			final List<ReportDTO> reportsBean = new ArrayList<ReportDTO>();
 			for (final Report report : u.getReports()) {
 				final ReportDTO reportDTO = new ReportDTO();
@@ -67,16 +77,24 @@ public class ReportController {
 
 	@CrossOrigin
 	@RequestMapping(value = "/saveReport", headers = "content-type=multipart/*", method = RequestMethod.POST)
-	public boolean saveReport(@RequestParam(value = "image", required = true) MultipartFile image,
-			@RequestParam(value = "reportName", required = true) String name,
-			@RequestParam(value = "reportDescription", required = true) String description) {
+	public boolean saveReport(@ModelAttribute saveReportForm reportForm) {
 		//TODO bisogna dare al report l'utente che lo ha creato (cioè quella della sessione)
-		try {
-			final User u = loginService.getUser("francesco.tumminelli95@gmail.com");
-			final Report report = new Report(image.getBytes(), name, description, "", "", u);
+		try
+		{
+			final String name = reportForm.getReportName();
+			final String description = reportForm.getReportDescription();
+			final MultipartFile image = reportForm.getImage();
+
+			final User user = loginService.getUser(reportForm.getUserEmail());
+			final Report report = new Report(image.getBytes(), name, description, "", "", user);
 			//report.setUser(u);
+			final InputStream in = new ByteArrayInputStream(image.getBytes());
+			final BufferedImage imageForNeuralNetwork = ImageIO.read(in);
+
+			final String verdict = neuralService.loadNeuralNetwork(imageForNeuralNetwork);
+			report.setIaValutation(verdict);
+			report.setUser(user);
 			reportService.saveNewReport(report);
-			final User u1 = loginService.getUser("francesco.tumminelli95@gmail.com");
 			return true;
 		} catch (final Exception e) {
 			return false;
