@@ -27,13 +27,8 @@ export default class MenuBarManager extends Component {
     }
     
     logOut = (event) =>{
-        /*
-        MedicalCenterBaseIstance.post("/logOut").then((res) => {
-            this.setState({
-                logOut : res.data
-            })
-        })
-        */   
+        localStorage.clear(); 
+        window.location.href = "/";
     }
 
     followOperation = (user,i) =>{

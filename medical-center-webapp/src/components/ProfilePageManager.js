@@ -7,9 +7,7 @@ export default class ProfilePageManager extends Component {
     constructor() {
         super();
         this.state = {
-            loggedUser: { idUser: 1, name: " Bruce ", surname: " Wayne ", email: " battilemani@batman.bat ",
-                          password: "batmanèilpiufigo", image:'', doctor: false,
-            },
+            loggedUser: '',
             valutationToInsert: "",
             follows:[
                 { status: "Doctor", name: "Darlena Lecroy", followed: true},
@@ -162,7 +160,7 @@ export default class ProfilePageManager extends Component {
     }
     
     editData = () =>{
-        MedicalCenterBaseIstance.post("/editData", {
+        MedicalCenterBaseIstance.post("/editData", null, {
           idUser: this.state.loggedUser.idUser,
           name: this.state.nameToEdit,
           surname: this.state.surnameToEdit,
@@ -176,7 +174,7 @@ export default class ProfilePageManager extends Component {
     }
 
     editPassword = () =>{
-        MedicalCenterBaseIstance.post("/editPassword", {
+        MedicalCenterBaseIstance.post("/editPassword", null, {
           idUser: this.state.loggedUser.idUser,
           oldPassword: this.state.oldPassword,
           newPassword: this.state.newPassword,
@@ -207,7 +205,8 @@ export default class ProfilePageManager extends Component {
     }
 
     getLoggedUser() {
-        MedicalCenterBaseIstance.get("/getLoggedUser").then((res) => {
+        var email=localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getLoggedUser",{params:{"email":email}}).then((res) => {
             console.log(res.data)
             this.setState({
                 loggedUser: res.data
@@ -217,9 +216,10 @@ export default class ProfilePageManager extends Component {
     }
 
     getReports() {
+        var email=localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getReportsFromUser", {
             params: {
-                "email": this.state.loggedUser.email,
+                "email": email,
             }
         }).then((res) => {
             this.setState({

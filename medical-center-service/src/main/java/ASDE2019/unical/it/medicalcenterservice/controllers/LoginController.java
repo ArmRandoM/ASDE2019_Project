@@ -36,10 +36,11 @@ public class LoginController {
 
 	@CrossOrigin
 	@GetMapping("/signIn")
-	public boolean login(HttpSession session, @RequestParam String email, @RequestParam String password) {
-		
+	public boolean login( @RequestParam String email, @RequestParam String password) {
+		System.out.println(email);
+		System.out.println(password);
 		if(loginService.login(email, password)) {
-			session.setAttribute("loggedUser", loginService.getUser(email));
+			//session.setAttribute("loggedUser", loginService.getUser(email));
 			return true;
 		}
 		return false;
@@ -75,9 +76,9 @@ public class LoginController {
 		return false;
 	}
 	  
-	/*@CrossOrigin
+	@CrossOrigin
 	@GetMapping("/getLoggedUser")
-	public void getLoggedUser(HttpSession session) {
-		 System.out.println(session.getAttribute("loggedUser").toString());
-	}*/
+	public User getLoggedUser( @RequestParam String email) {
+		return loginService.getUser(email);
+	}
 }

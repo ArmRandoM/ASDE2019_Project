@@ -74,11 +74,13 @@ class SignInUpManager extends Component {
                 "password": this.state.passwordSignIn
             }
         }).then((res) => {
+            console.log(res.data)
             this.setState({
                 signInError: !res.data
             })
             if(!this.state.signInError){   
                 window.location.href = "/profilepg";
+                localStorage.setItem('email', this.state.emailSignIn);
             }
         })
         event.preventDefault();
