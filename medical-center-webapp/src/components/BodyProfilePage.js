@@ -213,7 +213,7 @@ export default function ComplexGrid(props) {
                                             <CardHeader title={v.reportName}/>
                                             <CardMedia
                                                 className={classes.media} alt="" title="image"
-                                                image={v.image}
+                                                image={"data:image/jpg;base64,"+v.image}
                                             />
                                             <CardContent>
                                                 <Grid>

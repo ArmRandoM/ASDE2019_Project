@@ -207,7 +207,6 @@ export default class ProfilePageManager extends Component {
     getLoggedUser() {
         var email=localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getLoggedUser",{params:{"email":email}}).then((res) => {
-            console.log(res.data)
             this.setState({
                 loggedUser: res.data
             })
