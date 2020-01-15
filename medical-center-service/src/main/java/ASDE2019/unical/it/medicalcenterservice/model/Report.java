@@ -1,14 +1,11 @@
 package ASDE2019.unical.it.medicalcenterservice.model;
 
 
-import java.awt.Image;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -19,18 +16,18 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReport;
-	
-	@Column(length=100000)
-	private String image;
-	
+
+	@Column(columnDefinition = "blob")
+	private byte[] image;
+
 	private String reportName;
-	
+
 	private String reportDescription;
-	
+
 	private String iaValutation;
-	
+
 	private String docValutation;
-	
+
 	@ManyToOne
 	private User user;
 
@@ -40,7 +37,7 @@ public class Report {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Report(String image, String reportName, String reportDescription, String iaValutation, String docValutation,
+	public Report(byte[] image, String reportName, String reportDescription, String iaValutation, String docValutation,
 			User user) {
 		super();
 		this.image = image;
@@ -51,32 +48,48 @@ public class Report {
 		this.user = user;
 	}
 
+	public String getDocValutation() {
+		return docValutation;
+	}
+
+	public String getIaValutation() {
+		return iaValutation;
+	}
+
+
 	public int getIdReport() {
 		return idReport;
 	}
 
-	public void setIdReport(int idReport) {
-		this.idReport = idReport;
-	}
-
-
-	public String getReportName() {
-		return reportName;
-	}
-
-	public void setReportName(String reportName) {
-		this.reportName = reportName;
+	public byte[] getImage() {
+		return image;
 	}
 
 	public String getReportDescription() {
 		return reportDescription;
 	}
 
-	public String getImage() {
-		return image;
+	public String getReportName() {
+		return reportName;
 	}
 
-	public void setImage(String image) {
+	public User getUser() {
+		return user;
+	}
+
+	public void setDocValutation(String docValutation) {
+		this.docValutation = docValutation;
+	}
+
+	public void setIaValutation(String iaValutation) {
+		this.iaValutation = iaValutation;
+	}
+
+	public void setIdReport(int idReport) {
+		this.idReport = idReport;
+	}
+
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
@@ -84,24 +97,8 @@ public class Report {
 		this.reportDescription = reportDescription;
 	}
 
-	public String getIaValutation() {
-		return iaValutation;
-	}
-
-	public void setIaValutation(String iaValutation) {
-		this.iaValutation = iaValutation;
-	}
-
-	public String getDocValutation() {
-		return docValutation;
-	}
-
-	public void setDocValutation(String docValutation) {
-		this.docValutation = docValutation;
-	}
-
-	public User getUser() {
-		return user;
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
 	}
 
 	public void setUser(User user) {

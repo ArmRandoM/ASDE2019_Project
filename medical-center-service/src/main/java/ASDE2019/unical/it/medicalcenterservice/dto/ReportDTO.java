@@ -5,67 +5,23 @@ import ASDE2019.unical.it.medicalcenterservice.model.Report;
 public class ReportDTO {
 
 	private int idReport;
-	
-	private String image;
-	
+
+	private byte[] image;
+
 	private String reportName;
-	
+
 	private String reportDescription;
-	
+
 	private String iaValutation;
-	
+
 	private String docValutation;
-
-	public int getIdReport() {
-		return idReport;
-	}
-
-	public void setIdReport(int idReport) {
-		this.idReport = idReport;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public String getReportName() {
-		return reportName;
-	}
-
-	public void setReportName(String reportName) {
-		this.reportName = reportName;
-	}
-
-	public String getReportDescription() {
-		return reportDescription;
-	}
-
-	public void setReportDescription(String reportDescription) {
-		this.reportDescription = reportDescription;
-	}
-
-	public String getIaValutation() {
-		return iaValutation;
-	}
-
-	public void setIaValutation(String iaValutation) {
-		this.iaValutation = iaValutation;
-	}
-
-	public String getDocValutation() {
-		return docValutation;
-	}
 
 	public ReportDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReportDTO(int idReport, String image, String reportName, String reportDescription, String iaValutation,
+	public ReportDTO(int idReport, byte[] image, String reportName, String reportDescription, String iaValutation,
 			String docValutation) {
 		super();
 		this.idReport = idReport;
@@ -76,11 +32,6 @@ public class ReportDTO {
 		this.docValutation = docValutation;
 	}
 
-	public void setDocValutation(String docValutation) {
-		this.docValutation = docValutation;
-	}
-	
-	
 	public void convertReportEntityToBean(Report report) {
 		this.idReport = report.getIdReport();
 		this.image = report.getImage();
@@ -89,6 +40,55 @@ public class ReportDTO {
 		this.iaValutation = report.getIaValutation();
 		this.docValutation = report.getDocValutation();
 	}
-	
-	
+
+	public String getDocValutation() {
+		return docValutation;
+	}
+
+	public String getIaValutation() {
+		return iaValutation;
+	}
+
+	public int getIdReport() {
+		return idReport;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public String getReportDescription() {
+		return reportDescription;
+	}
+
+	public String getReportName() {
+		return reportName;
+	}
+
+	public void setDocValutation(String docValutation) {
+		this.docValutation = docValutation;
+	}
+
+	public void setIaValutation(String iaValutation) {
+		this.iaValutation = iaValutation;
+	}
+
+	public void setIdReport(int idReport) {
+		this.idReport = idReport;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public void setReportDescription(String reportDescription) {
+		this.reportDescription = reportDescription;
+	}
+
+
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
+	}
+
+
 }
