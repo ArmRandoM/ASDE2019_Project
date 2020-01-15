@@ -120,7 +120,15 @@ export default function ComplexGrid(props) {
     if(props.edit){
         return(
             <EditProfileManager
-                myProps={props}
+                uploadImage={props.uploadImage}
+                imageToEdit={props.imageToEdit}
+                imageToEditUrl={props.imageToEditUrl}
+                nameToEdit={props.nameToEdit}
+                surnameToEdit={props.surnameToEdit}
+                editPassword={props.editPassword}
+                setEdit={props.setEdit}
+                editData={props.editData}
+                onChange={props.onChange}
             />
         )
     }
@@ -144,7 +152,7 @@ export default function ComplexGrid(props) {
                 <Paper className={classes.paper} elevation={0}>
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
-                            <img className={classes.profileImage} alt="" src={props.loggedUser.image} />
+                            <img className={classes.profileImage} alt="" src={"data:image/jpg;base64,"+props.loggedUser.image} />
                         </Grid>
                         <Grid item xs={8}>
                             <Grid className={classes.paper}>
@@ -190,7 +198,7 @@ export default function ComplexGrid(props) {
                                     <ButtonBase key={i} onClick={() => props.selectPatient(v)} style={{width:'100%'}}>
                                         <Grid container>
                                             <Grid item xs={3} className={classes.avatar}>
-                                                <Avatar alt="Remy Sharp" src={v.image} />
+                                                <Avatar alt="Remy Sharp" src={"data:image/jpg;base64,"+v.image} />
                                             </Grid>
                                             <Grid item xs={9}>
                                                 {v.name}

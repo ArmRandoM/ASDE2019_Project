@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function FullWidthTabs(myProps) {
+export default function FullWidthTabs(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -102,6 +102,8 @@ export default function FullWidthTabs(myProps) {
     const handleChangeIndex = index => {
         setValue(index);
     };
+
+    console.log(props)
 
     return (
         <Paper className={classes.paper} elevation={0}>
@@ -130,7 +132,7 @@ export default function FullWidthTabs(myProps) {
                                 Insert new profile image
                             </Grid>
                             <Grid className={classes.avatar} item xs={12}>                               
-                                <img className={classes.profileImage} alt="" src={myProps.myProps.imageToEdit}/>
+                                <img className={classes.profileImage} alt="" src={props.imageToEditUrl}/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container>
@@ -139,7 +141,7 @@ export default function FullWidthTabs(myProps) {
                                             type="file"
                                             name="file"
                                             placeholder="Upload an image"
-                                            onChange={myProps.myProps.uploadImage}
+                                            onChange={props.uploadImage}
                                         />
                                     </Grid>
                                 </Grid>
@@ -150,9 +152,10 @@ export default function FullWidthTabs(myProps) {
                                     required
                                     fullWidth
                                     id="nameToEdit"
+                                    defaultValue={props.nameToEdit}
                                     label="Name"
                                     name="nameToEdit"
-                                    onChange={myProps.myProps.onChange}
+                                    onChange={props.onChange}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -161,24 +164,14 @@ export default function FullWidthTabs(myProps) {
                                     required
                                     fullWidth
                                     id="surnameToEdit"
+                                    defaultValue={props.surnameToEdit}
                                     label="Surname"
                                     name="surnameToEdit"
-                                    onChange={myProps.myProps.onChange}
+                                    onChange={props.onChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="emailToEdit"
-                                    label="Email"
-                                    name="emailToEdit"
-                                    onChange={myProps.myProps.onChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button fullWidth variant="contained" color="primary" onClick={myProps.myProps.editData}>
+                                <Button fullWidth variant="contained" color="primary" onClick={props.editData}>
                                     Submit
                                 </Button>
                             </Grid>
@@ -198,7 +191,7 @@ export default function FullWidthTabs(myProps) {
                                     label="Old Password"
                                     name="oldPassword"
                                     autoComplete=""
-                                    onChange={myProps.myProps.onChange}
+                                    onChange={props.onChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -211,11 +204,11 @@ export default function FullWidthTabs(myProps) {
                                     label="New Password"
                                     name="newPassword"
                                     autoComplete=""
-                                    onChange={myProps.myProps.onChange}
+                                    onChange={props.onChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button fullWidth variant="contained" color="primary" onClick={myProps.myProps.editPassword}>
+                                <Button fullWidth variant="contained" color="primary" onClick={props.editPassword}>
                                     Submit
                                 </Button>
                             </Grid>

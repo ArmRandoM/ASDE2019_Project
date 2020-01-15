@@ -45,10 +45,10 @@ export default class ProfilePageManager extends Component {
             edit: false,
             nameToEdit:"",
             surnameToEdit:"",
-            emailToEdit:"",
             oldPassword:"",
             newPassword:"",
             imageToEdit:'',
+            imageToEditUrl:'',
 
         }
     }
@@ -121,7 +121,6 @@ export default class ProfilePageManager extends Component {
 
     deleteReport = (i) =>{
         var report=this.state.reports[i];
-        console.log(report);
         MedicalCenterBaseIstance.post("/deleteReport", {report: report})
             .then((res) => {   
                 if(res.data){               
@@ -131,7 +130,6 @@ export default class ProfilePageManager extends Component {
                         reportsArray.push(this.state.reports[j]);
                         }
                     }
-                    console.log(reportsArray);
                     this.setState({
                         reports: reportsArray
                     });
@@ -160,13 +158,15 @@ export default class ProfilePageManager extends Component {
     }
     
     editData = () =>{
-        MedicalCenterBaseIstance.post("/editData", null, {
-          idUser: this.state.loggedUser.idUser,
-          name: this.state.nameToEdit,
-          surname: this.state.surnameToEdit,
-          email: this.state.emailToEdit,
-          image: this.state.imageToEdit,
-        }).then((res) => {
+        const config = {
+            headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
+        };
+        let data = new FormData();
+        data.append("idUser", this.state.loggedUser.idUser);
+        data.append("name", this.state.nameToEdit);
+        data.append("surname", this.state.surnameToEdit);
+        data.append("image", this.state.imageToEdit);
+        MedicalCenterBaseIstance.post("/editData", data, config).then((res) => {    
             this.setState({
                 edit : false
             })
@@ -174,11 +174,11 @@ export default class ProfilePageManager extends Component {
     }
 
     editPassword = () =>{
-        MedicalCenterBaseIstance.post("/editPassword", null, {
-          idUser: this.state.loggedUser.idUser,
-          oldPassword: this.state.oldPassword,
-          newPassword: this.state.newPassword,
-        }).then((res) => {
+        let data = new FormData();
+        data.append("idUser", this.state.loggedUser.idUser);
+        data.append("oldPassword", this.state.oldPassword);
+        data.append("newPassword", this.state.newPassword);
+        MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
             this.setState({
                 edit : false
             })
@@ -191,10 +191,10 @@ export default class ProfilePageManager extends Component {
 
         reader.onloadend = () => {
           this.setState({
-            imageToEdit: reader.result
+            imageToEdit:file,
+            imageToEditUrl: reader.result
           });
         }
-
         reader.readAsDataURL(file)
     }
 
@@ -207,12 +207,13 @@ export default class ProfilePageManager extends Component {
     getLoggedUser() {
         var email=localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getLoggedUser",{params:{"email":email}}).then((res) => {
-            console.log(res.data)
             this.setState({
-                loggedUser: res.data
+                loggedUser: res.data,
+                nameToEdit: res.data.name,
+                surnameToEdit: res.data.surname,
+                imageToEdit: res.data.image,
             })
         })
-        console.log(this.state.loggedUser)
     }
 
     getReports() {
@@ -235,6 +236,9 @@ export default class ProfilePageManager extends Component {
                     loggedUser={this.state.loggedUser}
                     uploadImage={this.uploadImage}
                     imageToEdit={this.state.imageToEdit}
+                    imageToEditUrl={this.state.imageToEditUrl}
+                    nameToEdit={this.state.nameToEdit}
+                    surnameToEdit={this.state.surnameToEdit}
                     editPassword={this.editPassword}
                     setEdit={this.setEdit}
                     editData={this.editData}

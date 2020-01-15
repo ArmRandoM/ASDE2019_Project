@@ -8,7 +8,7 @@ public class UserDTO {
 
 	private int idUser;
 	
-	private String image;
+	private byte[] image;
 	
 	private String email;
 
@@ -26,7 +26,7 @@ public class UserDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDTO(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public UserDTO(byte[] image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
 		super();
 		this.image = image;
 		this.email = email;
@@ -54,11 +54,11 @@ public class UserDTO {
 	}
 
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 

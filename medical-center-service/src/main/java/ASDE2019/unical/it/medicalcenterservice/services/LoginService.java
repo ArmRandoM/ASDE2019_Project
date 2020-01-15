@@ -2,6 +2,7 @@ package ASDE2019.unical.it.medicalcenterservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.model.User;
@@ -53,14 +54,13 @@ public class LoginService {
 		}
 	}
 	
-	public synchronized boolean editData(int idUser, String name, String surname, String email, String image) {
-		System.out.println(idUser + " " + name + " " + surname + " " + email + " " + image);
+	public synchronized boolean editData(int idUser, String name, String surname, MultipartFile image) {
+		System.out.println(idUser + " " + name + " " + surname + " " + image);
 		try {
 			User user = utenteDao.findById(idUser);
 			user.setName(name);
 			user.setSurname(surname);
-			user.setEmail(email);
-			user.setImage(image);
+			user.setImage(image.getBytes());
 			utenteDao.save(user);
 			return true;
 		} catch (Exception e) {

@@ -19,8 +19,8 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUser;
 	
-	@Column(length=100000)
-	private String image;
+	@Column(columnDefinition = "blob")
+	private byte[] image;
 	
 	private String email;
 
@@ -40,7 +40,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public User(byte[] image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
 		super();
 		this.image = image;
 		this.email = email;
@@ -67,11 +67,11 @@ public class User {
 		this.idUser = idUser;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
