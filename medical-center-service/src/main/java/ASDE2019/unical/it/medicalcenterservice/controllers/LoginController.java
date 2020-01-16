@@ -43,6 +43,7 @@ public class LoginController {
 	public boolean editPassword(@RequestParam(value = "idUser", required = true) int idUser,
 			@RequestParam(value = "oldPassword", required = true) String oldPassword,
 			@RequestParam(value = "newPassword", required = true) String newPassword) {
+		System.out.println(idUser + " " + oldPassword + " " + newPassword );
 		if (loginService.editPassword(idUser, oldPassword, newPassword))
 			return true;
 		return false;

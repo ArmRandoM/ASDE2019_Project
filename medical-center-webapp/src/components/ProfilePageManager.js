@@ -8,53 +8,57 @@ export default class ProfilePageManager extends Component {
         super();
         this.state = {
             loggedUser: '',
-            follows:[],
-            followers:[],
-            patients:[],
+            follows: [],
+            followers: [],
+            patients: [],
             reports: [],
             edit: false,
-            nameReportToEdit:"",
-            descriptionReportToEdit:"",
-            nameToEdit:"",
-            surnameToEdit:"",
-            oldPassword:"",
-            newPassword:"",
-            biographyToEdit:"",
-            imageToEdit:'',
-            imageToEditUrl:'',
+            nameReportToEdit: "",
+            descriptionReportToEdit: "",
+            nameToEdit: "",
+            surnameToEdit: "",
+            oldPassword: "",
+            newPassword: "",
+            repeatPassword: "",
+            biographyToEdit: "",
+            imageToEdit: '',
+            imageToEditUrl: '',
             editReport: [],
+            matchingPassword: true,
+            invalidPassword: false,
+            passwordNotFormedWell: false,
         }
     }
 
-    followOperationOnFollows = (user,i) =>{
-        MedicalCenterBaseIstance.post("/followOperation", {user: user})
+    followOperationOnFollows = (user, i) => {
+        MedicalCenterBaseIstance.post("/followOperation", { user: user })
             .then((res) => {
-                if(res.data){
+                if (res.data) {
                     var followsArray = Array.from(this.state.follows);
                     for (var j in followsArray) {
                         if (j == i) {
                             followsArray[i].followed = !followsArray[i].followed;
-                        break;
+                            break;
                         }
                     }
                     this.setState({
                         follows: followsArray
                     });
-                
+
                 }
             }
-        )
+            )
     }
-    
-    followOperationOnFollowers = (user,i) =>{
-        MedicalCenterBaseIstance.post("/followOperation", {user: user})
+
+    followOperationOnFollowers = (user, i) => {
+        MedicalCenterBaseIstance.post("/followOperation", { user: user })
             .then((res) => {
-                if(res.data){
+                if (res.data) {
                     var followersArray = Array.from(this.state.followers);
                     for (var j in followersArray) {
                         if (j == i) {
                             followersArray[i].followed = !followersArray[i].followed;
-                        break;
+                            break;
                         }
                     }
                     this.setState({
@@ -62,7 +66,7 @@ export default class ProfilePageManager extends Component {
                     });
                 }
             }
-        )
+            )
     }
 
     onChange = (event) => {
@@ -71,13 +75,12 @@ export default class ProfilePageManager extends Component {
         });
     }
 
-    updateReport = (i) =>{
+    updateReport = (i) => {
         var nameDescriptionReg = /[A-Za-z]+/;
         var nameReportTest = nameDescriptionReg.test(this.state.nameReportToEdit);
         var descriptionReportTest = nameDescriptionReg.test(this.state.descriptionReportToEdit);
 
-        if (nameReportTest && descriptionReportTest)
-        {
+        if (nameReportTest && descriptionReportTest) {
             var report = '';
             var reportsArray = Array.from(this.state.reports);
             for (var j in reportsArray) {
@@ -98,7 +101,7 @@ export default class ProfilePageManager extends Component {
             data.append("reportName", report.reportName);
             MedicalCenterBaseIstance.post("/updateReport", data)
                 .then((res) => {
-                    if(!res.data){
+                    if (!res.data) {
                         var reportsArray = Array.from(this.state.reports);
                         for (var j in reportsArray) {
                             if (j == i) {
@@ -110,34 +113,34 @@ export default class ProfilePageManager extends Component {
                         }
                         this.setState({
                             reports: reportsArray
-                        });  
-                        
+                        });
+
                     }
-                    this.setEditReport(i); 
+                    this.setEditReport(i);
                 }
-            )
+                )
         }
     }
 
-    deleteReport = (i) =>{
-        var report=this.state.reports[i];
+    deleteReport = (i) => {
+        var report = this.state.reports[i];
         let data = new FormData();
         data.append("idReport", report.idReport);
         MedicalCenterBaseIstance.post("/deleteReport", data)
-            .then((res) => {   
-                if(res.data){               
+            .then((res) => {
+                if (res.data) {
                     var reportsArray = [];
                     for (var j in this.state.reports) {
                         if (j != i) {
-                        reportsArray.push(this.state.reports[j]);
+                            reportsArray.push(this.state.reports[j]);
                         }
                     }
                     this.setState({
                         reports: reportsArray
                     });
-                }      
+                }
             }
-        )
+            )
     }
 
     onReportNameChange = (event) => {
@@ -151,37 +154,36 @@ export default class ProfilePageManager extends Component {
             descriptionReportToEdit: event.target.value
         });
     }
-    
-    setEditReport = (i) =>{
+
+    setEditReport = (i) => {
         this.state.editReport[i] = !this.state.editReport[i];
         this.setState({
             editReport: this.state.editReport
         });
     }
 
-    selectPatient = (patient) =>{
+    selectPatient = (patient) => {
         this.setState({
             reports: patient.reports
         });
     }
 
-    setEdit = () =>{
+    setEdit = () => {
         this.setState({
             edit: !this.state.edit
         });
     }
-    
-    editData = () =>{
+
+    editData = () => {
         const config = {
             headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
         };
-        
+
         var nameSurnameReg = /[A-Za-z]+/;
         var nameTest = nameSurnameReg.test(this.state.nameToEdit);
         var surnameTest = nameSurnameReg.test(this.state.surnameToEdit);
 
-        if (surnameTest && nameTest)
-        {
+        if (surnameTest && nameTest) {
             let data = new FormData();
             data.append("idUser", this.state.loggedUser.idUser);
             data.append("name", this.state.nameToEdit);
@@ -189,29 +191,47 @@ export default class ProfilePageManager extends Component {
             data.append("biography", this.state.biographyToEdit);
             data.append("image", this.state.imageToEdit);
             console.log(this.state.imageToEdit)
-            MedicalCenterBaseIstance.post("/editData", data, config).then((res) => { 
-                if(res.data){
-                    window.location.href="/profilepg";
+            MedicalCenterBaseIstance.post("/editData", data, config).then((res) => {
+                if (res.data) {
+                    window.location.href = "/profilepg";
                 }
             })
         }
 
     }
 
-    editPassword = () =>{
-        
+    initializeError = () => {
+        this.setState({
+            matchingPassword: true,
+            invalidPassword: false,
+            passwordNotFormedWell: false
+        });
+    }
+
+    editPassword = () => {
+        this.initializeError();
+        console.log("editPassword")
         var passwordReg = /[a-zA-Z0-9-?!@#$%^&* ]{8,}/;
-        var passwordTest = passwordReg.test(this.state.passwordSignUp);
-        if(passwordTest){
-            let data = new FormData();
-            data.append("idUser", this.state.loggedUser.idUser);
-            data.append("oldPassword", this.state.oldPassword);
-            data.append("newPassword", this.state.newPassword);
-            MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
-                if(res.data){
-                    window.location.href="/profilepg";
-                }
-            })
+        var passwordTest = passwordReg.test(this.state.newPassword);
+        if (this.state.newPassword !== this.state.repeatPassword)
+            this.setState({ matchingPassword: false });
+        else {
+            if (passwordTest) {
+                let data = new FormData();
+                data.append("idUser", this.state.loggedUser.idUser);
+                data.append("oldPassword", this.state.oldPassword);
+                data.append("newPassword", this.state.newPassword);
+                MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
+                    if (res.data) {
+                        window.location.href = "/profilepg";
+                    }
+                    else {
+                        this.setState({ invalidPassword: false });
+                    }
+                })
+            }
+            else
+                this.setState({ passwordNotFormedWell: true });
         }
     }
 
@@ -220,15 +240,15 @@ export default class ProfilePageManager extends Component {
         let file = event.target.files[0];
 
         reader.onloadend = () => {
-          this.setState({
-            imageToEdit:file,
-            imageToEditUrl: reader.result
-          });
+            this.setState({
+                imageToEdit: file,
+                imageToEditUrl: reader.result
+            });
         }
         reader.readAsDataURL(file)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getLoggedUser();
         //this.getFollows();
         //this.getFollowers();
@@ -236,8 +256,8 @@ export default class ProfilePageManager extends Component {
     }
 
     getLoggedUser() {
-        var email=localStorage.getItem("email");
-        MedicalCenterBaseIstance.get("/getLoggedUser",{params:{"email":email}}).then((res) => {
+        var email = localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getLoggedUser", { params: { "email": email } }).then((res) => {
             this.setState({
                 loggedUser: res.data,
                 nameToEdit: res.data.name,
@@ -249,8 +269,8 @@ export default class ProfilePageManager extends Component {
     }
 
     getFollows() {
-        var email=localStorage.getItem("email");
-        MedicalCenterBaseIstance.get("/getFollows",{params:{"email":email}}).then((res) => {
+        var email = localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getFollows", { params: { "email": email } }).then((res) => {
             this.setState({
                 follows: res.data,
             })
@@ -258,8 +278,8 @@ export default class ProfilePageManager extends Component {
     }
 
     getFollowers() {
-        var email=localStorage.getItem("email");
-        MedicalCenterBaseIstance.get("/getFollowers",{params:{"email":email}}).then((res) => {
+        var email = localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getFollowers", { params: { "email": email } }).then((res) => {
             this.setState({
                 followers: res.data,
             })
@@ -267,7 +287,7 @@ export default class ProfilePageManager extends Component {
     }
 
     getReports() {
-        var email=localStorage.getItem("email");
+        var email = localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getReportsFromUser", {
             params: {
                 "email": email,
@@ -286,7 +306,12 @@ export default class ProfilePageManager extends Component {
         return (
             <div>
                 <BodyProfilePage
+                    initializeError={this.initializeError}
+                    matchingPassword={this.state.matchingPassword}
+                    invalidPassword={this.state.invalidPassword}
+                    passwordNotFormedWell={this.state.passwordNotFormedWell}
                     loggedUser={this.state.loggedUser}
+                    editPassword={this.editPassword}
                     uploadImage={this.uploadImage}
                     imageToEdit={this.state.imageToEdit}
                     imageToEditUrl={this.state.imageToEditUrl}

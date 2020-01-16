@@ -130,6 +130,10 @@ export default function ComplexGrid(props) {
     if (props.edit) {
         return (
             <EditProfileManager
+                initializeError={props.initializeError}
+                matchingPassword={props.matchingPassword}
+                invalidPassword={props.invalidPassword}
+                passwordNotFormedWell={props.passwordNotFormedWell}
                 uploadImage={props.uploadImage}
                 imageToEdit={props.imageToEdit}
                 imageToEditUrl={props.imageToEditUrl}
@@ -167,7 +171,7 @@ export default function ComplexGrid(props) {
                         </Grid>
                         <Grid item xs={8}>
                             <Grid container className={classes.profileName}>
-                                <Grid item xs={12} sm={9} md={9} className={classes.profileName}>
+                                <Grid item xs={12} sm={8} md={8} className={classes.profileName}>
                                     <Typography variant="h6" gutterBottom>
                                         {
                                             props.loggedUser.doctor
@@ -176,7 +180,7 @@ export default function ComplexGrid(props) {
                                         {props.loggedUser.name} {props.loggedUser.surname}
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={12} sm={3} md={3}>
+                                <Grid item xs={12} sm={2} md={2}>
                                     <Button size="small" variant="outlined" component="span" onClick={props.setEdit} className={classes.editButton}>
                                         Edit
                                     </Button>

@@ -69,6 +69,12 @@ const useStyles = makeStyles(theme => ({
         overflowX: 'hidden',
         overflowY: 'hidden'
     },
+    editPassword: {
+        marginTop: '5px'
+    },
+    error: {
+        color: 'red',
+    },
     biography: {
         width: '98%',
     },
@@ -112,6 +118,7 @@ export default function FullWidthTabs(props) {
                 <Tabs
                     value={value}
                     onChange={handleChange}
+                    onClick={props.initializeError}
                     indicatorColor="primary"
                     textColor="primary"
                     variant="fullWidth"
@@ -198,7 +205,7 @@ export default function FullWidthTabs(props) {
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <Grid container className={classes.editProfileForm}>
+                    <Grid container className={classes.editPassword}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -213,6 +220,7 @@ export default function FullWidthTabs(props) {
                                     onChange={props.onChange}
                                 />
                             </Grid>
+                            {props.invalidPassword === true ? <Grid item xs={12}><p className={classes.error}>The two passwords don't match!</p></Grid> : null}
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
@@ -227,7 +235,22 @@ export default function FullWidthTabs(props) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button fullWidth variant="contained" color="primary" onClick={props.editPassword}>
+                                <TextField
+                                    variant="outlined"
+                                    type="password"
+                                    required
+                                    fullWidth
+                                    id="repeatPassword"
+                                    label="Repeat New Password"
+                                    name="repeatPassword"
+                                    autoComplete=""
+                                    onChange={props.onChange}
+                                />
+                            </Grid>
+                            {props.matchingPassword === false ? <Grid item xs={12}><p className={classes.error}>The two passwords don't match!</p></Grid> : null}
+                            {props.passwordNotFormedWell === true ? <Grid item xs={12}><p className={classes.error}>The password is not formed well!</p></Grid> : null}
+                            <Grid item xs={12}>
+                                <Button onClick={props.editPassword} fullWidth variant="contained" color="primary">
                                     Submit
                                 </Button>
                             </Grid>
