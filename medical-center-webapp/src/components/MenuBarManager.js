@@ -38,10 +38,13 @@ export default class MenuBarManager extends Component {
            
     makeSearch  = () => {
         console.log(this.state.search);
-        MedicalCenterBaseIstance.post("/searchForUser", {search: this.state.search}).then((res) => {
+        let data = new FormData();
+        data.append("search", this.state.search);
+        MedicalCenterBaseIstance.post("/searchForUser", data).then((res) => {
             this.setState({
                 searchResult : res.data
             })
+            console.log(this.state.searchResult);
         })
     }
       

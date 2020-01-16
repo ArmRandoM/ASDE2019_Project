@@ -120,7 +120,7 @@ export default function TransitionsModal(props) {
                                 props.searchResult.map((user,i) =>
                                     <Grid key={i} container>
                                         <Grid item xs={2} className={classes.avatar}>
-                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
+                                            <Avatar alt="Remy Sharp" src={"data:image/jpg;base64,"+user.image} />
                                         </Grid>
                                         <Grid item xs={3} className={classes.name}>
                                             {user.status}
