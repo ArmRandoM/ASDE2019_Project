@@ -48,7 +48,7 @@ class SignInUpManager extends Component {
             nameOrSurnameError: !(nameTest && surnameTest),
         });
 
-        if (surnameTest && passwordTest && emailTest && passwordTest) {
+        if (surnameTest && nameTest && emailTest && passwordTest) {
             MedicalCenterBaseIstance.post("/signUp", {
                 name: this.state.name,
                 surname: this.state.surname,

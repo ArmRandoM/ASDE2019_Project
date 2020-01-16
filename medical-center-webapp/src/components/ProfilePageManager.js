@@ -151,18 +151,27 @@ export default class ProfilePageManager extends Component {
         const config = {
             headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
         };
-        let data = new FormData();
-        data.append("idUser", this.state.loggedUser.idUser);
-        data.append("name", this.state.nameToEdit);
-        data.append("surname", this.state.surnameToEdit);
-        data.append("biography", this.state.biographyToEdit);
-        data.append("image", this.state.imageToEdit);
-        console.log(this.state.imageToEdit)
-        MedicalCenterBaseIstance.post("/editData", data, config).then((res) => { 
-            if(res.data){
-                window.location.href="/profilepg";
-            }
-        })
+        
+        var nameSurnameReg = /[A-Za-z]+/;
+        var nameTest = nameSurnameReg.test(this.state.nameToEdit);
+        var surnameTest = nameSurnameReg.test(this.state.surnameToEdit);
+
+        if (surnameTest && nameTest)
+        {
+            let data = new FormData();
+            data.append("idUser", this.state.loggedUser.idUser);
+            data.append("name", this.state.nameToEdit);
+            data.append("surname", this.state.surnameToEdit);
+            data.append("biography", this.state.biographyToEdit);
+            data.append("image", this.state.imageToEdit);
+            console.log(this.state.imageToEdit)
+            MedicalCenterBaseIstance.post("/editData", data, config).then((res) => { 
+                if(res.data){
+                    window.location.href="/profilepg";
+                }
+            })
+        }
+
     }
 
     editPassword = () =>{

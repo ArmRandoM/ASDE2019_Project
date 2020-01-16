@@ -21,16 +21,12 @@ export default class ReportPageManager extends Component {
         const config = {
             headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
         };
-        let email = localStorage.getItem("email");
         let data = new FormData();
         data.append("reportName", this.state.reportName);
         data.append("reportDescription", this.state.reportDescription);
-        data.append("email", email);
         data.append("image", this.state.image);
-<<<<<<< HEAD
         data.append("userEmail", email)
-=======
->>>>>>> branch 'master' of https://github.com/ArmRandoM/ASDE2019_Project
+
         MedicalCenterBaseIstance.post("/saveReport", data, config).then((res) => {
             this.setState({
                 added : res.data
