@@ -17,7 +17,7 @@ public class Report {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReport;
 
-	@Column(columnDefinition = "blob")
+	@Column(columnDefinition = "mediumblob")
 	private byte[] image;
 
 	private String reportName;
