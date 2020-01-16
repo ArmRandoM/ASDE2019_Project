@@ -39,10 +39,11 @@ public class ReportService {
 		}
 	}
 
-	public void updateReport(int idReport, String docValutation) {
+	public void updateReport(int idReport, String reportName, String reportDescription) {
 		try {
 			final Report report = reportDAO.findById(idReport);
-			report.setDocValutation(docValutation);
+			report.setReportName(reportName);
+			report.setReportDescription(reportDescription);
 			reportDAO.save(report);
 		} catch (final Exception e) {
 			System.out.println(e.getMessage());

@@ -19,7 +19,6 @@ export default class MenuBarManager extends Component {
         window.location.href = "/";
     }
 
-    //TODO
     followOperation = (user,i) =>{
         MedicalCenterBaseIstance.post("/followOperation", {user: user}).then((res) => {
             if(res.data){
@@ -37,7 +36,6 @@ export default class MenuBarManager extends Component {
         })
     } 
            
-    //TODO
     makeSearch  = () => {
         console.log(this.state.search);
         MedicalCenterBaseIstance.post("/searchForUser", {search: this.state.search}).then((res) => {

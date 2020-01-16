@@ -112,9 +112,10 @@ public class ReportController {
 	@CrossOrigin
 	@RequestMapping(value = "/updateReport", method = RequestMethod.POST)
 	public boolean updateReport(@RequestParam(value = "idReport", required = true) int idReport,
-			@RequestParam(value = "docValutation", required = true) String docValutation) {
+			@RequestParam(value = "reportName", required = true) String reportName,
+			@RequestParam(value = "reportDescription", required = true) String reportDescription) {
 		try {
-			reportService.updateReport(idReport, docValutation);
+			reportService.updateReport(idReport, reportName, reportDescription);
 			return true;
 		} catch (final Exception e) {
 			return false;

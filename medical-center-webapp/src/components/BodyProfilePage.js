@@ -17,6 +17,7 @@ import CardActions from '@material-ui/core/CardActions';
 import EditProfileManager from './EditProfileManager.js';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
+import { TextField } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -233,9 +234,23 @@ export default function ComplexGrid(props) {
                                         <Card className={classes.card}>
                                             <Grid container>
                                                 <Grid item xs={10} sm={10} md={10}>
-                                                    <Typography variant="h5">
-                                                        {v.reportName}
-                                                    </Typography>
+                                                    {
+                                                        props.editReport[i] ? 
+                                                        <TextField
+                                                            variant="outlined"
+                                                            required
+                                                            fullWidth
+                                                            id="nameToEdit"
+                                                            defaultValue={v.reportName}
+                                                            label="Name"
+                                                            name="nameToEdit"
+                                                            onChange={props.onReportNameChange}
+                                                        />
+                                                        :
+                                                        <Typography variant="h5">
+                                                            {v.reportName}
+                                                        </Typography>
+                                                    }
                                                 </Grid>
                                                 <Grid item xs={2} sm={2} md={2}>
                                                     {
@@ -252,9 +267,26 @@ export default function ComplexGrid(props) {
                                             <CardContent>
                                                 <Grid>
                                                     <Grid item xs={12} sm={12} md={12}>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            {v.reportDescription}
-                                                        </Typography>
+                                                        {
+                                                            props.editReport[i] ? 
+                                                            <span>
+                                                            <TextField
+                                                                variant="outlined"
+                                                                required
+                                                                fullWidth
+                                                                id="nameToEdit"
+                                                                defaultValue={v.reportDescription}
+                                                                label="Name"
+                                                                name="nameToEdit"
+                                                                onChange={props.onReportDescriptionChange}
+                                                            /> 
+                                                            <Button  variant="contained" color="primary" onClick={() => props.updateReport(i)}>Submit</Button>
+                                                            </span>
+                                                            :
+                                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                                {v.reportDescription}
+                                                            </Typography>
+                                                        }
                                                     </Grid>
                                                     <Grid item xs={12} sm={12} md={12}>
                                                         <Typography variant="body2" color="textSecondary" component="p">
@@ -278,7 +310,14 @@ export default function ComplexGrid(props) {
                                                             }
                                                         }
                                                     />
-                                                    : <Button className={classes.paper} onClick={() => props.deleteReport(i)}>Delete</Button>
+                                                    : <Grid container>
+                                                        <Grid item xs={12} sm={6} md={6}>
+                                                            <Button className={classes.paper} onClick={() => props.deleteReport(i)}>Delete</Button>
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={6} md={6}>
+                                                            <Button className={classes.paper} onClick={() => props.setEditReport(i)}>Edit</Button>
+                                                        </Grid>
+                                                      </Grid>
                                                 }
                                             </CardActions>
                                         </Card>

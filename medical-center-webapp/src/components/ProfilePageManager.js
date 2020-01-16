@@ -8,12 +8,13 @@ export default class ProfilePageManager extends Component {
         super();
         this.state = {
             loggedUser: '',
-            valutationToInsert: "",
             follows:[],
             followers:[],
             patients:[],
             reports: [],
             edit: false,
+            nameReportToEdit:"",
+            descriptionReportToEdit:"",
             nameToEdit:"",
             surnameToEdit:"",
             oldPassword:"",
@@ -21,11 +22,10 @@ export default class ProfilePageManager extends Component {
             biographyToEdit:"",
             imageToEdit:'',
             imageToEditUrl:'',
-
+            editReport: [],
         }
     }
 
-    //TODO
     followOperationOnFollows = (user,i) =>{
         MedicalCenterBaseIstance.post("/followOperation", {user: user})
             .then((res) => {
@@ -46,7 +46,6 @@ export default class ProfilePageManager extends Component {
         )
     }
     
-    //TODO
     followOperationOnFollowers = (user,i) =>{
         MedicalCenterBaseIstance.post("/followOperation", {user: user})
             .then((res) => {
@@ -72,40 +71,52 @@ export default class ProfilePageManager extends Component {
         });
     }
 
-    insertValutation = (i) =>{
-        var report = '';
-        var reportsArray = Array.from(this.state.reports);
-        for (var j in reportsArray) {
-            if (j == i) {
-                report = reportsArray[i];
-                reportsArray[i].docValutation = this.state.valutationToInsert;
-                break;
-            }
-        }
-        this.setState({
-            reports: reportsArray
-        });
-        console.log(report.docValutation)
-        let data = new FormData();
-        data.append("idReport", report.idReport);
-        data.append("docValutation", report.docValutation);
-        MedicalCenterBaseIstance.post("/updateReport", data)
-            .then((res) => {
-                if(!res.data){
-                    var reportsArray = Array.from(this.state.reports);
-                    for (var j in reportsArray) {
-                        if (j == i) {
-                            reportsArray[i].docValutation = report.docValutation;
-                            break;
-                        }
-                    }
-                    this.setState({
-                        reports: reportsArray
-                    });  
+    updateReport = (i) =>{
+        var nameDescriptionReg = /[A-Za-z]+/;
+        var nameReportTest = nameDescriptionReg.test(this.state.nameReportToEdit);
+        var descriptionReportTest = nameDescriptionReg.test(this.state.descriptionReportToEdit);
+
+        if (nameReportTest && descriptionReportTest)
+        {
+            var report = '';
+            var reportsArray = Array.from(this.state.reports);
+            for (var j in reportsArray) {
+                if (j == i) {
+                    report = reportsArray[i];
+                    reportsArray[i].reportDescription = this.state.descriptionReportToEdit;
+                    reportsArray[i].reportName = this.state.nameReportToEdit;
+                    break;
                 }
             }
-        )
-
+            this.setState({
+                reports: reportsArray
+            });
+            console.log(report)
+            let data = new FormData();
+            data.append("idReport", report.idReport);
+            data.append("reportDescription", report.reportDescription);
+            data.append("reportName", report.reportName);
+            MedicalCenterBaseIstance.post("/updateReport", data)
+                .then((res) => {
+                    if(!res.data){
+                        var reportsArray = Array.from(this.state.reports);
+                        for (var j in reportsArray) {
+                            if (j == i) {
+                                report = reportsArray[i];
+                                reportsArray[i].reportDescription = this.state.descriptionReportToEdit;
+                                reportsArray[i].reportName = this.state.nameReportToEdit;
+                                break;
+                            }
+                        }
+                        this.setState({
+                            reports: reportsArray
+                        });  
+                        
+                    }
+                    this.setEditReport(i); 
+                }
+            )
+        }
     }
 
     deleteReport = (i) =>{
@@ -129,9 +140,22 @@ export default class ProfilePageManager extends Component {
         )
     }
 
-    onValutationChange = (event) => {
+    onReportNameChange = (event) => {
         this.setState({
-            valutationToInsert: event.target.value
+            nameReportToEdit: event.target.value
+        });
+    }
+
+    onReportDescriptionChange = (event) => {
+        this.setState({
+            descriptionReportToEdit: event.target.value
+        });
+    }
+    
+    setEditReport = (i) =>{
+        this.state.editReport[i] = !this.state.editReport[i];
+        this.setState({
+            editReport: this.state.editReport
         });
     }
 
@@ -175,15 +199,20 @@ export default class ProfilePageManager extends Component {
     }
 
     editPassword = () =>{
-        let data = new FormData();
-        data.append("idUser", this.state.loggedUser.idUser);
-        data.append("oldPassword", this.state.oldPassword);
-        data.append("newPassword", this.state.newPassword);
-        MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
-            if(res.data){
-                window.location.href="/profilepg";
-            }
-        })
+        
+        var passwordReg = /[a-zA-Z0-9-?!@#$%^&* ]{8,}/;
+        var passwordTest = passwordReg.test(this.state.passwordSignUp);
+        if(passwordTest){
+            let data = new FormData();
+            data.append("idUser", this.state.loggedUser.idUser);
+            data.append("oldPassword", this.state.oldPassword);
+            data.append("newPassword", this.state.newPassword);
+            MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
+                if(res.data){
+                    window.location.href="/profilepg";
+                }
+            })
+        }
     }
 
     uploadImage = (event) => {
@@ -201,7 +230,6 @@ export default class ProfilePageManager extends Component {
 
     componentDidMount(){
         this.getLoggedUser();
-        //this.getPatients();
         //this.getFollows();
         //this.getFollowers();
         this.getReports();
@@ -219,18 +247,7 @@ export default class ProfilePageManager extends Component {
             })
         })
     }
-    
-    //TODO
-    getPatients() {
-        var email=localStorage.getItem("email");
-        MedicalCenterBaseIstance.get("/getPatients",{params:{"email":email}}).then((res) => {
-            this.setState({
-                patients: res.data,
-            })
-        })
-    }
 
-    //TODO
     getFollows() {
         var email=localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getFollows",{params:{"email":email}}).then((res) => {
@@ -240,7 +257,6 @@ export default class ProfilePageManager extends Component {
         })
     }
 
-    //TODO
     getFollowers() {
         var email=localStorage.getItem("email");
         MedicalCenterBaseIstance.get("/getFollowers",{params:{"email":email}}).then((res) => {
@@ -260,6 +276,9 @@ export default class ProfilePageManager extends Component {
             this.setState({
                 reports: res.data
             })
+            this.state.reports.forEach(r => {
+                this.state.editReport.push(false);
+            });
         })
     }
 
@@ -279,11 +298,14 @@ export default class ProfilePageManager extends Component {
                     editData={this.editData}
                     deleteReport={this.deleteReport}
                     edit={this.state.edit}
+                    editReport={this.state.editReport}
+                    setEditReport={this.setEditReport}
                     patients={this.state.patients}
                     reports={this.state.reports}
                     selectPatient={this.selectPatient}
-                    insertValutation={this.insertValutation}
-                    onValutationChange={this.onValutationChange}
+                    updateReport={this.updateReport}
+                    onReportDescriptionChange={this.onReportDescriptionChange}
+                    onReportNameChange={this.onReportNameChange}
                     onChange={this.onChange}
                     follows={this.state.follows}
                     followers={this.state.followers}
