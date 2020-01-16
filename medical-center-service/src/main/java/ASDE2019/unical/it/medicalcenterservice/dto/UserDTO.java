@@ -9,7 +9,7 @@ public class UserDTO {
 
 	private int idUser;
 
-	private String image;
+	private byte[] image;
 
 	private String email;
 
@@ -18,6 +18,8 @@ public class UserDTO {
 	private String surname;
 	private String password;
 
+	private String biography;
+	
 	private boolean doctor;
 
 	private List<Report> reports;
@@ -27,15 +29,15 @@ public class UserDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDTO(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public UserDTO(byte[] image, String email, String name, String surname, String password, String biography, boolean doctor) {
 		super();
 		this.image = image;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
+		this.biography = biography;
 		this.doctor = doctor;
-		this.reports = reports;
 	}
 
 	public void convertUserEntityToBean(User user) {
@@ -46,7 +48,6 @@ public class UserDTO {
 		this.surname = user.getSurname();
 		this.password = user.getPassword();
 		this.doctor = user.getDoctor();
-//		this.reports = user.getReports();
 	}
 
 	public boolean getDoctor() {
@@ -62,7 +63,7 @@ public class UserDTO {
 	}
 
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
@@ -95,7 +96,7 @@ public class UserDTO {
 		this.idUser = idUser;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
@@ -103,6 +104,14 @@ public class UserDTO {
 		this.name = name;
 	}
 
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}

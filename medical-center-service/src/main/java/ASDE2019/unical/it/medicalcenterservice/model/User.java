@@ -15,8 +15,8 @@ public class User {
 	@Column(name = "id_user")
 	private int idUser;
 
-	@Column(length=100000)
-	private String image;
+	@Column(columnDefinition = "blob")
+	private byte[] image;
 
 	private String email;
 
@@ -26,6 +26,8 @@ public class User {
 
 	private String password;
 
+	private String biography;
+	
 	private boolean doctor;
 
 //	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -36,15 +38,15 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public User(byte[] image, String email, String name, String surname, String password, String biography, boolean doctor) {
 		super();
 		this.image = image;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
+		this.biography = biography;
 		this.doctor = doctor;
-//		this.reports = reports;
 	}
 
 	public boolean getDoctor() {
@@ -59,9 +61,10 @@ public class User {
 		return idUser;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
+
 
 	public String getName() {
 		return name;
@@ -92,7 +95,7 @@ public class User {
 		this.idUser = idUser;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
@@ -100,6 +103,14 @@ public class User {
 		this.name = name;
 	}
 
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}

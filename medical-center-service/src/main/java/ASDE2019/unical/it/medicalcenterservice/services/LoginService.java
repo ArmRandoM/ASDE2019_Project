@@ -1,7 +1,17 @@
 package ASDE2019.unical.it.medicalcenterservice.services;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.model.User;
@@ -16,6 +26,14 @@ public class LoginService {
 	public synchronized boolean saveNewPatient(User utente) {
 		try {
 			if (!utenteDao.existsById(utente.getIdUser())) {
+				/*
+				File sourceimage = new File("/../image/profileImage.jpg");
+				BufferedImage image = ImageIO.read(sourceimage);
+			    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			    ImageIO.write(image, "jpg", bos );
+			    byte [] data = bos.toByteArray();
+				utente.setImage(data);
+				*/
 				utenteDao.save(utente);
 				return true;
 			} else
@@ -53,14 +71,14 @@ public class LoginService {
 		}
 	}
 	
-	public synchronized boolean editData(int idUser, String name, String surname, String email, String image) {
-		System.out.println(idUser + " " + name + " " + surname + " " + email + " " + image);
+	public synchronized boolean editData(int idUser, String name, String surname, MultipartFile image, String biography) {
+		System.out.println(idUser + " " + name + " " + surname + " " + image + " " + biography);
 		try {
 			User user = utenteDao.findById(idUser);
 			user.setName(name);
 			user.setSurname(surname);
-			user.setEmail(email);
-			user.setImage(image);
+			user.setImage(image.getBytes());
+			user.setBiography(biography);
 			utenteDao.save(user);
 			return true;
 		} catch (Exception e) {

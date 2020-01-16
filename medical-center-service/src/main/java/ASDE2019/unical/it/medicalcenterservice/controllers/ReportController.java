@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,11 +41,10 @@ public class ReportController {
 
 
 	@CrossOrigin
-	@PostMapping("/deleteReport")
-	public boolean deleteReport(@RequestBody Report report) {
+	@RequestMapping(value = "/deleteReport", method = RequestMethod.POST)
+	public boolean deleteReport(@RequestParam(value = "idReport", required = true) int idReport) {
 		try {
-			System.out.println(report.getIdReport());
-			reportService.deleteReport(report);
+			reportService.deleteReport(idReport);
 			return true;
 		} catch (final Exception e) {
 			return false;
@@ -67,7 +64,7 @@ public class ReportController {
 
 			final List<ReportDTO> reportsBean = new ArrayList<ReportDTO>();
 
-			for (final Report report : reportService.findReportsByUserID(u.getIdUser())) {
+			for (final Report report : reportService.findReportsByUserID(u)) {
 				final ReportDTO reportDTO = new ReportDTO();
 				reportDTO.convertReportEntityToBean(report);
 				reportsBean.add(reportDTO);
@@ -113,11 +110,11 @@ public class ReportController {
 	}
 
 	@CrossOrigin
-	@PostMapping("/updateReport")
-	public boolean updateReport(@RequestBody Report report) {
+	@RequestMapping(value = "/updateReport", method = RequestMethod.POST)
+	public boolean updateReport(@RequestParam(value = "idReport", required = true) int idReport,
+			@RequestParam(value = "docValutation", required = true) String docValutation) {
 		try {
-			System.out.println(report.getIdReport());
-			reportService.updateReport(report);
+			reportService.updateReport(idReport, docValutation);
 			return true;
 		} catch (final Exception e) {
 			return false;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ASDE2019.unical.it.medicalcenterservice.model.Report;
+import ASDE2019.unical.it.medicalcenterservice.model.User;
 import ASDE2019.unical.it.medicalcenterservice.repositories.ReportDAO;
 
 @Service
@@ -15,17 +16,18 @@ public class ReportService {
 	private ReportDAO reportDAO;
 
 
-	public void deleteReport(Report report) {
+	public void deleteReport(int idReport) {
 		try {
-			reportDAO.deleteById(report.getIdReport());
+			final Report report = reportDAO.findById(idReport);
+			reportDAO.delete(report);
 		} catch (final Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	public List<Report> findReportsByUserID(int userID)
+	public List<Report> findReportsByUserID(User user)
 	{
-		return reportDAO.findReportsByUserID(userID);
+		return reportDAO.findAllByUser(user);
 	}
 
 
@@ -37,9 +39,10 @@ public class ReportService {
 		}
 	}
 
-	public void updateReport(Report report) {
+	public void updateReport(int idReport, String docValutation) {
 		try {
-			reportDAO.deleteById(report.getIdReport());
+			final Report report = reportDAO.findById(idReport);
+			report.setDocValutation(docValutation);
 			reportDAO.save(report);
 		} catch (final Exception e) {
 			System.out.println(e.getMessage());
