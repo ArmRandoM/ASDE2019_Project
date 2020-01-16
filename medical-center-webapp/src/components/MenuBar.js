@@ -40,11 +40,11 @@ export default function PrimarySearchAppBar(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
 
   const handleClose = () => {
-      setOpen(false);
+    setOpen(false);
   };
 
   return (
@@ -57,7 +57,7 @@ export default function PrimarySearchAppBar(props) {
         onSearchChange={props.onSearchChange}
         followOperation={props.followOperation}
         makeSearch={props.makeSearch}
-        searchResult={props.searchResult} 
+        searchResult={props.searchResult}
       />
       <AppBar position="static">
         <Toolbar>
@@ -88,15 +88,16 @@ export default function PrimarySearchAppBar(props) {
             </IconButton>
             <IconButton
               title="Search"
-              color="inherit" 
-              onClick={handleClickOpen} 
+              color="inherit"
+              onClick={handleClickOpen}
               href="#text-buttons"
             >
               <SearchIcon />
             </IconButton>
             <IconButton
               title="Log-Out"
-              color="inherit">
+              color="inherit"
+              onClick={props.logOut}>
               <ExitToAppIcon />
             </IconButton>
           </div>

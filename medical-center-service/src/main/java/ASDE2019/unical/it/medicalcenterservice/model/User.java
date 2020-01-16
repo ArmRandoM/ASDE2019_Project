@@ -15,7 +15,7 @@ public class User {
 	@Column(name = "id_user")
 	private int idUser;
 
-	@Column(columnDefinition = "blob")
+	@Column(columnDefinition = "mediumblob")
 	private byte[] image;
 
 	private String email;

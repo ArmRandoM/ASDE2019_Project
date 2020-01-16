@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width:135,
-        height:135,
+        width: 135,
+        height: 135,
     },
     input: {
         display: 'none',
@@ -105,7 +105,7 @@ export default function FullWidthTabs(props) {
     const handleChangeIndex = index => {
         setValue(index);
     };
-    
+
     return (
         <Paper className={classes.paper} elevation={0}>
             <AppBar position="static" className={classes.whiteColor}>
@@ -128,29 +128,28 @@ export default function FullWidthTabs(props) {
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     <Grid container className={classes.editProfileForm}>
+
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>                               
-                                Insert new profile image
-                            </Grid>
-                            <Grid className={classes.paper} item xs={12}>
+                            <Grid className={classes.paper} item xs={6}>
                                 {
                                     props.imageToEditUrl !== '' ?
-                                    <Avatar className={classes.bigAvatar} alt="" src={props.imageToEditUrl}/>
-                                    : 
-                                    <Avatar className={classes.bigAvatar} alt="" src={"data:image/jpg;base64,"+props.imageToEdit}/>
-                                }                          
+                                        <Avatar alt="" src={props.imageToEditUrl} />
+                                        :
+                                        <Avatar alt="" src={"data:image/jpg;base64," + props.imageToEdit} />
+                                }
                             </Grid>
-                            <Grid item xs={12}>
-                                <Grid container>
-                                    <Grid item >
-                                        <input
-                                            type="file"
-                                            name="file"
-                                            placeholder="Upload an image"
-                                            onChange={props.uploadImage}
-                                        />
-                                    </Grid>
-                                </Grid>
+                            <Grid item xs={6}>
+                                <input
+                                    accept="image/*"
+                                    className={classes.input}
+                                    id="text-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={props.uploadImage}
+                                />
+                                <label htmlFor="text-button-file">
+                                    <Button className={classes.button} component="span">Change profile image</Button>
+                                </label>
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
