@@ -20,12 +20,12 @@ export default class ReportPageManager extends Component {
         const config = {
             headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
         };
+        let email = localStorage.getItem("email");
         let data = new FormData();
         data.append("reportName", this.state.reportName);
         data.append("reportDescription", this.state.reportDescription);
         data.append("image", this.state.image);
-        data.append("iaValutation", "");
-        data.append("docValutation", "");
+        data.append("userEmail", email)
         MedicalCenterBaseIstance.post("/saveReport", data, config).then((res) => {
             this.setState({
                 added : res.data
