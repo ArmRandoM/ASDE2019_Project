@@ -9,50 +9,23 @@ export default class ProfilePageManager extends Component {
         this.state = {
             loggedUser: '',
             valutationToInsert: "",
-            follows:[
-                { status: "Doctor", name: "Darlena Lecroy", followed: true},
-                { status: "Patient", name: "Logan Hake", followed: true},
-                { status: "Doctor", name: "Song Lovely", followed: true},
-            ],
-            followers:[
-                { status: "Patient", name:  "Elfreda Schuette", followed: false},
-                { status: "Patient", name: "Malvina Gunnerson", followed: false},
-                { status: "Doctor", name: "Rozella Alford", followed: false},
-                { status: "Patient", name: "Lianne Stanhope", followed: false},
-                { status: "Doctor", name: "Song Lovely", followed: true},
-                { status: "Patient", name: "Logan Hake", followed: true},
-                { status: "Doctor", name: "Darlena Lecroy", followed: true},
-            ],
-            patients:[
-                { name: "Catherina Maillet",
-                  image:'',
-                  reports: [{name: "1.1 name", description: "1.1 description", image:'', iaValutation:"1.1 iaValutation", docValutation:" 1.1 docValutation"},
-                            {name: "1.2 name", description: "1.2 description", image:'', iaValutation:"1.2 iaValutation", docValutation:" 1.2 docValutation"},
-                            {name: "1.3 name", description: "1.3 description", image:'', iaValutation:"1.3 iaValutation", docValutation:" 1.3 docValutation"},
-                            {name: "1.4 name", description: "1.4 description", image:'', iaValutation:"1.4 iaValutation", docValutation:" 1.4 docValutation"}
-                           ]
-                },
-                { name:  "Elfreda Schuette",
-                  image:'',
-                  reports: [{name: "2.1 name", description: "2.1 description", image:'', iaValutation:"2.1 iaValutation", docValutation:" 2.1 docValutation"},
-                            {name: "2.2 name", description: "2.2 description", image:'', iaValutation:"2.2 iaValutation", docValutation:"2.2 docValutation"},
-                            {name: "2.3 name", description: "2.3 description", image:'', iaValutation:"2.3 iaValutation", docValutation:"2.3 docValutation"},
-                            {name: "2.4 name", description: "2.4 description", image:'', iaValutation:"2.4 iaValutation", docValutation:"2.4 docValutation"}
-                           ]
-                },
-            ],
+            follows:[],
+            followers:[],
+            patients:[],
             reports: [],
             edit: false,
             nameToEdit:"",
             surnameToEdit:"",
             oldPassword:"",
             newPassword:"",
+            biographyToEdit:"",
             imageToEdit:'',
             imageToEditUrl:'',
 
         }
     }
 
+    //TODO
     followOperationOnFollows = (user,i) =>{
         MedicalCenterBaseIstance.post("/followOperation", {user: user})
             .then((res) => {
@@ -72,7 +45,8 @@ export default class ProfilePageManager extends Component {
             }
         )
     }
-
+    
+    //TODO
     followOperationOnFollowers = (user,i) =>{
         MedicalCenterBaseIstance.post("/followOperation", {user: user})
             .then((res) => {
@@ -99,15 +73,30 @@ export default class ProfilePageManager extends Component {
     }
 
     insertValutation = (i) =>{
-        var report=this.state.reports[i];
-        MedicalCenterBaseIstance.post("/updateReport", {report: report})
+        var report = '';
+        var reportsArray = Array.from(this.state.reports);
+        for (var j in reportsArray) {
+            if (j == i) {
+                report = reportsArray[i];
+                reportsArray[i].docValutation = this.state.valutationToInsert;
+                break;
+            }
+        }
+        this.setState({
+            reports: reportsArray
+        });
+        console.log(report.docValutation)
+        let data = new FormData();
+        data.append("idReport", report.idReport);
+        data.append("docValutation", report.docValutation);
+        MedicalCenterBaseIstance.post("/updateReport", data)
             .then((res) => {
-                if(res.data){
+                if(!res.data){
                     var reportsArray = Array.from(this.state.reports);
                     for (var j in reportsArray) {
                         if (j == i) {
-                        reportsArray[i].docValutation = this.state.valutationToInsert;
-                        break;
+                            reportsArray[i].docValutation = report.docValutation;
+                            break;
                         }
                     }
                     this.setState({
@@ -121,7 +110,9 @@ export default class ProfilePageManager extends Component {
 
     deleteReport = (i) =>{
         var report=this.state.reports[i];
-        MedicalCenterBaseIstance.post("/deleteReport", {report: report})
+        let data = new FormData();
+        data.append("idReport", report.idReport);
+        MedicalCenterBaseIstance.post("/deleteReport", data)
             .then((res) => {   
                 if(res.data){               
                     var reportsArray = [];
@@ -137,7 +128,6 @@ export default class ProfilePageManager extends Component {
             }
         )
     }
-
 
     onValutationChange = (event) => {
         this.setState({
@@ -165,11 +155,13 @@ export default class ProfilePageManager extends Component {
         data.append("idUser", this.state.loggedUser.idUser);
         data.append("name", this.state.nameToEdit);
         data.append("surname", this.state.surnameToEdit);
+        data.append("biography", this.state.biographyToEdit);
         data.append("image", this.state.imageToEdit);
-        MedicalCenterBaseIstance.post("/editData", data, config).then((res) => {    
-            this.setState({
-                edit : false
-            })
+        console.log(this.state.imageToEdit)
+        MedicalCenterBaseIstance.post("/editData", data, config).then((res) => { 
+            if(res.data){
+                window.location.href="/profilepg";
+            }
         })
     }
 
@@ -179,9 +171,9 @@ export default class ProfilePageManager extends Component {
         data.append("oldPassword", this.state.oldPassword);
         data.append("newPassword", this.state.newPassword);
         MedicalCenterBaseIstance.post("/editPassword", data).then((res) => {
-            this.setState({
-                edit : false
-            })
+            if(res.data){
+                window.location.href="/profilepg";
+            }
         })
     }
 
@@ -198,9 +190,11 @@ export default class ProfilePageManager extends Component {
         reader.readAsDataURL(file)
     }
 
-
     componentDidMount(){
         this.getLoggedUser();
+        //this.getPatients();
+        //this.getFollows();
+        //this.getFollowers();
         this.getReports();
     }
 
@@ -212,6 +206,37 @@ export default class ProfilePageManager extends Component {
                 nameToEdit: res.data.name,
                 surnameToEdit: res.data.surname,
                 imageToEdit: res.data.image,
+                biographyToEdit: res.data.biography,
+            })
+        })
+    }
+    
+    //TODO
+    getPatients() {
+        var email=localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getPatients",{params:{"email":email}}).then((res) => {
+            this.setState({
+                patients: res.data,
+            })
+        })
+    }
+
+    //TODO
+    getFollows() {
+        var email=localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getFollows",{params:{"email":email}}).then((res) => {
+            this.setState({
+                follows: res.data,
+            })
+        })
+    }
+
+    //TODO
+    getFollowers() {
+        var email=localStorage.getItem("email");
+        MedicalCenterBaseIstance.get("/getFollowers",{params:{"email":email}}).then((res) => {
+            this.setState({
+                followers: res.data,
             })
         })
     }
@@ -239,6 +264,7 @@ export default class ProfilePageManager extends Component {
                     imageToEditUrl={this.state.imageToEditUrl}
                     nameToEdit={this.state.nameToEdit}
                     surnameToEdit={this.state.surnameToEdit}
+                    biographyToEdit={this.state.biographyToEdit}
                     editPassword={this.editPassword}
                     setEdit={this.setEdit}
                     editData={this.editData}

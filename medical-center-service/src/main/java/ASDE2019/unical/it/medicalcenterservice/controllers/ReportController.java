@@ -43,11 +43,10 @@ public class ReportController {
 
 
 	@CrossOrigin
-	@PostMapping("/deleteReport")
-	public boolean deleteReport(@RequestBody Report report) {
+	@RequestMapping(value = "/deleteReport", method = RequestMethod.POST)
+	public boolean deleteReport(@RequestParam(value = "idReport", required = true) int idReport) {
 		try {
-			System.out.println(report.getIdReport());
-			reportService.deleteReport(report);
+			reportService.deleteReport(idReport);
 			return true;
 		} catch (final Exception e) {
 			return false;
@@ -61,9 +60,10 @@ public class ReportController {
 	public List<ReportDTO> getReportsFromUser(@RequestParam String email) {
 		//TODO bisogna dare al report l'utente che lo ha creato (cioè quella della sessione)
 		try {
-			final User u = loginService.getUser("test@test.it");
+			final User u = loginService.getUser(email);
+			final List<Report> reports = reportService.getReports(u);
 			final List<ReportDTO> reportsBean = new ArrayList<ReportDTO>();
-			for (final Report report : u.getReports()) {
+			for (final Report report : reports) {
 				final ReportDTO reportDTO = new ReportDTO();
 				reportDTO.convertReportEntityToBean(report);
 				reportsBean.add(reportDTO);
@@ -103,11 +103,11 @@ public class ReportController {
 	}
 
 	@CrossOrigin
-	@PostMapping("/updateReport")
-	public boolean updateReport(@RequestBody Report report) {
+	@RequestMapping(value = "/updateReport", method = RequestMethod.POST)
+	public boolean updateReport(@RequestParam(value = "idReport", required = true) int idReport,
+			@RequestParam(value = "docValutation", required = true) String docValutation) {
 		try {
-			System.out.println(report.getIdReport());
-			reportService.updateReport(report);
+			reportService.updateReport(idReport, docValutation);
 			return true;
 		} catch (final Exception e) {
 			return false;

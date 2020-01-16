@@ -29,34 +29,25 @@ public class User {
 	private String surname;
 
 	private String password;
+
+	private String biography;
 	
 	private boolean doctor;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Report> reports;
-
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(byte[] image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public User(byte[] image, String email, String name, String surname, String password, String biography, boolean doctor) {
 		super();
 		this.image = image;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
+		this.biography = biography;
 		this.doctor = doctor;
-		this.reports = reports;
-	}
-
-	public List<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
 	}
 
 	public int getIdUser() {
@@ -75,10 +66,9 @@ public class User {
 		this.image = image;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password +
+		return "Utente [name=" + name + ", surname=" + surname + ", biography="+ biography + ", password=" + password +
 				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
 	}
 
@@ -104,6 +94,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
 	}
 
 	public String getEmail() {

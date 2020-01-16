@@ -16,33 +16,25 @@ public class UserDTO {
 
 	private String surname;
 	private String password;
+
+	private String biography;
 	
 	private boolean doctor;
-	
-	private List<Report> reports;
 
 	public UserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDTO(byte[] image, String email, String name, String surname, String password, boolean doctor, List<Report> reports) {
+	public UserDTO(byte[] image, String email, String name, String surname, String password, String biography, boolean doctor) {
 		super();
 		this.image = image;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
+		this.biography = biography;
 		this.doctor = doctor;
-		this.reports = reports;
-	}
-
-	public List<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
 	}
 
 	public int getIdUser() {
@@ -65,7 +57,7 @@ public class UserDTO {
 
 	@Override
 	public String toString() {
-		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password +
+		return "Utente [name=" + name + ", surname=" + surname + ", biography="+ biography + ", password=" + password +
 				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
 	}
 
@@ -92,6 +84,14 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
 
 	public String getEmail() {
 		return email;
@@ -117,7 +117,6 @@ public class UserDTO {
 		this.surname = user.getSurname();
 		this.password = user.getPassword();
 		this.doctor = user.getDoctor();
-		this.reports = user.getReports();
 	}
 	
 }

@@ -11,11 +11,12 @@ import FollowersDialog from './FollowersDialog.js';
 import Avatar from '@material-ui/core/Avatar';
 import InputBase from '@material-ui/core/InputBase';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import EditProfileManager from './EditProfileManager.js';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -55,6 +56,10 @@ const useStyles = makeStyles(theme => ({
     },
     divider: {
         marginTop: '7px',
+    },
+    bigAvatar: {
+        width:135,
+        height:135,
     },
     img: {
         margin: 'auto',
@@ -123,6 +128,7 @@ export default function ComplexGrid(props) {
                 uploadImage={props.uploadImage}
                 imageToEdit={props.imageToEdit}
                 imageToEditUrl={props.imageToEditUrl}
+                biographyToEdit={props.biographyToEdit}
                 nameToEdit={props.nameToEdit}
                 surnameToEdit={props.surnameToEdit}
                 editPassword={props.editPassword}
@@ -152,13 +158,24 @@ export default function ComplexGrid(props) {
                 <Paper className={classes.paper} elevation={0}>
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
-                            <img className={classes.profileImage} alt="" src={"data:image/jpg;base64,"+props.loggedUser.image} />
+                            <Avatar className={classes.bigAvatar} alt="" src={"data:image/jpg;base64,"+props.loggedUser.image} />
                         </Grid>
                         <Grid item xs={8}>
-                            <Grid className={classes.paper}>
-                                <Button size="small" variant="outlined" component="span" onClick={props.setEdit}>
-                                        Edit
-                                </Button>
+                            <Grid container className={classes.profileName}>
+                                <Grid item xs={12} sm={9} md={9} className={classes.profileName}>
+                                    <Typography variant="h6" gutterBottom>
+                                        {
+                                            props.loggedUser.doctor
+                                            ? <span>Dr.</span> :null
+                                        } 
+                                        {props.loggedUser.name} {props.loggedUser.surname}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={3} md={3}>
+                                    <Button size="small" variant="outlined" component="span" onClick={props.setEdit}>
+                                            Edit
+                                    </Button>
+                                </Grid>
                             </Grid>
                             <Grid container className={classes.foll}>
                                 <Grid item xs={12} sm={6} md={6} className={classes.follist}>
@@ -168,17 +185,13 @@ export default function ComplexGrid(props) {
                                     <Button onClick={handleClickOpen2} href="#text-buttons"><b>{props.followers.length}</b> followers</Button>
                                 </Grid>
                             </Grid>
-                            <Grid container className={classes.profileName}>
-                                <Grid item xs={11} className={classes.profileName}>
-                                    <Typography variant="h6" gutterBottom>
-                                        {
-                                            props.loggedUser.doctor
-                                            ? <span>Dr.</span> :null
-                                        } 
-                                        {props.loggedUser.name} {props.loggedUser.surname}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid container className={classes.profileName}>
+                        <Grid item xs={11} className={classes.profileName}>
+                            <Typography variant="h6" gutterBottom>
+                                {props.loggedUser.biography}
+                            </Typography>
                         </Grid>
                     </Grid>
                     <Divider variant="middle" className={classes.divider} />
@@ -218,7 +231,20 @@ export default function ComplexGrid(props) {
                                 props.reports.map((v,i)=>
                                     <div key={i}>
                                         <Card className={classes.card}>
-                                            <CardHeader title={v.reportName}/>
+                                            <Grid container>
+                                                <Grid item xs={10} sm={10} md={10}>
+                                                    <Typography variant="h5">
+                                                        {v.reportName}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={2} sm={2} md={2}>
+                                                    {
+                                                        v.iaValutation === "Malignant"
+                                                        ?   <ErrorIcon style={{ color: "red" , fontSize: '30'}} />
+                                                        :   <CheckCircleIcon style={{ color: "green" , fontSize: '30'}} />
+                                                    }
+                                                </Grid>
+                                            </Grid>
                                             <CardMedia
                                                 className={classes.media} alt="" title="image"
                                                 image={"data:image/jpg;base64,"+v.image}
@@ -230,12 +256,7 @@ export default function ComplexGrid(props) {
                                                             {v.reportDescription}
                                                         </Typography>
                                                     </Grid>
-                                                    <Grid item xs={12} sm={12} md={5}>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            {v.iaValutation}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={12} md={5}>
+                                                    <Grid item xs={12} sm={12} md={12}>
                                                         <Typography variant="body2" color="textSecondary" component="p">
                                                             {v.docValutation}
                                                         </Typography>

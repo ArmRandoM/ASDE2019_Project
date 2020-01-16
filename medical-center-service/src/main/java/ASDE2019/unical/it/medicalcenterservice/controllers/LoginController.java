@@ -63,9 +63,10 @@ public class LoginController {
 	public boolean editData(@RequestParam(value = "image", required = true) MultipartFile image,
 			@RequestParam(value = "idUser", required = true) int idUser,
 			@RequestParam(value = "name", required = true) String name,
-			@RequestParam(value = "surname", required = true) String surname) {
-		System.out.println(idUser + " " + name + " " + surname + " " + image);
-		if (loginService.editData(idUser, name, surname, image)) {
+			@RequestParam(value = "surname", required = true) String surname,
+			@RequestParam(value = "biography", required = true) String biography) {
+		System.out.println(idUser + " " + name + " " + surname + " " + image + " " + biography);
+		if (loginService.editData(idUser, name, surname, image, biography)) {
 			return true;
 		}
 		return false;
@@ -86,5 +87,23 @@ public class LoginController {
 	@GetMapping("/getLoggedUser")
 	public User getLoggedUser( @RequestParam String email) {
 		return loginService.getUser(email);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/getPatients")
+	public User getPatients( @RequestParam String email) {
+		return null;
+	}
+	
+	@CrossOrigin
+	@GetMapping("/getFollows")
+	public User getFollows( @RequestParam String email) {
+		return null;
+	}
+	
+	@CrossOrigin
+	@GetMapping("/getFollowers")
+	public User getFollowers( @RequestParam String email) {
+		return null;
 	}
 }
