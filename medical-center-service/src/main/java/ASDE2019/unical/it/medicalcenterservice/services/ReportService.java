@@ -1,5 +1,7 @@
 package ASDE2019.unical.it.medicalcenterservice.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +14,25 @@ public class ReportService {
 	@Autowired
 	private ReportDAO reportDAO;
 
-	
-	public synchronized void saveNewReport(Report report) {
-		try {
-			reportDAO.save(report);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
 
 	public void deleteReport(Report report) {
 		try {
 			reportDAO.deleteById(report.getIdReport());
-		} catch (Exception e) {
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public List<Report> findReportsByUserID(int userID)
+	{
+		return reportDAO.findReportsByUserID(userID);
+	}
+
+
+	public synchronized void saveNewReport(Report report) {
+		try {
+			reportDAO.save(report);
+		} catch (final Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -34,9 +41,9 @@ public class ReportService {
 		try {
 			reportDAO.deleteById(report.getIdReport());
 			reportDAO.save(report);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 }

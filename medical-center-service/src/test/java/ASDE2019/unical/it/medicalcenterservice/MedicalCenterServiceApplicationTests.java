@@ -21,7 +21,7 @@ class MedicalCenterServiceApplicationTests {
 
 	@Autowired
 	private EmailService emailService;
-	
+
 	@Autowired
 	private LoginService loginService;
 
@@ -34,8 +34,9 @@ class MedicalCenterServiceApplicationTests {
 	}
 
 	@Test
-	void provaEmail() {
-		emailService.sendEmail("francesco.tumminelli1995@gmail.com", "Iscrizione", "Benvenuto sul sito");
+	void getReport() {
+		final User u = loginService.getUser("francesco.tumminelli95@gmail.com");
+//		System.out.println(u.getReports().size());
 	}
 
 
@@ -45,11 +46,10 @@ class MedicalCenterServiceApplicationTests {
 		final BufferedImage img = ImageIO.read(new File(".\\src\\neural_network\\neoB.jpg"));
 		neuralService.loadNeuralNetwork(img);
 	}
-	
-	
+
+
 	@Test
-	void getReport() {
-		User u = loginService.getUser("francesco.tumminelli95@gmail.com");
-		System.out.println(u.getReports().size());
+	void provaEmail() {
+		emailService.sendEmail("francesco.tumminelli1995@gmail.com", "Iscrizione", "Benvenuto sul sito");
 	}
 }

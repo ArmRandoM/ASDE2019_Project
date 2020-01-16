@@ -1,24 +1,25 @@
 package ASDE2019.unical.it.medicalcenterservice.dto;
 
 import java.util.List;
+
 import ASDE2019.unical.it.medicalcenterservice.model.Report;
 import ASDE2019.unical.it.medicalcenterservice.model.User;
 
 public class UserDTO {
 
 	private int idUser;
-	
+
 	private String image;
-	
+
 	private String email;
 
 	private String name;
 
 	private String surname;
 	private String password;
-	
+
 	private boolean doctor;
-	
+
 	private List<Report> reports;
 
 	public UserDTO() {
@@ -37,78 +38,6 @@ public class UserDTO {
 		this.reports = reports;
 	}
 
-	public List<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password +
-				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public boolean getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(boolean doctor) {
-		this.doctor = doctor;
-	}
-	
 	public void convertUserEntityToBean(User user) {
 		this.idUser = user.getIdUser();
 		this.image = user.getImage();
@@ -117,7 +46,79 @@ public class UserDTO {
 		this.surname = user.getSurname();
 		this.password = user.getPassword();
 		this.doctor = user.getDoctor();
-		this.reports = user.getReports();
+//		this.reports = user.getReports();
 	}
-	
+
+	public boolean getDoctor() {
+		return doctor;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+
+	public String getImage() {
+		return image;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setDoctor(boolean doctor) {
+		this.doctor = doctor;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	@Override
+	public String toString() {
+		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password +
+				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
+	}
+
 }

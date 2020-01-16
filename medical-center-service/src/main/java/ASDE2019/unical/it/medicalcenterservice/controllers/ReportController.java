@@ -61,9 +61,13 @@ public class ReportController {
 	public List<ReportDTO> getReportsFromUser(@RequestParam String email) {
 		//TODO bisogna dare al report l'utente che lo ha creato (cioè quella della sessione)
 		try {
-			final User u = loginService.getUser("test@test.it");
+			final User u = loginService.getUser(email);
+			if(u == null)
+				return null;
+
 			final List<ReportDTO> reportsBean = new ArrayList<ReportDTO>();
-			for (final Report report : u.getReports()) {
+
+			for (final Report report : reportService.findReportsByUserID(u.getIdUser())) {
 				final ReportDTO reportDTO = new ReportDTO();
 				reportDTO.convertReportEntityToBean(report);
 				reportsBean.add(reportDTO);
@@ -86,14 +90,20 @@ public class ReportController {
 			final MultipartFile image = reportForm.getImage();
 
 			final User user = loginService.getUser(reportForm.getUserEmail());
+			if(user == null)
+				return false;
+
+			System.out.println(user.getEmail());
 			final Report report = new Report(image.getBytes(), name, description, "", "", user);
 			//report.setUser(u);
 			final InputStream in = new ByteArrayInputStream(image.getBytes());
 			final BufferedImage imageForNeuralNetwork = ImageIO.read(in);
 
 			final String verdict = neuralService.loadNeuralNetwork(imageForNeuralNetwork);
+			System.out.println(verdict);
 			report.setIaValutation(verdict);
-			report.setUser(user);
+			//report.setUser(user);
+			System.out.println(user.toString());
 			reportService.saveNewReport(report);
 			return true;
 		} catch (final Exception e) {

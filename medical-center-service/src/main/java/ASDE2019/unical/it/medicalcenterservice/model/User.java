@@ -1,27 +1,23 @@
 package ASDE2019.unical.it.medicalcenterservice.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id_user")
 	private int idUser;
-	
+
 	@Column(length=100000)
 	private String image;
-	
+
 	private String email;
 
 	private String name;
@@ -29,11 +25,11 @@ public class User {
 	private String surname;
 
 	private String password;
-	
+
 	private boolean doctor;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Report> reports;
+
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//	private List<Report> reports;
 
 	public User() {
 		super();
@@ -48,77 +44,77 @@ public class User {
 		this.surname = surname;
 		this.password = password;
 		this.doctor = doctor;
-		this.reports = reports;
-	}
-
-	public List<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Utente [name=" + name + ", surname=" + surname + ", password=" + password +
-				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+//		this.reports = reports;
 	}
 
 	public boolean getDoctor() {
 		return doctor;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+
+//	public List<Report> getReports() {
+//		return reports;
+//	}
+
+	public String getSurname() {
+		return surname;
+	}
+
 	public void setDoctor(boolean doctor) {
 		this.doctor = doctor;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+//	public void setReports(List<Report> reports) {
+//		this.reports = reports;
+//	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	@Override
+	public String toString() {
+		return "Utente [id=" + idUser + " name=" + name + ", surname=" + surname + ", password=" + password +
+				", email=" + email + ", doctor=" + doctor +", image=" + image +"]";
 	}
 }
