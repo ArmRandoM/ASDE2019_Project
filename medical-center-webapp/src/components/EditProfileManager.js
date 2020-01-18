@@ -188,7 +188,7 @@ export default function FullWidthTabs(props) {
                                     required
                                     fullWidth
                                     id="biographyToEdit"
-                                    defaultValue={props.biographyToEdit}
+                                    defaultValue={props.biographyToEdit !== "null" ? props.biographyToEdit : ""}
                                     multiline
                                     rows={4}
                                     label="Biography"
@@ -220,7 +220,7 @@ export default function FullWidthTabs(props) {
                                     onChange={props.onChange}
                                 />
                             </Grid>
-                            {props.invalidPassword === true ? <Grid item xs={12}><p className={classes.error}>The two passwords don't match!</p></Grid> : null}
+                            {props.invalidPassword === true ? <Grid item xs={12}><p className={classes.error}>The password is not valid!</p></Grid> : null}
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"

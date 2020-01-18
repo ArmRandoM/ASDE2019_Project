@@ -8,15 +8,15 @@ export default class ReportPageManager extends Component {
     constructor() {
         super();
         this.state = {
-            reportName:"",
-            reportDescription:"",
-            imagePreviewUrl:'',
-            image:'',
-            added:false,
+            reportName: "",
+            reportDescription: "",
+            imagePreviewUrl: '',
+            image: '',
+            added: false,
         }
     }
 
-    addReport = () =>{
+    addReport = () => {
         var email = localStorage.getItem("email");
         const config = {
             headers: { 'content-type': 'multipart/form-data;boundary=gc0p4Jq0M2Yt08jU534c0p' }
@@ -29,10 +29,10 @@ export default class ReportPageManager extends Component {
 
         MedicalCenterBaseIstance.post("/saveReport", data, config).then((res) => {
             this.setState({
-                added : res.data
+                added: res.data
             })
-            if(res.data){
-                window.location.href="/profilepg";
+            if (res.data) {
+                window.location.href = "/profilepg";
             }
         })
     }
@@ -54,10 +54,10 @@ export default class ReportPageManager extends Component {
         let file = event.target.files[0];
 
         reader.onloadend = () => {
-          this.setState({
-            image: file,
-            imagePreviewUrl: reader.result
-          });
+            this.setState({
+                image: file,
+                imagePreviewUrl: reader.result
+            });
         }
 
         reader.readAsDataURL(file)
@@ -95,7 +95,9 @@ export default class ReportPageManager extends Component {
                     normalOpacity={this.normalOpacity}
                     halfOpacity={this.halfOpacity}
                     added={this.state.added}
-                    onChangeDescription={this.onChangeDescription}/>
+                    reportName={this.state.reportName}
+                    reportDescription={this.state.reportDescription}
+                    onChangeDescription={this.onChangeDescription} />
             </div>
         );
     }

@@ -6,10 +6,12 @@ import Fade from '@material-ui/core/Fade';
 import { Grid } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
-import Avatar from '@material-ui/core/Avatar';
-
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles(theme => ({
     modal: {
         display: 'flex',
@@ -20,25 +22,11 @@ const useStyles = makeStyles(theme => ({
         marginTop: '14px',
         textAlign: 'center',
     },
-    name: {
-        marginTop: '14px',
-    },
-    users: {
-        overflow: 'auto',
-        overflowX: 'hidden',
-        scrollMarginRight: 0,
-        [theme.breakpoints.up('sm')]: {
-            maxHeight: '90%'
-        },
-        [theme.breakpoints.down('sm')]: {
-            maxHeight: '90%'
-        },
-    },
     button: {
         marginTop: '10px',
     },
-    avatar: {
-        marginTop: '10px',
+    report: {
+        width: '100%'
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
@@ -53,11 +41,46 @@ const useStyles = makeStyles(theme => ({
             height: '90%'
         },
         padding: theme.spacing(2, 4, 3),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     },
+    card: {
+        width: '100%',
+        overflow: 'auto',
+        overflowX: 'hidden',
+        scrollMarginRight: 0,
+        [theme.breakpoints.up('sm')]: {
+            maxHeight: '90%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '90%'
+        },
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    }
 }));
 
 export default function TransitionsModal(props) {
     const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
 
     return (
         <div>
@@ -80,7 +103,7 @@ export default function TransitionsModal(props) {
                                 item xs={11}
                                 className={classes.title}
                             >
-                                Followers
+                                Post Preview
                             </Grid>
                             <Grid item xs={1}>
                                 <IconButton
@@ -91,29 +114,22 @@ export default function TransitionsModal(props) {
                             </Grid>
                         </Grid>
                         <Divider variant="middle" className={classes.divider} />
-                        <div className={classes.users}>
-                            {
-                                props.followers.map((user, i) =>
-                                    <Grid key={i} container>
-                                        <Grid item xs={2} className={classes.avatar}>
-                                            <Avatar alt="Remy Sharp" src="https://assets.mubi.com/images/cast_member/531070/image-w240.jpg?1564128420" />
-                                        </Grid>
-                                        <Grid item xs={3} className={classes.name}>
-                                            {user.status}
-                                        </Grid>
-                                        <Grid item xs={4} className={classes.name}>
-                                            {user.name}
-                                        </Grid>
-                                        <Grid item xs={3} className={classes.name}>
-                                            <Button onClick={() => props.followOperationOnFollowers(user, i)} style={{ width: '100%' }}>
-                                                {
-                                                    user.followed ? <span>Unfollow</span> : <span>Follow</span>
-                                                }
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                )
-                            }
+                        <div className={classes.report}>
+                            <Card className={classes.card}>
+                                <CardHeader
+                                    title={props.reportName}
+                                    style={{ textAlign: 'center' }}
+                                />
+                                <CardMedia
+                                    className={classes.media}
+                                    image={props.image}
+                                />
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {props.reportDescription}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
                 </Fade>

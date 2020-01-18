@@ -5,20 +5,25 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DoctorAI from '../images/doctorAI.jpg';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import PostPreviewDialog from './PostPreviewDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
-      backgroundImage: "url(" + DoctorAI + ")",
-      minHeight: '100vh',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+    backgroundImage: "url(" + DoctorAI + ")",
+    minHeight: '100vh',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  input: {
+    display: 'none',
   },
   paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   gridList: {
     alignItems: 'center',
@@ -26,78 +31,102 @@ const useStyles = makeStyles(theme => ({
     height: 400,
   },
   profileImage: {
-      maxWidth: 300,
-      maxHeight: 300,
+    maxWidth: 300,
+    maxHeight: 300,
   },
   img: {
-      margin: 'auto',
-      display: 'block',
-      maxWidth: '100%',
-      maxHeight: '100%',
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
 }));
 
 export default function ControlledExpansionPanels(props) {
   const classes = useStyles();
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
-      <br/><br/><br/>
+      <PostPreviewDialog
+        handleClose2={handleClose}
+        open2={open}
+        classes={classes}
+        followers={props.followers}
+        image={props.imagePreviewUrl}
+        reportName={props.reportName}
+        reportDescription={props.reportDescription}
+        followOperationOnFollowers={props.followOperationOnFollowers}
+      />
       <Grid container >
         <Grid item xs={1} sm={1} md={1}></Grid>
         <Grid item xs={10} sm={10} md={10}>
-          <div className={classes.paper}>
-            <Typography variant="h4"><PostAddIcon fontSize="large" />New Report</Typography>
-            <br/>
-            <TextField
-              autoComplete="fname"
-              name="reportName"
-              variant="outlined"
-              required
-              style={{ width: 350}}
-              id="reportName"
-              label="Name"
-              autoFocus
-              onChange={props.onChangeName}
-            />
-            <br/>
-            <TextField
-              autoComplete="fname"
-              name="reportDescription"
-              variant="outlined"
-              required
-              style={{ width: 350}}
-              multiline
-              rows="4"
-              id="reportDescription"
-              label="Description"
-              autoFocus
-              onChange={props.onChangeDescription}
-            />
-            <br/>
-            <input
-              type="file"
-              name="file"
-              placeholder="Upload an image"
-              onChange={props.uploadImage}
-            />
-          </div>
-          <br/>
-          <div className={classes.paper}>
-            <Typography variant="h6">Image preview</Typography>
-            {
-              props.image ? 
-              <ButtonBase onClick={() => props.removeImage()}>
-                <img className={classes.profileImage} alt="" src={props.imagePreviewUrl}/>
-              </ButtonBase>
-              : null
-            }
-            
-          </div> 
-          <br/><br/>
+          <br></br>
+          <br></br>
+          <Grid container spacing={2} className={classes.paper}>
+            <Grid item xs={12}>
+              <Typography variant="h4"><PostAddIcon fontSize="large" />New Report</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="reportName"
+                variant="outlined"
+                required
+                style={{ width: 350 }}
+                id="reportName"
+                label="Name"
+                autoFocus
+                onChange={props.onChangeName}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="fname"
+                name="reportDescription"
+                variant="outlined"
+                required
+                style={{ width: 350 }}
+                multiline
+                rows="4"
+                id="reportDescription"
+                label="Description"
+                autoFocus
+                onChange={props.onChangeDescription}
+              />
+            </Grid>
+            <Grid xs={12}>
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="text-button-file"
+                multiple
+                type="file"
+                onChange={props.uploadImage}
+              />
+              <label htmlFor="text-button-file">
+                <Button component="span" startIcon={<ImageSearchIcon />}>Search an image of a mole</Button>
+              </label>
+            </Grid>
+            <Grid xs={12}>
+              <label>
+                <Button onClick={handleClickOpen} component="span" startIcon={<VisibilityIcon />}>Report preview</Button>
+              </label>
+            </Grid>
+          </Grid>
+          <br /><br />
           <div className={classes.paper}>
             <Button
-              style={{ width: 170}}
+              style={{ width: 170 }}
               variant="contained"
               color="primary"
               onClick={props.addReport}
@@ -105,17 +134,17 @@ export default function ControlledExpansionPanels(props) {
               Submit
             </Button>
           </div>
-          <br/><br/>
+          <br /><br />
           <div className={classes.paper}>
             {
-              props.added ? 
-              <Typography variant="h6">Report added successfully</Typography>
-              : null
+              props.added ?
+                <Typography variant="h6" style={{ color: 'green' }}>Report added successfully!</Typography>
+                : null
             }
           </div>
         </Grid>
       </Grid>
-      <br/>
-    </div>
+      <br />
+    </div >
   );
 }

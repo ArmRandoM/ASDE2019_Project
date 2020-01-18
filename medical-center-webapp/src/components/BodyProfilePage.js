@@ -9,15 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import FollowsDialog from './FollowsDialog.js';
 import FollowersDialog from './FollowersDialog.js';
 import Avatar from '@material-ui/core/Avatar';
-import InputBase from '@material-ui/core/InputBase';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import EditProfileManager from './EditProfileManager.js';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import { TextField } from '@material-ui/core';
+import ReportManager from './ReportManager';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -197,7 +190,7 @@ export default function ComplexGrid(props) {
                             <Grid container className={classes.profileName}>
                                 <Grid item xs={11} className={classes.profileDescription}>
                                     <Typography variant="body2" gutterBottom>
-                                        {props.loggedUser.biography}
+                                        {props.loggedUser.biography !== "null" ? props.loggedUser.biography : ""}
                                     </Typography>
                                     <Typography variant="h6" gutterBottom>
 
@@ -241,99 +234,16 @@ export default function ComplexGrid(props) {
                         <div>
                             {
                                 props.reports.map((v, i) =>
-                                    <div key={i}>
-                                        <Card className={classes.card}>
-                                            <Grid container>
-                                                <Grid item xs={10} sm={10} md={10}>
-                                                    {
-                                                        props.editReport[i] ?
-                                                            <TextField
-                                                                variant="outlined"
-                                                                required
-                                                                fullWidth
-                                                                id="nameToEdit"
-                                                                defaultValue={v.reportName}
-                                                                label="Name"
-                                                                name="nameToEdit"
-                                                                onChange={props.onReportNameChange}
-                                                            />
-                                                            :
-                                                            <Typography variant="h5">
-                                                                {v.reportName}
-                                                            </Typography>
-                                                    }
-                                                </Grid>
-                                                <Grid item xs={2} sm={2} md={2}>
-                                                    {
-                                                        v.iaValutation === "Malignant"
-                                                            ? <ErrorIcon style={{ color: "red", fontSize: '30' }} />
-                                                            : <CheckCircleIcon style={{ color: "green", fontSize: '30' }} />
-                                                    }
-                                                </Grid>
-                                            </Grid>
-                                            <CardMedia
-                                                className={classes.media} alt="" title="image"
-                                                image={"data:image/jpg;base64," + v.image}
-                                            />
-                                            <CardContent>
-                                                <Grid>
-                                                    <Grid item xs={12} sm={12} md={12}>
-                                                        {
-                                                            props.editReport[i] ?
-                                                                <span>
-                                                                    <TextField
-                                                                        variant="outlined"
-                                                                        required
-                                                                        fullWidth
-                                                                        id="nameToEdit"
-                                                                        defaultValue={v.reportDescription}
-                                                                        label="Name"
-                                                                        name="nameToEdit"
-                                                                        onChange={props.onReportDescriptionChange}
-                                                                    />
-                                                                    <Button variant="contained" color="primary" onClick={() => props.updateReport(i)}>Submit</Button>
-                                                                </span>
-                                                                :
-                                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                                    {v.reportDescription}
-                                                                </Typography>
-                                                        }
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={12} md={12}>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            {v.docValutation}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                            <CardActions disableSpacing>
-                                                {
-                                                    props.isDoctor ?
-                                                        <InputBase
-                                                            placeholder="Insert Valutation..."
-                                                            name="valutation"
-                                                            id="valutation"
-                                                            onChange={props.onValutationChange}
-                                                            onKeyDown={(e) => {
-                                                                if (e.key === 'Enter') {
-                                                                    props.insertValutation(i)
-                                                                }
-                                                            }
-                                                            }
-                                                        />
-                                                        : <Grid container>
-                                                            <Grid item xs={12} sm={6} md={6}>
-                                                                <Button className={classes.paper} onClick={() => props.deleteReport(i)}>Delete</Button>
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={6} md={6}>
-                                                                <Button className={classes.paper} onClick={() => props.setEditReport(i)}>Edit</Button>
-                                                            </Grid>
-                                                        </Grid>
-                                                }
-                                            </CardActions>
-                                        </Card>
-                                        <br /><br /><br /><br /><br />
-                                    </div>
+                                    <ReportManager
+                                        reports={props.reports}
+                                        report={i}
+                                        idReport={v.idReport}
+                                        reportName={v.reportName}
+                                        reportDescription={v.reportDescription}
+                                        image={v.image}
+                                        iaValutation={v.iaValutation}
+                                        docValutation={v.docValutation}
+                                    />
                                 )
                             }
                         </div>

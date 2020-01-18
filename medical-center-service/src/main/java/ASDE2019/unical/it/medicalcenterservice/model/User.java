@@ -18,6 +18,7 @@ public class User {
 	@Column(columnDefinition = "mediumblob")
 	private byte[] image;
 
+	@Column(unique = true)
 	private String email;
 
 	private String name;
