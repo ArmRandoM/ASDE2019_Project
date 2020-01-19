@@ -56,6 +56,11 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    loading: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
 }));
 
 export default function SignInUp(props) {
@@ -79,6 +84,7 @@ export default function SignInUp(props) {
                     </Route>
                     <Route exact path="/signUp">
                         <SignUp
+                            loading={props.loading}
                             classes={classes}
                             copyright={Copyright}
                             onChange={props.onChange}

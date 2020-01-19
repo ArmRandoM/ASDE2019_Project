@@ -13,6 +13,7 @@ export default class ReportPageManager extends Component {
             imagePreviewUrl: '',
             image: '',
             added: false,
+            loading: false
         }
     }
 
@@ -27,12 +28,14 @@ export default class ReportPageManager extends Component {
         data.append("image", this.state.image);
         data.append("userEmail", email)
 
+        this.setState({ loading: true });
         MedicalCenterBaseIstance.post("/saveReport", data, config).then((res) => {
             this.setState({
                 added: res.data
             })
             if (res.data) {
                 window.location.href = "/profilepg";
+                this.setState({ laoding: false });
             }
         })
     }
@@ -83,6 +86,7 @@ export default class ReportPageManager extends Component {
         return (
             <div>
                 <BodyReportPage
+                    loading={this.state.loading}
                     addReport={this.addReport}
                     reportName={this.state.reportName}
                     reportDescription={this.state.reportDescription}

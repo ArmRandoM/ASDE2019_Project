@@ -19,7 +19,8 @@ class SignInUpManager extends Component {
             nameOrSurnameError: false,
             invalidEmailErrorSignUp: false,
             passwordErrorSignUp: false,
-            patient: true
+            patient: true,
+            loading: false
         }
     }
 
@@ -40,15 +41,16 @@ class SignInUpManager extends Component {
         var emailReg = /^\w+[\w !#$%&'*+-\/=?^_`{|}~.]+@{1}[\w+ .]+\w+$/;
         var emailTest = emailReg.test(this.state.emailSignUp);
 
-        console.log("emailTest " + emailTest);
-
         this.setState({
             passwordErrorSignUp: !passwordTest,
             invalidEmailErrorSignUp: !emailTest,
-            nameOrSurnameError: !(nameTest && surnameTest),
+            nameOrSurnameError: !(nameTest && surnameTest)
         });
 
         if (surnameTest && nameTest && emailTest && passwordTest) {
+            this.setState({
+                loading: true
+            });
             MedicalCenterBaseIstance.post("/signUp", {
                 name: this.state.name,
                 surname: this.state.surname,
@@ -59,8 +61,13 @@ class SignInUpManager extends Component {
                 this.setState({
                     signUpError: !res.data
                 })
-                if(!this.state.signUpError){   
+                if (!this.state.signUpError) {
                     window.location.href = "/";
+                }
+                else {
+                    this.setState({
+                        loading: false
+                    });
                 }
             })
         }
@@ -78,7 +85,7 @@ class SignInUpManager extends Component {
             this.setState({
                 signInError: !res.data
             })
-            if(!this.state.signInError){   
+            if (!this.state.signInError) {
                 window.location.href = "/profilepg";
                 localStorage.setItem('email', this.state.emailSignIn);
             }
@@ -95,7 +102,7 @@ class SignInUpManager extends Component {
             this.setState({
                 forgotError: !res.data
             })
-            if(!this.state.forgotError){   
+            if (!this.state.forgotError) {
                 window.location.href = "/";
             }
         })
@@ -127,6 +134,7 @@ class SignInUpManager extends Component {
                     forgot={this.state.forgot}
                     forgotError={this.state.forgotError}
                     submitSendCredentials={this.submitSendCredentials}
+                    loading={this.state.loading}
                 />
             </div>
         );

@@ -9,6 +9,7 @@ import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import PostPreviewDialog from './PostPreviewDialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -125,14 +126,20 @@ export default function ControlledExpansionPanels(props) {
           </Grid>
           <br /><br />
           <div className={classes.paper}>
-            <Button
-              style={{ width: 170 }}
-              variant="contained"
-              color="primary"
-              onClick={props.addReport}
-            >
-              Submit
-            </Button>
+            <Grid item xs={12}>
+              {props.loading ?
+                <CircularProgress disableShrink />
+                :
+                <Button
+                  style={{ width: 170 }}
+                  variant="contained"
+                  color="primary"
+                  onClick={props.addReport}
+                >
+                  Submit
+                </Button>
+              }
+            </Grid>
           </div>
           <br /><br />
           <div className={classes.paper}>

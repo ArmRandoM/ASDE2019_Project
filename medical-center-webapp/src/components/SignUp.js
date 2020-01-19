@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import DoctorIcon from './../images/doctorIcon.png';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PatientIcon from './../images/patientIcon.png';
 
 export default function SignUp(props) {
@@ -79,16 +80,22 @@ export default function SignUp(props) {
                             />
                             {props.passwordErrorSignUp ? <p className={props.classes.error}>Wrong choice! The password must contain 8 characters!</p> : null}
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={props.classes.submit}
-                            onClick={props.submitSignUp}
-                        >
-                            Sign Up
-                        </Button>
+                        <Grid item xs={12} className={props.classes.loading}>
+                            {props.loading ?
+                                <CircularProgress disableShrink />
+                                :
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={props.classes.submit}
+                                    onClick={props.submitSignUp}
+                                >
+                                    Sign Up
+                            </Button>
+                            }
+                        </Grid>
                         <Grid container>
                             <Grid item xs>
                                 <Link name={props.patient ? "patient" : "doctor"} onClick={props.typeSwitch} href="#" variant="body2">
